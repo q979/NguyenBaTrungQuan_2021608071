@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/trungquan_datn/File/DoAnTotNghiep-master - Copy/**)",
+      "Bash(./mvnw compile:*)",
+      "Bash(dir)",
+      "Bash(./mvnw spring-boot:run)"
+    ]
+  }
+}

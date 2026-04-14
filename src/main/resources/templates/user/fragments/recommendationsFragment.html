@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- For You Recommendations Fragment -->
+<div th:fragment="forYouRecommendations">
+    <section class="wn__product__area brown--color pt--80 pb--30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">Đề xuất <span class="color--theme">cho bạn</span></h2>
+                        <p>Dựa trên sở thích và lịch sử tương tác của bạn</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Start Single Tab Content -->
+            <div class="furniture--4 border--round arrows_style owl-carousel owl-theme row mt--50">
+                <!-- Start Single Product -->
+                <div class="product product__style--3" th:each="product : ${recommendedProducts}">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                        <div class="product__thumb">
+                            <a class="first__img" th:href="@{/shop/product/__${product.id}__}">
+                                <img style="width: 263px; height: 420px" th:src="${product.coverImage}" alt="product image">
+                            </a>
+                            <div class="hot__box">
+                                <span class="hot-label">ĐỀ XUẤT</span>
+                            </div>
+                        </div>
+                        <div class="product__content content--center">
+                            <h4><a th:href="@{/shop/product/__${product.id}__}" th:text="${product.title}"></a></h4>
+                            <ul class="prize d-flex">
+                                <li th:text="${#numbers.formatDecimal(__${(product.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                <li class="old_prize" th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                            </ul>
+                            <div class="action">
+                                <div class="actions_inner">
+                                    <ul class="add_to_links">
+                                        <li><a class="cart" th:onclick="'addToCart(' + ${product.id} + ')'"><i class="bi bi-shopping-bag4"></i></a></li>
+                                        <li><a class="wishlist" th:onclick="'addToWishlist(' + ${product.id} + ')'"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                        <li><a data-toggle="modal" th:onclick="'openModal(event, ' + ${product.id} + ')'" title="Quick View" class="quickview modal-view detail-link"><i class="bi bi-search"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="product__hover--content">
+                                <ul class="rating d-flex">
+                                    <li class="on"><i class="fa fa-star-o"></i></li>
+                                    <li class="on"><i class="fa fa-star-o"></i></li>
+                                    <li class="on"><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Product -->
+            </div>
+            <!-- End Single Tab Content -->
+        </div>
+    </section>
+</div>
+</body>
+</html>

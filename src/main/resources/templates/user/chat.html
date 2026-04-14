@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Trợ lý nông sản - HTX Dương Hòa</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel="apple-touch-icon" th:href="@{/images/icon.png}">
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+
+        /* Chat styles */
+        .chat-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Make sure the chat messages container has enough space */
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Update the message styling in the main chat page */
+        .message {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+            white-space: normal;
+            overflow-wrap: break-word;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            border-top-right-radius: 0;
+            animation: userMessageIn 0.3s ease;
+        }
+
+        @keyframes userMessageIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .bot-message {
+            background-color: #f5f5f5;
+            margin-right: auto;
+            border-top-left-radius: 0;
+            animation: botMessageIn 0.3s ease;
+        }
+
+        @keyframes botMessageIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 15px;
+            position: relative;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-input input:focus {
+            border-color: #ce7852;
+            box-shadow: 0 0 0 3px rgba(206, 120, 82, 0.2);
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            background-color: #ce7852;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(206, 120, 82, 0.3);
+            position: relative;
+        }
+
+        .chat-input button:hover {
+            background-color: #b56a47;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(206, 120, 82, 0.4);
+        }
+
+        .chat-input button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(206, 120, 82, 0.4);
+        }
+
+        .chat-input button i {
+            font-size: 20px;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            position: absolute;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            width: fit-content;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #999;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .recommended-products {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-list {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 15px 0;
+            scroll-behavior: smooth;
+        }
+
+        .product-card {
+            min-width: 180px;
+            max-width: 180px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            animation: productCardIn 0.5s ease;
+        }
+
+        @keyframes productCardIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover h4 {
+            color: #ce7852;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #ce7852;
+            font-producer: bold;
+        }
+
+        /* Ensure the typing text animation doesn't cut off */
+        .typing-text {
+            display: inline-block;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            width: 100%;
+            animation: typing-text 1s steps(40, end);
+            animation-fill-mode: forwards;
+        }
+
+        /* Update the typing animation to work with wrapped text */
+        @keyframes typing-text {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+
+    <!-- Start Chat Area -->
+    <section class="wn__product__area brown--color pt--80 pb--30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center animate__animated animate__fadeInDown">
+                        <h2 class="title__be--2">Trợ lý <span class="color--theme">nông sản</span></h2>
+                        <p>Hỏi tôi bất cứ điều gì về nông sản và tôi sẽ giúp bạn tìm những sản phẩm nông sản phù hợp</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container mt--50 animate__animated animate__fadeIn">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message animate__animated animate__fadeIn">
+                        Xin chào! Tôi là trợ lý nông sản của HTX Dương Hòa. Bạn đang tìm kiếm nông sản gì? Tôi có thể giúp bạn tìm nông sản theo thể loại, người sản xuất, hoặc chủ đề bạn quan tâm.
+                    </div>
+                    <div class="typing-indicator" id="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="Nhập tin nhắn của bạn..." />
+                    <button id="send-button">
+                        <i class="fa fa-paper-plane"></i>
+                        <div class="loading-spinner" id="send-spinner"></div>
+                    </button>
+                </div>
+
+                <div class="recommended-products animate__animated animate__fadeIn" id="recommended-products" style="display: none;">
+                    <h3>Nông Sản được đề xuất:</h3>
+                    <div class="product-list" id="product-list">
+                        <!-- Product cards will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Chat Area -->
+
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+</div>
+<!-- //Main wrapper -->
+
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const typingIndicator = document.getElementById('typing-indicator');
+        const recommendedProducts = document.getElementById('recommended-products');
+        const productList = document.getElementById('product-list');
+        const sendSpinner = document.getElementById('send-spinner');
+
+        // Focus on input when page loads
+        setTimeout(() => {
+            userInput.focus();
+        }, 1000);
+
+        // Function to add a message to the chat with typing animation
+        function addMessage(message, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+
+            // Insert before typing indicator
+            chatMessages.insertBefore(messageDiv, typingIndicator);
+
+            if (isUser) {
+                // User messages appear immediately
+                messageDiv.textContent = message;
+                messageDiv.classList.add('animate__animated', 'animate__fadeInRight');
+            } else {
+                // Bot messages have typing animation
+                const textSpan = document.createElement('span');
+                textSpan.classList.add('typing-text');
+                messageDiv.appendChild(textSpan);
+
+                // Add the text character by character
+                let i = 0;
+                const typingSpeed = 30; // milliseconds per character
+
+                function typeWriter() {
+                    if (i < message.length) {
+                        textSpan.textContent += message.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, typingSpeed);
+                    } else {
+                        // Animation complete
+                        messageDiv.classList.add('animate__animated', 'animate__fadeIn');
+                    }
+                }
+
+                // Start typing animation
+                setTimeout(typeWriter, 300);
+            }
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Function to show typing indicator
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            typingIndicator.classList.add('animate__animated', 'animate__fadeIn');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Show loading spinner on send button
+            sendButton.querySelector('i').style.display = 'none';
+            sendSpinner.style.display = 'block';
+
+            // Disable input and button while processing
+            userInput.disabled = true;
+            sendButton.disabled = true;
+        }
+
+        // Function to hide typing indicator
+        function hideTypingIndicator() {
+            typingIndicator.classList.add('animate__animated', 'animate__fadeOut');
+
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                typingIndicator.classList.remove('animate__animated', 'animate__fadeOut');
+            }, 300);
+
+            // Hide loading spinner on send button
+            sendButton.querySelector('i').style.display = 'block';
+            sendSpinner.style.display = 'none';
+
+            // Re-enable input and button
+            userInput.disabled = false;
+            sendButton.disabled = false;
+            userInput.focus();
+        }
+
+        // Function to display recommended products with animation
+        function displayRecommendedProducts(products) {
+            if (products && products.length > 0) {
+                // Clear previous recommendations
+                productList.innerHTML = '';
+
+                // Add each product to the list with staggered animation
+                products.forEach((product, index) => {
+                    const productCard = document.createElement('div');
+                    productCard.classList.add('product-card');
+                    productCard.style.animationDelay = `${index * 0.1}s`;
+
+                    const productLink = document.createElement('a');
+                    productLink.href = `/shop/product/${product.id}`;
+
+                    const productImage = document.createElement('img');
+                    productImage.src = product.coverImage;
+                    productImage.alt = product.title;
+
+                    const productTitle = document.createElement('h4');
+                    productTitle.textContent = product.title;
+
+                    const productPrice = document.createElement('p');
+                    productPrice.textContent = formatPrice(product.salePrice) + ' VND';
+
+                    productLink.appendChild(productImage);
+                    productCard.appendChild(productLink);
+                    productCard.appendChild(productTitle);
+                    productCard.appendChild(productPrice);
+
+                    productList.appendChild(productCard);
+                });
+
+                // Show the recommendations section with animation
+                recommendedProducts.style.display = 'block';
+                recommendedProducts.classList.add('animate__animated', 'animate__fadeInUp');
+
+                // Remove animation classes after animation completes
+                setTimeout(() => {
+                    recommendedProducts.classList.remove('animate__animated', 'animate__fadeInUp');
+                }, 1000);
+            } else {
+                // Hide the recommendations section if no products
+                recommendedProducts.classList.add('animate__animated', 'animate__fadeOutDown');
+
+                setTimeout(() => {
+                    recommendedProducts.style.display = 'none';
+                    recommendedProducts.classList.remove('animate__animated', 'animate__fadeOutDown');
+                }, 300);
+            }
+        }
+
+        // Function to format price
+        function formatPrice(price) {
+            if (!price) return "0";
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        // Function to send message to server
+        function sendMessage() {
+            const message = userInput.value.trim();
+
+            if (message) {
+                // Add user message to chat
+                addMessage(message, true);
+
+                // Clear input
+                userInput.value = '';
+
+                // Show typing indicator
+                showTypingIndicator();
+
+                // Send message to server
+                fetch('/chat/send', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: message })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Hide typing indicator after a minimum delay for better UX
+                        setTimeout(() => {
+                            hideTypingIndicator();
+
+                            // Add bot response to chat
+                            addMessage(data.message, false);
+
+                            // Display recommended products after a short delay
+                            setTimeout(() => {
+                                displayRecommendedProducts(data.recommendedProducts);
+                            }, 1000);
+                        }, Math.max(1000, data.message.length * 20)); // Minimum 1 second, or longer for longer messages
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+
+                        // Hide typing indicator
+                        setTimeout(() => {
+                            hideTypingIndicator();
+
+                            // Add error message
+                            addMessage('Xin lỗi, đã xảy ra lỗi khi xử lý yêu cầu của bạn. Vui lòng thử lại sau.', false);
+                        }, 1000);
+                    });
+            }
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+
+        userInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Add animation to initial message
+        setTimeout(() => {
+            const initialMessage = chatMessages.querySelector('.bot-message');
+            if (initialMessage) {
+                initialMessage.classList.add('animate__animated', 'animate__fadeIn');
+            }
+        }, 500);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <title>Chi tiết đơn hàng - HTX Dương Hòa</title>
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" } />
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}" />
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/user/material-design-iconic-font.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/style.css}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}" />
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+      /* ====== Order Details Page - Hiện Đại ====== */
+      .odetails-page-area {
+        min-height: 80vh;
+        background: #ffffff;
+        padding: 30px 0 60px;
+      }
+
+      /* Page Header */
+      .odetails-page__header {
+        margin-bottom: 28px;
+      }
+      .odetails-back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: #7f8c8d;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        margin-bottom: 12px;
+        transition: color 0.2s ease;
+      }
+      .odetails-back-btn:hover {
+        color: #27ae60;
+      }
+      .odetails-page__title {
+        font-family: "Bitter", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .odetails-page__title i {
+        color: #27ae60;
+      }
+
+      /* 2-column Layout */
+      .odetails-layout {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+      .odetails-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .odetails-sidebar {
+        width: 300px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      /* Card Base */
+      .odetails-card {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .odetails-card:hover {
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.11);
+      }
+      .odetails-card--accent .odetails-card__header {
+        background: linear-gradient(135deg, #e67e22, #f39c12);
+      }
+      .odetails-card__header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 20px;
+        background: linear-gradient(135deg, #2c3e50, #3d566e);
+        color: #ffffff;
+      }
+      .odetails-card__header--light {
+        background: linear-gradient(135deg, #e67e22, #f39c12);
+      }
+      .odetails-card__header i {
+        font-size: 18px;
+      }
+      .odetails-card__header h3 {
+        font-family: "Bitter", serif;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0;
+        flex: 1;
+      }
+      .odetails-card__body {
+        padding: 20px;
+      }
+      .odetails-card__body--no-pad {
+        padding: 0;
+      }
+
+      /* Status Badge */
+      .odetails-card__status-badge {
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .status--pending {
+        background: rgba(247, 201, 72, 0.2);
+        color: #f7c948;
+        border: 1px solid rgba(247, 201, 72, 0.4);
+      }
+      .status--processing {
+        background: rgba(52, 152, 219, 0.2);
+        color: #5dade2;
+        border: 1px solid rgba(52, 152, 219, 0.4);
+      }
+      .status--delivering {
+        background: rgba(155, 89, 182, 0.2);
+        color: #9b59b6;
+        border: 1px solid rgba(155, 89, 182, 0.4);
+      }
+      .status--delivered {
+        background: rgba(39, 174, 96, 0.2);
+        color: #2ecc71;
+        border: 1px solid rgba(39, 174, 96, 0.4);
+      }
+      .status--cancelled {
+        background: rgba(231, 76, 60, 0.2);
+        color: #e74c3c;
+        border: 1px solid rgba(231, 76, 60, 0.4);
+      }
+      .status--unpaid {
+        background: rgba(241, 196, 15, 0.2);
+        color: #f1c40f;
+        border: 1px solid rgba(241, 196, 15, 0.4);
+      }
+
+      /* Info Grid */
+      .odetails-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .odetails-info-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .odetails-info-item--full {
+        grid-column: 1 / -1;
+      }
+      .odetails-info-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #adb5bd;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .odetails-info-label i {
+        font-size: 13px;
+      }
+      .odetails-info-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+      .odetails-info-value--highlight {
+        color: #e67e22;
+        font-family: "Bitter", serif;
+      }
+
+      /* Step Progress */
+      .order-step-progress {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0 8px;
+        gap: 0;
+      }
+      .step-progress__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .step-progress__circle {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        border: 3px solid #e9ecef;
+        background: #ffffff;
+        color: #adb5bd;
+      }
+      .step-progress__label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #adb5bd;
+        transition: color 0.3s ease;
+      }
+      .step-progress__item.step--active .step-progress__circle {
+        border-color: #27ae60;
+        background: #27ae60;
+        color: #ffffff;
+        box-shadow: 0 4px 14px rgba(39, 174, 96, 0.4);
+      }
+      .step-progress__item.step--active .step-progress__label {
+        color: #27ae60;
+      }
+      .step-progress__item.step--inactive .step-progress__circle {
+        border-color: #e9ecef;
+        background: #f8f9fa;
+        color: #adb5bd;
+      }
+      .step-progress__item.step--cancelled .step-progress__circle {
+        border-color: #e74c3c;
+        background: #fdf2f2;
+        color: #e74c3c;
+      }
+      .step-progress__item.step--cancelled .step-progress__label {
+        color: #e74c3c;
+      }
+      .step-progress__line {
+        flex: 1;
+        height: 3px;
+        background: #e9ecef;
+        margin: 0 8px;
+        margin-bottom: 22px;
+        border-radius: 2px;
+        transition: background 0.3s ease;
+        min-width: 20px;
+      }
+      .step-progress__line.line--active {
+        background: linear-gradient(to right, #27ae60, #2ecc71);
+      }
+      .order-cancelled-notice {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        background: #fdf2f2;
+        color: #e74c3c;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      /* Product Table */
+      .odetails-product-table {
+        width: 100%;
+      }
+      .odetails-product-table__head {
+        display: grid;
+        grid-template-columns: 3fr 1fr 0.8fr 1fr;
+        gap: 12px;
+        padding: 12px 20px;
+        background: #f8f9fa;
+        font-size: 12px;
+        font-weight: 700;
+        color: #adb5bd;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .odetails-product-table__row {
+        display: grid;
+        grid-template-columns: 3fr 1fr 0.8fr 1fr;
+        gap: 12px;
+        padding: 16px 20px;
+        align-items: center;
+        border-bottom: 1px solid #f0f2f5;
+        transition: background 0.2s ease;
+      }
+      .odetails-product-table__row:last-child {
+        border-bottom: none;
+      }
+      .odetails-product-table__row:hover {
+        background: #fafbfc;
+      }
+      .odetails-product-table__product {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .odetails-product-thumb {
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        overflow: hidden;
+        flex-shrink: 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+      .odetails-product-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .odetails-product-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.4;
+      }
+      .odetails-product-price {
+        font-size: 13px;
+        font-weight: 600;
+        color: #7f8c8d;
+      }
+      .odetails-product-qty {
+        font-size: 13px;
+        font-weight: 600;
+        color: #7f8c8d;
+        text-align: center;
+      }
+      .odetails-product-subtotal {
+        font-size: 13px;
+        font-weight: 700;
+        color: #e67e22;
+        text-align: right;
+      }
+
+      /* Total Display */
+      .odetails-total-display {
+        text-align: center;
+        padding: 8px 0;
+      }
+      .odetails-total-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #e74c3c;
+        font-family: "Bitter", serif;
+      }
+
+      /* Action Buttons */
+      .odetails-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        margin-bottom: 10px;
+        transition: all 0.25s ease;
+        border: none;
+        cursor: pointer;
+      }
+      .odetails-action-btn:last-child {
+        margin-bottom: 0;
+      }
+      .odetails-action-btn i {
+        font-size: 16px;
+      }
+      .odetails-action-btn--primary {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: #ffffff;
+        box-shadow: 0 4px 14px rgba(39, 174, 96, 0.35);
+      }
+      .odetails-action-btn--primary:hover {
+        background: linear-gradient(135deg, #219653, #27ae60);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        color: #ffffff;
+      }
+      .odetails-action-btn--danger {
+        background: #ffffff;
+        color: #e74c3c;
+        border: 2px solid #e74c3c;
+      }
+      .odetails-action-btn--danger:hover {
+        background: #e74c3c;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(231, 76, 60, 0.35);
+      }
+      .odetails-action-btn--success {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: #ffffff;
+        box-shadow: 0 4px 14px rgba(39, 174, 96, 0.35);
+      }
+      .odetails-action-btn--success:hover {
+        background: linear-gradient(135deg, #219653, #27ae60);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        color: #ffffff;
+      }
+      .odetails-action-btn--secondary {
+        background: #f8f9fa;
+        color: #555;
+        border: 2px solid #e9ecef;
+      }
+      .odetails-action-btn--secondary:hover {
+        background: #f0f2f5;
+        border-color: #27ae60;
+        color: #27ae60;
+        transform: translateY(-2px);
+      }
+
+      /* Support */
+      .odetails-support-text {
+        font-size: 13px;
+        color: #7f8c8d;
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+
+      /* Responsive */
+      @media (max-width: 991px) {
+        .odetails-layout {
+          flex-direction: column;
+        }
+        .odetails-sidebar {
+          width: 100%;
+        }
+      }
+      @media (max-width: 768px) {
+        .odetails-info-grid {
+          grid-template-columns: 1fr;
+        }
+        .odetails-info-item--full {
+          grid-column: 1;
+        }
+        .odetails-product-table__head,
+        .odetails-product-table__row {
+          grid-template-columns: 2fr 1fr 0.8fr;
+        }
+        .odetails-product-qty {
+          display: none;
+        }
+        .odetails-product-table__head span:nth-child(3),
+        .odetails-product-table__row > div:nth-child(3) {
+          display: none;
+        }
+        .order-step-progress {
+          overflow-x: auto;
+          justify-content: flex-start;
+          padding: 20px 12px 8px;
+        }
+      }
+    </style>
+
+    <style>
+      .ft__logo a img {
+        max-width: 20%;
+      }
+
+      .promo-tag {
+        display: inline-block;
+        margin: 0 0 14px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        background: linear-gradient(45deg, #ff5501, #ff9900);
+        border: none;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: "Bitter", serif;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+          inset 0 0 10px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+      <!-- Header -->
+      <header th:replace="~{user/fragments/header :: header}"></header>
+      <!-- //Header -->
+      <!-- Start Search Popup -->
+      <div th:replace="user/fragments/search_popup :: search_popup"></div>
+      <!-- End Search Popup -->
+      <!-- Start Slider area -->
+      <div
+        class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme"
+      >
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--1 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--2 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+      </div>
+      <!-- End Slider area -->
+      <!-- order-details-main-area start -->
+      <div class="odetails-page-area section-padding--lg bg__white">
+        <div class="container">
+          <!-- Page Header -->
+          <div class="odetails-page__header">
+            <a class="odetails-back-btn" th:href="@{/orders}">
+              <i class="bi bi-arrow-left"></i>
+              <span>Quay lại danh sách đơn hàng</span>
+            </a>
+            <h2 class="odetails-page__title">
+              <i class="bi bi-receipt"></i>
+              Chi tiết đơn hàng
+            </h2>
+          </div>
+
+          <div class="odetails-layout">
+            <!-- ===== LEFT: Order Info + Products ===== -->
+            <div class="odetails-main">
+              <!-- Order Info Card -->
+              <div class="odetails-card">
+                <div class="odetails-card__header">
+                  <i class="bi bi-info-circle"></i>
+                  <h3>Thông tin đơn hàng</h3>
+                  <div
+                    class="odetails-card__status-badge"
+                    th:classappend="
+                                     ${order.status == 'PENDING'} ? 'status--pending' :
+                                     (${order.status == 'PROCESSING'} ? 'status--processing' :
+                                     (${order.status == 'DELIVERING'} ? 'status--delivering' :
+                                     (${order.status == 'DELIVERED'} ? 'status--delivered' :
+                                     (${order.status == 'UNPAID'} ? 'status--unpaid' : 'status--cancelled'))))"
+                    th:text="
+                                     ${order.status == 'PENDING'} ? 'Chờ xác nhận' :
+                                     (${order.status == 'PROCESSING'} ? 'Đang xử lý' :
+                                     (${order.status == 'DELIVERING'} ? 'Đang giao hàng' :
+                                     (${order.status == 'DELIVERED'} ? 'Đã giao' :
+                                     (${order.status == 'UNPAID'} ? 'Chưa thanh toán' : 'Đã hủy'))))"
+                  ></div>
+                </div>
+                <div class="odetails-card__body">
+                  <div class="odetails-info-grid">
+                    <div class="odetails-info-item">
+                      <span class="odetails-info-label">
+                        <i class="bi bi-hash"></i> Mã đơn hàng
+                      </span>
+                      <span
+                        class="odetails-info-value odetails-info-value--highlight"
+                        th:text="${order.code}"
+                      ></span>
+                    </div>
+                    <div class="odetails-info-item">
+                      <span class="odetails-info-label">
+                        <i class="bi bi-calendar-event"></i> Ngày đặt
+                      </span>
+                      <span
+                        class="odetails-info-value"
+                        th:text="${#dates.format(order.createdAt, 'HH:mm - dd/MM/yyyy')}"
+                      ></span>
+                    </div>
+                    <div class="odetails-info-item">
+                      <span class="odetails-info-label">
+                        <i class="bi bi-person"></i> Người nhận
+                      </span>
+                      <span
+                        class="odetails-info-value"
+                        th:text="${order.reciever}"
+                      ></span>
+                    </div>
+                    <div class="odetails-info-item">
+                      <span class="odetails-info-label">
+                        <i class="bi bi-telephone"></i> Số điện thoại
+                      </span>
+                      <span
+                        class="odetails-info-value"
+                        th:text="${order.phoneNumber}"
+                      ></span>
+                    </div>
+                    <div class="odetails-info-item odetails-info-item--full">
+                      <span class="odetails-info-label">
+                        <i class="bi bi-geo-alt"></i> Địa chỉ nhận
+                      </span>
+                      <span
+                        class="odetails-info-value"
+                        th:text="${order.shippingAddress}"
+                      ></span>
+                    </div>
+                    <div class="odetails-info-item">
+                      <span class="odetails-info-label">
+                        <i class="bi bi-credit-card"></i> Thanh toán
+                      </span>
+                      <span
+                        class="odetails-info-value"
+                        th:text="${order.paymentMethod}"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step Progress -->
+              <div class="odetails-card">
+                <div class="odetails-card__header">
+                  <i class="bi bi-activity"></i>
+                  <h3>Trạng thái đơn hàng</h3>
+                </div>
+                <div class="odetails-card__body">
+                  <div
+                    class="order-step-progress"
+                    th:classappend="${order.status == 'CANCELLED'} ? 'step-progress--cancelled' : ''"
+                  >
+                    <!-- Step 1 -->
+                    <div
+                      class="step-progress__item"
+                      th:classappend="
+                                         ${order.status == 'PENDING' || order.status == 'PROCESSING' || order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'step--active' :
+                                         (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')"
+                    >
+                      <div class="step-progress__circle">
+                        <i class="bi bi-bag-check"></i>
+                      </div>
+                      <span class="step-progress__label">Đã đặt</span>
+                    </div>
+                    <div
+                      class="step-progress__line"
+                      th:classappend="${order.status == 'PROCESSING' || order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'line--active' : ''"
+                    ></div>
+                    <!-- Step 2 -->
+                    <div
+                      class="step-progress__item"
+                      th:classappend="
+                                         ${order.status == 'PROCESSING' || order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'step--active' :
+                                         (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')"
+                    >
+                      <div class="step-progress__circle">
+                        <i class="bi bi-check-circle"></i>
+                      </div>
+                      <span class="step-progress__label">Xác nhận</span>
+                    </div>
+                    <div
+                      class="step-progress__line"
+                      th:classappend="${order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'line--active' : ''"
+                    ></div>
+                    <!-- Step 3 -->
+                    <div
+                      class="step-progress__item"
+                      th:classappend="
+                                         ${order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'step--active' :
+                                         (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')"
+                    >
+                      <div class="step-progress__circle">
+                        <i class="bi bi-truck"></i>
+                      </div>
+                      <span class="step-progress__label">Đang giao</span>
+                    </div>
+                    <div
+                      class="step-progress__line"
+                      th:classappend="${order.status == 'DELIVERED'} ? 'line--active' : ''"
+                    ></div>
+                    <!-- Step 4 -->
+                    <div
+                      class="step-progress__item"
+                      th:classappend="
+                                         ${order.status == 'DELIVERED'} ? 'step--active' :
+                                         (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')"
+                    >
+                      <div class="step-progress__circle">
+                        <i class="bi bi-emoji-smile"></i>
+                      </div>
+                      <span class="step-progress__label">Hoàn thành</span>
+                    </div>
+                  </div>
+                  <!-- Cancelled notice -->
+                  <div
+                    class="order-cancelled-notice"
+                    th:if="${order.status == 'CANCELLED'}"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                    <span>Đơn hàng đã bị hủy</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Products Card -->
+              <div class="odetails-card">
+                <div class="odetails-card__header">
+                  <i class="bi bi-box-seam"></i>
+                  <h3>Danh sách sản phẩm</h3>
+                </div>
+                <div class="odetails-card__body odetails-card__body--no-pad">
+                  <div class="odetails-product-table">
+                    <div class="odetails-product-table__head">
+                      <span>Sản phẩm</span>
+                      <span>Đơn giá</span>
+                      <span>Số lượng</span>
+                      <span>Tổng</span>
+                    </div>
+                    <div
+                      class="odetails-product-table__row"
+                      th:each="item : ${ordersDetails}"
+                    >
+                      <div class="odetails-product-table__product">
+                        <div class="odetails-product-thumb">
+                          <img
+                            th:src="${item.getProduct().coverImage}"
+                            alt="product"
+                          />
+                        </div>
+                        <span
+                          class="odetails-product-name"
+                          th:text="${item.getProduct().title}"
+                        ></span>
+                      </div>
+                      <div
+                        class="odetails-product-price"
+                        th:text="${#numbers.formatDecimal(__${(item.price)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                      ></div>
+                      <div
+                        class="odetails-product-qty"
+                        th:text="'× ' + ${item.quantity}"
+                      ></div>
+                      <div
+                        class="odetails-product-subtotal"
+                        th:text="${#numbers.formatDecimal(__${(item.price * item.quantity)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== RIGHT: Summary + Actions ===== -->
+            <div class="odetails-sidebar">
+              <!-- Total Card -->
+              <div class="odetails-card odetails-card--accent">
+                <div class="odetails-card__header odetails-card__header--light">
+                  <i class="bi bi-wallet2"></i>
+                  <h3>Tổng tiền</h3>
+                </div>
+                <div class="odetails-card__body">
+                  <div class="odetails-total-display">
+                    <span
+                      class="odetails-total-value"
+                      th:text="${#numbers.formatDecimal(__${(order.totalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions Card -->
+              <div
+                class="odetails-card"
+                th:if="${order.status != 'CANCELLED' && order.status != 'DELIVERED'}"
+              >
+                <div class="odetails-card__header">
+                  <i class="bi bi-lightning"></i>
+                  <h3>Thao tác</h3>
+                </div>
+                <div class="odetails-card__body">
+                  <!-- Cancel button (PENDING/PROCESSING) -->
+                  <a
+                    class="odetails-action-btn odetails-action-btn--danger"
+                    th:href="@{/orders/cancel/__${order.id}__}"
+                    th:if="${order.getStatus() == 'PENDING' || order.getStatus() == 'PROCESSING'}"
+                    onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này?');"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                    Hủy đơn hàng
+                  </a>
+                  <!-- Received button (DELIVERING) -->
+                  <a
+                    class="odetails-action-btn odetails-action-btn--success"
+                    th:href="@{/orders/received/__${order.id}__}"
+                    th:if="${order.getStatus() == 'DELIVERING'}"
+                  >
+                    <i class="bi bi-check-circle"></i>
+                    Xác nhận đã nhận hàng
+                  </a>
+                  <!-- Continue shopping -->
+                  <a
+                    class="odetails-action-btn odetails-action-btn--secondary"
+                    th:href="@{/shop}"
+                  >
+                    <i class="bi bi-bag-plus"></i>
+                    Tiếp tục mua hàng
+                  </a>
+                </div>
+              </div>
+
+              <!-- Trust Card -->
+              <div class="odetails-card">
+                <div class="odetails-card__header">
+                  <i class="bi bi-shield-check"></i>
+                  <h3>Hỗ trợ</h3>
+                </div>
+                <div class="odetails-card__body">
+                  <p class="odetails-support-text">
+                    Nếu bạn có thắc mắc về đơn hàng, vui lòng liên hệ bộ phận hỗ
+                    trợ của chúng tôi.
+                  </p>
+                  <a
+                    class="odetails-action-btn odetails-action-btn--secondary"
+                    th:href="@{/contact}"
+                  >
+                    <i class="bi bi-chat-dots"></i>
+                    Liên hệ hỗ trợ
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- order-details-main-area end -->
+      <!-- Footer Area -->
+      <footer th:replace="user/fragments/footer :: footer"></footer>
+      <!-- //Footer Area -->
+    </div>
+    <!-- //Main wrapper -->
+    <!-- JS Files -->
+    <script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/user/popper.min.js}"></script>
+    <script th:src="@{/js/user/bootstrap.min.js}"></script>
+    <script th:src="@{/js/user/plugins.js}"></script>
+    <script th:src="@{/js/user/active.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Danh sách đơn hàng - HTX Dương Hòa</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" }>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        /* ====== Orders Page - Hiện Đại ====== */
+        .orders-page-area {
+            min-height: 70vh;
+            background: #ffffff;
+            padding: 30px 0 60px;
+        }
+
+        /* Page Header */
+        .orders-page__header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .orders-page__title {
+            font-family: 'Bitter', serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .orders-page__title i {
+            color: #27ae60;
+            font-size: 28px;
+        }
+        .orders-page__subtitle {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        /* Orders List */
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Order Card */
+        .order-card {
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .order-card:hover {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* Card Header */
+        .order-card__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, #2c3e50, #3d566e);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .order-card__meta {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .order-card__meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .order-card__meta-item i {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        .order-card__meta-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 500;
+        }
+        .order-card__meta-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .order-card__code {
+            color: #f7c948;
+        }
+
+        /* Status Badge */
+        .order-card__status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .status--pending {
+            background: rgba(247, 201, 72, 0.2);
+            color: #f7c948;
+            border: 1px solid rgba(247, 201, 72, 0.4);
+        }
+        .status--processing {
+            background: rgba(52, 152, 219, 0.2);
+            color: #5dade2;
+            border: 1px solid rgba(52, 152, 219, 0.4);
+        }
+        .status--delivering {
+            background: rgba(155, 89, 182, 0.2);
+            color: #9b59b6;
+            border: 1px solid rgba(155, 89, 182, 0.4);
+        }
+        .status--delivered {
+            background: rgba(39, 174, 96, 0.2);
+            color: #2ecc71;
+            border: 1px solid rgba(39, 174, 96, 0.4);
+        }
+        .status--cancelled {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.4);
+        }
+        .status--unpaid {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+            border: 1px solid rgba(241, 196, 15, 0.4);
+        }
+
+        /* Step Progress Bar */
+        .order-step-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 28px 24px 20px;
+            gap: 0;
+        }
+        .step-progress__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .step-progress__circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            border: 3px solid #e9ecef;
+            background: #ffffff;
+            color: #adb5bd;
+        }
+        .step-progress__circle i {
+            transition: all 0.3s ease;
+        }
+        .step-progress__label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #adb5bd;
+            transition: color 0.3s ease;
+        }
+        /* Active step */
+        .step-progress__item.step--active .step-progress__circle {
+            border-color: #27ae60;
+            background: #27ae60;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(39, 174, 96, 0.4);
+            animation: stepPulse 0.5s ease;
+        }
+        .step-progress__item.step--active .step-progress__label {
+            color: #27ae60;
+        }
+        /* Inactive step */
+        .step-progress__item.step--inactive .step-progress__circle {
+            border-color: #e9ecef;
+            background: #f8f9fa;
+            color: #adb5bd;
+        }
+        /* Cancelled step */
+        .step-progress__item.step--cancelled .step-progress__circle {
+            border-color: #e74c3c;
+            background: #fdf2f2;
+            color: #e74c3c;
+        }
+        .step-progress__item.step--cancelled .step-progress__label {
+            color: #e74c3c;
+        }
+        /* Progress line */
+        .step-progress__line {
+            flex: 1;
+            height: 3px;
+            background: #e9ecef;
+            margin: 0 8px;
+            margin-bottom: 22px;
+            border-radius: 2px;
+            transition: background 0.3s ease;
+            min-width: 30px;
+        }
+        .step-progress__line.line--active {
+            background: linear-gradient(to right, #27ae60, #2ecc71);
+        }
+
+        @keyframes stepPulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Cancelled notice */
+        .order-cancelled-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: #fdf2f2;
+            color: #e74c3c;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Card Footer */
+        .order-card__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-top: 1px solid #f0f2f5;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .order-card__total {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .order-card__total-label {
+            font-size: 13px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        .order-card__total-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e74c3c;
+            font-family: 'Bitter', serif;
+        }
+        .order-card__actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .order-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .order-btn i {
+            font-size: 15px;
+        }
+        .order-btn--primary {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(39, 174, 96, 0.35);
+        }
+        .order-btn--primary:hover {
+            background: linear-gradient(135deg, #219653, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+            color: #ffffff;
+        }
+        .order-btn--secondary {
+            background: #f8f9fa;
+            color: #555;
+            border: 2px solid #e9ecef;
+        }
+        .order-btn--secondary:hover {
+            background: #f0f2f5;
+            border-color: #27ae60;
+            color: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        /* Empty State */
+        .orders-empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .orders-empty-state__icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f2f5, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .orders-empty-state__icon i {
+            font-size: 44px;
+            color: #adb5bd;
+        }
+        .orders-empty-state h3 {
+            font-family: 'Bitter', serif;
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .orders-empty-state p {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .order-card__header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .order-card__meta {
+                gap: 12px;
+            }
+            .order-step-progress {
+                padding: 20px 12px 16px;
+                gap: 0;
+            }
+            .step-progress__circle {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+            .step-progress__label {
+                font-size: 9px;
+            }
+            .step-progress__line {
+                min-width: 16px;
+                margin-bottom: 18px;
+            }
+            .order-card__footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .order-card__actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+        @media (max-width: 480px) {
+            .orders-page__title {
+                font-size: 24px;
+            }
+            .order-card__meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .order-step-progress {
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding-bottom: 16px;
+            }
+        }
+    </style>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+
+        .promo-tag {
+            display: inline-block;
+            margin: 0 0 14px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: linear-gradient(45deg, #ff5501, #ff9900);
+            border: none;
+            color: #fff !important;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Bitter', serif;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2),
+            inset 0 0 10px rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div class="box-search-content search_active block-bg close__top">
+        <form action="#" class="minisearch" id="search_mini_form">
+            <div class="field__search">
+                <input placeholder="Search entire store here..." type="text"/>
+                <div class="action">
+                    <a href="#"><i class="zmdi zmdi-search"></i></a>
+                </div>
+            </div>
+        </form>
+        <div class="close__wrap">
+            <span>close</span>
+        </div>
+    </div>
+    <!-- End Search Popup -->
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <p class="promo-tag">Nông sản organic</p>
+                                <h2><span>Mua các sản phẩm nông sản </span></h2>
+                                <h2><span>với tiêu chuẩn organic </span></h2>
+                                <h2><span>tại Dương Hòa </span></h2>
+                                <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <p class="promo-tag">Nông sản organic</p>
+                                <h2><span>Mua các sản phẩm nông sản </span></h2>
+                                <h2><span>với tiêu chuẩn organic </span></h2>
+                                <h2><span>tại Dương Hòa </span></h2>
+                                <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- orders-list-main-area start -->
+    <div class="orders-page-area section-padding--lg bg__white">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="orders-page__header">
+                <h2 class="orders-page__title">
+                    <i class="bi bi-box-seam"></i>
+                    Đơn hàng của tôi
+                </h2>
+                <p class="orders-page__subtitle">Theo dõi và quản lý các đơn hàng của bạn</p>
+            </div>
+
+            <!-- Orders List -->
+            <div class="orders-list" th:if="${#lists.size(orders) > 0}">
+                <!-- Single Order Card -->
+                <div class="order-card" th:each="order : ${orders}">
+
+                    <!-- Order Header -->
+                    <div class="order-card__header">
+                        <div class="order-card__meta">
+                            <div class="order-card__meta-item">
+                                <i class="bi bi-hash"></i>
+                                <span class="order-card__meta-label">Mã đơn hàng</span>
+                                <span class="order-card__meta-value order-card__code" th:text="${order.code}"></span>
+                            </div>
+                            <div class="order-card__meta-item">
+                                <i class="bi bi-calendar-event"></i>
+                                <span class="order-card__meta-label">Ngày đặt</span>
+                                <span class="order-card__meta-value" th:text="${#dates.format(order.createdAt, 'HH:mm - dd/MM/yyyy')}"></span>
+                            </div>
+                            <div class="order-card__meta-item">
+                                <i class="bi bi-credit-card"></i>
+                                <span class="order-card__meta-label">Thanh toán</span>
+                                <span class="order-card__meta-value" th:text="${order.paymentMethod}"></span>
+                            </div>
+                        </div>
+                        <!-- Status Badge -->
+                        <div class="order-card__status-badge"
+                             th:classappend="
+                                 ${order.status == 'PENDING'} ? 'status--pending' :
+                                 (${order.status == 'PROCESSING'} ? 'status--processing' :
+                                 (${order.status == 'DELIVERING'} ? 'status--delivering' :
+                                 (${order.status == 'DELIVERED'} ? 'status--delivered' :
+                                 (${order.status == 'UNPAID'} ? 'status--unpaid' : 'status--cancelled'))))"
+                             th:text="
+                                 ${order.status == 'PENDING'} ? 'Chờ xác nhận' :
+                                 (${order.status == 'PROCESSING'} ? 'Đang xử lý' :
+                                 (${order.status == 'DELIVERING'} ? 'Đang giao hàng' :
+                                 (${order.status == 'DELIVERED'} ? 'Đã giao' :
+                                 (${order.status == 'UNPAID'} ? 'Chưa thanh toán' : 'Đã hủy'))))">
+                        </div>
+                    </div>
+
+                    <!-- Step Progress Bar -->
+                    <div class="order-step-progress"
+                         th:classappend="${order.status == 'CANCELLED'} ? 'step-progress--cancelled' : ''">
+                        <!-- Step 1: Đã đặt hàng -->
+                        <div class="step-progress__item"
+                             th:classappend="
+                                 ${order.status == 'PENDING' || order.status == 'PROCESSING' || order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'step--active' :
+                                 (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')">
+                            <div class="step-progress__circle">
+                                <i class="bi bi-bag-check"></i>
+                            </div>
+                            <span class="step-progress__label">Đã đặt</span>
+                        </div>
+                        <div class="step-progress__line"
+                             th:classappend="
+                                 ${order.status == 'PROCESSING' || order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'line--active' : ''"></div>
+                        <!-- Step 2: Xác nhận -->
+                        <div class="step-progress__item"
+                             th:classappend="
+                                 ${order.status == 'PROCESSING' || order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'step--active' :
+                                 (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')">
+                            <div class="step-progress__circle">
+                                <i class="bi bi-check-circle"></i>
+                            </div>
+                            <span class="step-progress__label">Xác nhận</span>
+                        </div>
+                        <div class="step-progress__line"
+                             th:classappend="
+                                 ${order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'line--active' : ''"></div>
+                        <!-- Step 3: Đang giao -->
+                        <div class="step-progress__item"
+                             th:classappend="
+                                 ${order.status == 'DELIVERING' || order.status == 'DELIVERED'} ? 'step--active' :
+                                 (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')">
+                            <div class="step-progress__circle">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <span class="step-progress__label">Đang giao</span>
+                        </div>
+                        <div class="step-progress__line"
+                             th:classappend="${order.status == 'DELIVERED'} ? 'line--active' : ''"></div>
+                        <!-- Step 4: Hoàn thành -->
+                        <div class="step-progress__item"
+                             th:classappend="
+                                 ${order.status == 'DELIVERED'} ? 'step--active' :
+                                 (${order.status == 'CANCELLED'} ? 'step--cancelled' : 'step--inactive')">
+                            <div class="step-progress__circle">
+                                <i class="bi bi-emoji-smile"></i>
+                            </div>
+                            <span class="step-progress__label">Hoàn thành</span>
+                        </div>
+                    </div>
+                    <!-- Cancelled notice -->
+                    <div class="order-cancelled-notice" th:if="${order.status == 'CANCELLED'}">
+                        <i class="bi bi-x-circle"></i>
+                        <span>Đơn hàng đã bị hủy</span>
+                    </div>
+
+                    <!-- Order Footer -->
+                    <div class="order-card__footer">
+                        <div class="order-card__total">
+                            <span class="order-card__total-label">Tổng tiền:</span>
+                            <span class="order-card__total-value"
+                                  th:text="${#numbers.formatDecimal(__${(order.totalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></span>
+                        </div>
+                        <div class="order-card__actions">
+                            <a class="order-btn order-btn--secondary" th:href="@{/shop}">
+                                <i class="bi bi-bag-plus"></i>
+                                Tiếp tục mua hàng
+                            </a>
+                            <a class="order-btn order-btn--primary" th:href="@{orders/__${order.id}__}">
+                                <i class="bi bi-eye"></i>
+                                Xem đơn hàng
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Order Card -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="orders-empty-state" th:unless="${#lists.size(orders) > 0}">
+                <div class="orders-empty-state__icon">
+                    <i class="bi bi-inbox"></i>
+                </div>
+                <h3>Chưa có đơn hàng nào</h3>
+                <p>Hãy bắt đầu mua sắm để tạo đơn hàng đầu tiên của bạn</p>
+                <a class="order-btn order-btn--primary" th:href="@{/shop}">
+                    <i class="bi bi-bag-plus"></i>
+                    Mua sắm ngay
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- orders-list-main-area end -->
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+</body>
+
+</html>

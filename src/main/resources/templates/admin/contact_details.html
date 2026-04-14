@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <title>Chi tiết liên hệ - HTX Dương Hòa</title>
+    <link rel="stylesheet" th:href="@{/css/admin/styles.css}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      crossorigin="anonymous"
+      th:src="@{/js/admin/fontawesome-all.js}"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
+
+      .page-content {
+        padding: 28px;
+        animation: fadeSlideUp 0.4s ease both;
+      }
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== BREADCRUMB ===== */
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #94a3b8;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+      .breadcrumb a {
+        color: #6366f1;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+      .breadcrumb-sep {
+        color: #cbd5e1;
+        font-size: 10px;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .page-header__left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .page-header__icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #06b6d4, #0891b2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 20px;
+      }
+      .page-header__title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .page-header__sub {
+        font-size: 13px;
+        color: #94a3b8;
+      }
+
+      /* ===== INFO CARD ===== */
+      .info-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .info-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
+      .info-card__header {
+        padding: 14px 24px;
+        border-bottom: 2px solid #f1f5f9;
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .info-card__header i {
+        color: #06b6d4;
+        font-size: 16px;
+      }
+      .info-card__body {
+        padding: 24px;
+      }
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f5f9;
+        gap: 20px;
+      }
+      .info-row:last-child {
+        border-bottom: none;
+      }
+      .info-row__label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+        min-width: 120px;
+        flex-shrink: 0;
+      }
+      .info-row__value {
+        font-size: 13px;
+        color: #1e293b;
+        font-weight: 500;
+        text-align: right;
+        word-break: break-word;
+      }
+
+      /* ===== MESSAGE CONTENT ===== */
+      .message-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+        margin-top: 20px;
+      }
+      .message-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
+      .message-card__header {
+        padding: 14px 24px;
+        border-bottom: 2px solid #f1f5f9;
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .message-card__header i {
+        color: #6366f1;
+        font-size: 16px;
+      }
+      .message-card__body {
+        padding: 24px;
+        font-size: 14px;
+        color: #334155;
+        line-height: 1.8;
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-width: 100%;
+      }
+
+      /* ===== ACTION BUTTONS ===== */
+      .btn-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: "Be Vietnam Pro", sans-serif;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.25s ease;
+      }
+      .btn-action--back {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+      .btn-action--back:hover {
+        background: #e2e8f0;
+        color: #475569;
+      }
+      .btn-action--reply {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(16, 185, 129, 0.3);
+      }
+      .btn-action--reply:hover {
+        box-shadow: 0 5px 18px rgba(16, 185, 129, 0.4);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+      .btn-action--delete {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(239, 68, 68, 0.3);
+      }
+      .btn-action--delete:hover {
+        box-shadow: 0 5px 18px rgba(239, 68, 68, 0.4);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        .page-content {
+          padding: 20px 16px;
+        }
+        .info-row {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .info-row__value {
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div th:replace="admin/fragments/header :: header_nav"></div>
+    <div id="layoutSidenav">
+      <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+      <div id="layoutSidenav_content">
+        <main class="page-content">
+          <!-- Breadcrumb -->
+          <div class="breadcrumb">
+            <a th:href="@{/admin}"><i class="fas fa-home"></i> Trang chủ</a>
+            <span class="breadcrumb-sep"
+              ><i class="fas fa-chevron-right"></i
+            ></span>
+            <a th:href="@{/admin/contacts}">Liên hệ</a>
+            <span class="breadcrumb-sep"
+              ><i class="fas fa-chevron-right"></i
+            ></span>
+            <span>Chi tiết liên hệ</span>
+          </div>
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header__left">
+              <div class="page-header__icon">
+                <i class="fas fa-envelope-open-text"></i>
+              </div>
+              <div>
+                <h1 class="page-header__title">Chi tiết liên hệ</h1>
+                <p class="page-header__sub">
+                  Xem nội dung liên hệ từ khách hàng
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info Card: Thông tin người gửi -->
+          <div class="info-card">
+            <div class="info-card__header">
+              <i class="fas fa-user-circle"></i>
+              Thông tin người gửi
+            </div>
+            <div class="info-card__body">
+              <div class="info-row">
+                <span class="info-row__label">Họ tên</span>
+                <span
+                  class="info-row__value"
+                  th:text="${contact.name != null ? contact.name : '—'}"
+                ></span>
+              </div>
+              <div class="info-row">
+                <span class="info-row__label">Email</span>
+                <span class="info-row__value">
+                  <a
+                    th:href="@{'mailto:' + ${contact.email}}"
+                    th:text="${contact.email}"
+                    style="color: #06b6d4; text-decoration: none"
+                  ></a>
+                </span>
+              </div>
+              <div class="info-row">
+                <span class="info-row__label">Tiêu đề</span>
+                <span
+                  class="info-row__value"
+                  th:text="${contact.subject != null and contact.subject != '' ? contact.subject : '—'}"
+                ></span>
+              </div>
+              <div class="info-row">
+                <span class="info-row__label">Ngày gửi</span>
+                <span
+                  class="info-row__value"
+                  th:text="${#dates.format(contact.createdAt, 'dd-MM-yyyy HH:mm')}"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message Card: Nội dung -->
+          <div class="message-card">
+            <div class="message-card__header">
+              <i class="fas fa-align-left"></i>
+              Nội dung liên hệ
+            </div>
+            <div
+              class="message-card__body"
+              th:text="${contact.message != null ? contact.message : 'Không có nội dung'}"
+            ></div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="btn-group">
+            <a class="btn-action btn-action--back" th:href="@{/admin/contacts}">
+              <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <a
+              class="btn-action btn-action--reply"
+              th:href="@{/admin/contacts/response/{id}(id=${contact.id})}"
+            >
+              <i class="fas fa-reply"></i> Phản hồi
+            </a>
+            <a
+              class="btn-action btn-action--delete"
+              th:href="@{/admin/contacts/delete/{id}(id=${contact.id})}"
+              onclick="return confirm('Bạn có chắc muốn xóa liên hệ này?')"
+            >
+              <i class="fas fa-trash-alt"></i> Xóa
+            </a>
+          </div>
+        </main>
+        <div th:replace="admin/fragments/footer :: footer"></div>
+      </div>
+    </div>
+
+    <script
+      crossorigin="anonymous"
+      th:src="@{/js/admin/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/js/admin/scripts.js}"></script>
+  </body>
+</html>

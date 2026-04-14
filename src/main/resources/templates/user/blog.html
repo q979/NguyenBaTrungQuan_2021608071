@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <title>Bài viết - HTX Dương Hòa</title>
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" />
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}" />
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap"
+    />
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/user/material-design-iconic-font.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/style.css}" />
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}" />
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        var header = document.querySelector(".sticky__header");
+        if (header) {
+          if (window.scrollY > 250) {
+            header.classList.add("is-sticky");
+          } else {
+            header.classList.remove("is-sticky");
+          }
+        }
+      });
+    </script>
+
+    <style>
+      .ft__logo a img {
+        max-width: 20%;
+      }
+
+      input {
+        max-width: 400px;
+      }
+
+      textarea {
+        max-width: 400px;
+        max-height: 600px;
+      }
+
+      .map {
+        height: 180px;
+      }
+
+      .promo-tag {
+        display: inline-block;
+        margin: 0 0 14px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        background: linear-gradient(45deg, #ff5501, #ff9900);
+        border: none;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: "Bitter", serif;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+          inset 0 0 10px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+      <!-- Header -->
+      <header th:replace="~{user/fragments/header :: header}"></header>
+      <!-- //Header -->
+
+      <!-- Start Search Popup -->
+      <div th:replace="~{user/fragments/search_popup :: search_popup}"></div>
+      <!-- End Search Popup -->
+
+      <!-- Start Slider area -->
+      <div
+        class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme"
+      >
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--1 fullscreen align__center--left slider--15"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--2 fullscreen align__center--left slider--15"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+      </div>
+      <!-- End Slider area -->
+
+      <!-- ==================== BLOG CONTENT START ==================== -->
+      <div class="blog-content-area">
+        <div class="blog-container">
+          <!-- Section Header -->
+          <div class="blog-section-header">
+            <h2 class="blog-section-title">Danh sách bài viết</h2>
+            <p class="blog-section-subtitle">
+              Cập nhật những công thức nấu ăn ngon và đặc biệt nhất
+            </p>
+          </div>
+
+          <div class="blog-layout">
+            <!-- Main: Blog Cards List -->
+            <div class="blog-list-main">
+              <div class="blog-card" th:each="blog : ${blogList}">
+                <a
+                  th:href="@{/blogs/get/__${blog.id}__}"
+                  class="blog-card-link"
+                >
+                  <div class="blog-card-inner">
+                    <div class="blog-card-thumb">
+                      <img th:src="${blog.thumbnail}" alt="blog images" />
+                      <div class="blog-card-overlay">
+                        <i class="fa fa-link"></i>
+                      </div>
+                    </div>
+                    <div class="blog-card-content">
+                      <div class="blog-card-meta">
+                        <span class="meta-author">
+                          <i class="fa fa-user"></i>
+                          <span th:text="${blog.user.getFullName()}"></span>
+                        </span>
+                        <span class="meta-sep">|</span>
+                        <span class="meta-date">
+                          <i class="fa fa-calendar"></i>
+                          <span
+                            th:text="${#dates.format(blog.createdAt, 'dd-MM-yyyy')}"
+                          ></span>
+                        </span>
+                      </div>
+                      <h3 class="blog-card-title" th:text="${blog.title}"></h3>
+                      <p class="blog-card-desc" th:text="${blog.summary}"></p>
+                      <span class="blog-card-btn">
+                        Đọc tiếp <i class="fa fa-angle-right"></i>
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Pagination -->
+              <div class="blog-pagination" th:if="${totalPages > 1}">
+                <a
+                  th:href="@{/blogs(page=${pageNumber})}"
+                  th:class="${pageNumber == currentPage+1 ? 'page-link active' : 'page-link'}"
+                  th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                  th:text="${pageNumber}"
+                ></a>
+              </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="blog-list-sidebar">
+              <!-- Search Widget -->
+              <div class="sidebar-widget sidebar-search">
+                <h3 class="sidebar-widget-title">
+                  <i class="fa fa-search"></i> Tìm kiếm bài viết
+                </h3>
+                <form
+                  class="sidebar-search-form"
+                  th:action="@{/blogs}"
+                  method="get"
+                >
+                  <input
+                    type="text"
+                    name="keyword"
+                    placeholder="Nhập từ khóa..."
+                    th:value="${searchKeyword}"
+                  />
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+              </div>
+
+              <!-- Recent Posts Widget -->
+              <div class="sidebar-widget sidebar-recent">
+                <h3 class="sidebar-widget-title">
+                  <i class="fa fa-clock-o"></i> Bài viết mới nhất
+                </h3>
+                <div class="recent-posts-list">
+                  <a
+                    th:href="@{/blogs/get/__${recentBlog.id}__}"
+                    class="recent-post-item"
+                    th:each="recentBlog : ${top6RecentBlogList}"
+                  >
+                    <div class="recent-post-thumb">
+                      <img th:src="${recentBlog.thumbnail}" alt="blog images" />
+                    </div>
+                    <div class="recent-post-info">
+                      <h4 th:text="${recentBlog.title}"></h4>
+                      <span class="recent-post-date">
+                        <i class="fa fa-calendar-o"></i>
+                        <span
+                          th:text="${#dates.format(recentBlog.getCreatedAt(), 'dd-MM-yyyy')}"
+                        ></span>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!-- About Widget -->
+              <div class="sidebar-widget sidebar-about">
+                <h3 class="sidebar-widget-title">
+                  <i class="fa fa-leaf"></i> Về chúng tôi
+                </h3>
+                <div class="sidebar-about-content">
+                  <p>
+                    HTX Dương Hòa - Chuyên cung cấp các sản phẩm nông sản
+                    organic chất lượng cao, an toàn cho sức khỏe người tiêu
+                    dùng.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ==================== BLOG CONTENT END ==================== -->
+
+      <!-- Footer Area -->
+      <footer th:replace="user/fragments/footer :: footer"></footer>
+      <!-- //Footer Area -->
+    </div>
+    <!-- //Main wrapper -->
+    <!-- JS Files -->
+    <script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/user/popper.min.js}"></script>
+    <script th:src="@{/js/user/bootstrap.min.js}"></script>
+    <script th:src="@{/js/user/plugins.js}"></script>
+    <script th:src="@{/js/user/active.js}"></script>
+  </body>
+</html>

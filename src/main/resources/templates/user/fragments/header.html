@@ -1,0 +1,70 @@
+<header class="header__area header__absolute sticky__header" id="wn__header" th:fragment="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <div class="logo">
+                    <a th:href="@{/}">
+                        <img alt="logo images" class="logo" th:src="@{/images/logo/logo.png}"/>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8 d-none d-lg-block">
+                <nav class="mainmenu__nav">
+                    <ul class="meninmenu d-flex justify-content-start">
+                        <li class="drop with--one--item">
+                            <a th:href="@{/}">Trang chủ</a>
+                        </li>
+                        <li class="drop">
+                            <a th:href="@{/shop}">Danh mục</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/contact}">Liên hệ</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/blogs}">Bài viết</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+                    <li class="shopcart">
+                        <a th:href="@{/cart}"><span class="product_qun" id="cart-quantity" th:text="${cartItemCount}"></span></a>
+                    </li>
+                    <li class="setting__bar__icon">
+                        <a class="setting__active" href="#"></a>
+                        <div class="searchbar__content setting__block">
+                            <div class="content-inner">
+                                <div class="switcher-currency">
+                                    <strong class="label switcher-label">
+                                        <span th:if="${currentUser != null}" th:text="${currentUser.fullName}"></span>
+                                        <span th:if="${currentUser == null}" th:text="Account"></span>
+                                    </strong>
+                                    <div class="switcher-options">
+                                        <div class="switcher-currency-trigger">
+                                            <div class="setting__menu" th:if="${currentUser != null}">
+                                                <span th:each="role : ${currentUser.roles}">
+                                                    <span th:if="${role.name == 'ROLE_ADMIN'}">
+                                                        <span><a class="font-producer-bold text-primary" th:href="@{/admin}">ADMIN</a></span>
+                                                    </span>
+                                                </span>
+                                                <span><a th:href="@{/cart/checkout}">Thanh toán</a></span>
+                                                <span><a th:href="@{/orders}">Đơn hàng</a></span>
+                                                <span><a th:href="@{/wishlist}">Danh sách yêu thích</a></span>
+                                                <span><a th:href="@{/logout}">Đăng xuất</a></span>
+                                            </div>
+                                            <div class="setting__menu" th:if="${currentUser == null}">
+                                                <span><a th:href="@{/login}">Đăng nhập</a></span>
+                                                <span><a th:href="@{/register}">Đăng ký</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

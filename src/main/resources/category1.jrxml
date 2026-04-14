@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="category1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="31cf6105-6ef1-4fd4-a343-6f3ce2ff03b0">
+    <subDataset name="categoryDataSet" uuid="0f17c969-5c35-437c-9819-bdbaa8b837ce">
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="name" class="java.lang.String"/>
+        <field name="totalRevenue" class="java.lang.Double"/>
+    </subDataset>
+    <parameter name="categoryDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="79" splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="35" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="61" splitType="Stretch">
+            <staticText>
+                <reportElement x="180" y="20" width="210" height="30" uuid="d92bbfdd-7f6d-45a5-84a2-4e070307ed9f"/>
+                <textElement>
+                    <font size="22"/>
+                </textElement>
+                <text><![CDATA[Top 10 Categories]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="310" splitType="Stretch">
+            <pieChart>
+                <chart evaluationTime="Report">
+                    <reportElement x="10" y="10" width="535" height="300" uuid="0ec56ac7-6370-4872-8bf5-15ced97804be"/>
+                    <chartTitle/>
+                    <chartSubtitle/>
+                    <chartLegend/>
+                </chart>
+                <pieDataset maxCount="10">
+                    <dataset>
+                        <datasetRun subDataset="categoryDataSet" uuid="45439086-f008-48b0-8c96-37b300ed9dc5">
+                            <dataSourceExpression><![CDATA[$P{categoryDataSource}]]></dataSourceExpression>
+                        </datasetRun>
+                    </dataset>
+                    <pieSeries>
+                        <keyExpression><![CDATA[$F{name}]]></keyExpression>
+                        <valueExpression><![CDATA[$F{totalRevenue}]]></valueExpression>
+                        <labelExpression><![CDATA[$F{name}]]></labelExpression>
+                    </pieSeries>
+                </pieDataset>
+                <piePlot>
+                    <plot/>
+                    <itemLabel/>
+                </piePlot>
+            </pieChart>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>

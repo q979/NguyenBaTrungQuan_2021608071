@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>Đăng ký - HTX Dương Hòa</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}"}>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+
+        .promo-tag {
+            display: inline-block;
+            margin: 0 0 14px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: linear-gradient(45deg, #ff5501, #ff9900);
+            border: none;
+            color: #fff !important;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Bitter', serif;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2),
+            inset 0 0 10px rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+
+</head>
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <p class="promo-tag">Nông sản organic</p>
+                                <h2><span>Mua các sản phẩm nông sản </span></h2>
+                                <h2><span>với tiêu chuẩn organic </span></h2>
+                                <h2><span>tại Dương Hòa </span></h2>
+                                <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox">
+                                <p class="promo-tag">Nông sản organic</p>
+                                <h2><span>Mua các sản phẩm nông sản </span></h2>
+                                <h2><span>với tiêu chuẩn organic </span></h2>
+                                <h2><span>tại Dương Hòa </span></h2>
+                                <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+
+    <!-- Start My Account Area -->
+    <section class="my_account_area pt--80 pb--55 bg--white">
+        <div class="container mt--100">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-12">
+                    <div class="my__account__wrapper">
+                        <h3 class="account__title">Đăng ký</h3>
+                        <form method="post" onsubmit="return validateForm()" th:action="@{/register}"
+                              th:object="${user}">
+
+                            <div th:if="${success}">
+                                <div class="alert alert-success" role="alert">
+                                    Đăng ký thành công !
+                                </div>
+                            </div>
+                            <div th:if="${error}">
+                                <div class="alert alert-danger" role="alert">
+                                    Có vẻ như email này đã được dùng trước đó, vui lòng thử lại
+                                </div>
+                            </div>
+                            <div class="account__form">
+                                <div class="input__box">
+                                    <label>Email <span>*</span></label>
+                                    <input th:field="*{email}" type="email"/>
+                                </div>
+                                <div class="input__box">
+                                    <label>Họ tên<span>*</span></label>
+                                    <input th:field="*{fullName}" type="text"/>
+                                </div>
+                                <div class="input__box">
+                                    <label>Địa chỉ<span>*</span></label>
+                                    <input th:field="*{address}" type="text"/>
+                                </div>
+                                <div class="input__box">
+                                    <label>Số điện thoại<span>*</span></label>
+                                    <input th:field="*{phoneNumber}" type="tel"/>
+                                </div>
+                                <div class="input__box">
+                                    <label>Mật khẩu<span>*</span></label>
+                                    <input id="password" th:field="*{password}" type="password"/>
+                                </div>
+                                <div class="input__box">
+                                    <label>Nhập lại mật khẩu<span>*</span></label>
+                                    <input id="confirmPassword" name="confirmPassword" type="password"/>
+                                </div>
+
+
+                                <div class="form__btn">
+                                    <button type="submit">Đăng ký</button>
+                                </div>
+                                <a class="forget_pass" th:href="@{/login}">Đăng nhập</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End My Account Area -->
+    <!-- Footer Area -->
+    <footer th:replace="user/fragments/footer :: footer"></footer>
+    <!-- //Footer Area -->
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var fullName = document.getElementById("fullName").value;
+            var address = document.getElementById("address").value;
+            var phoneNumber = document.getElementById("phoneNumber").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (email === "" || fullName === "" || address === "" || phoneNumber === "" || password === "" || confirmPassword === "") {
+                alert("Vui lòng điền đủ thông tin");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Mật khẩu không trùng nhau!");
+                return false;
+            }
+
+            // Validate phone number format
+            var phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                alert("Số điện thoại không hợp lệ");
+                return false;
+            }
+
+
+            return true; // Submit the form if all validations pass
+        }
+
+    </script>
+
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/js/user/popper.min.js}"></script>
+<script th:src="@{/js/user/bootstrap.min.js}"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+</body>
+
+</html>

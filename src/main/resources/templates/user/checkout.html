@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <title>Thanh toán - HTX Dương Hòa</title>
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" } />
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}" />
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/user/material-design-iconic-font.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/style.css}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}" />
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <script>
+      /* Chuyển hướng đến endpoint phù hợp theo phương thức thanh toán */
+      function handlePlaceOrder(btn) {
+        var selected = document.querySelector(
+          'input[name="paymentMethod"]:checked'
+        );
+        if (!selected) return true;
+        // Tất cả phương thức đều gửi về /cart/place-order, có param paymentMethod
+        btn.form.action = "/cart/place-order";
+        return true;
+      }
+
+      /* Toggle hiện/ẩn QR Code — không reload trang */
+      function toggleQRCode() {
+        var selected = document.querySelector(
+          'input[name="paymentMethod"]:checked'
+        );
+        var qrBlock = document.getElementById("qr-code-block");
+        var qrHint = document.getElementById("qr-hint");
+        if (!qrBlock) return;
+        if (selected && selected.value === "qr") {
+          qrBlock.style.display = "block";
+          qrHint.style.display = "block";
+          qrBlock.style.opacity = "0";
+          qrBlock.style.transform = "translateY(16px)";
+          qrBlock.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+          requestAnimationFrame(function () {
+            qrBlock.style.opacity = "1";
+            qrBlock.style.transform = "translateY(0)";
+          });
+        } else {
+          qrBlock.style.display = "none";
+          if (qrHint) qrHint.style.display = "none";
+        }
+      }
+    </script>
+
+    <style>
+      /* ==== Override page area to remove default padding/slider ==== */
+      .checkout-page-area {
+        padding-top: 30px;
+        padding-bottom: 60px;
+      }
+      .checkout-page-area .wn__checkout__area,
+      .checkout-page-area .section-padding--lg {
+        padding: 0 !important;
+        background: transparent !important;
+      }
+
+      /* ==== Page Header ==== */
+      .checkout-page__header {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .checkout-page__title {
+        font-family: "Bitter", serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 6px;
+      }
+      .checkout-page__subtitle {
+        color: #7f8c8d;
+        font-size: 15px;
+      }
+
+      /* ==== 2-column Layout (flexbox) ==== */
+      .checkout-layout {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 24px;
+      }
+      .checkout-form-wrapper {
+        width: 600px;
+        flex-shrink: 0;
+      }
+      .checkout-summary-wrapper {
+        flex: 1;
+      }
+
+      @media (max-width: 991px) {
+        .checkout-layout {
+          flex-direction: column;
+        }
+        .checkout-form-wrapper {
+          width: 100%;
+        }
+      }
+
+      /* ==== Card Base ==== */
+      .checkout-card {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .checkout-card:hover {
+        box-shadow: 0 8px 36px rgba(0, 0, 0, 0.12);
+      }
+
+      .checkout-card__header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 24px;
+        background: linear-gradient(135deg, #2c3e50, #3d566e);
+        color: #ffffff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .checkout-card__header i {
+        font-size: 20px;
+      }
+      .checkout-card__header h3 {
+        font-family: "Bitter", serif;
+        font-size: 17px;
+        font-weight: 700;
+        margin: 0;
+        flex: 1;
+      }
+      .checkout-card__count {
+        background: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+
+      .checkout-card__body {
+        padding: 24px;
+      }
+      .checkout-card__body--no-pad {
+        padding: 0;
+      }
+
+      /* ==== Form Grid ==== */
+      .checkout-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .checkout-form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .checkout-form-group--full {
+        grid-column: 1 / -1;
+      }
+
+      .checkout-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .checkout-label .required {
+        color: #e74c3c;
+        font-size: 14px;
+      }
+
+      .checkout-input,
+      .checkout-textarea {
+        padding: 11px 14px;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 14px;
+        font-family: inherit;
+        color: #2c3e50;
+        background: #f8f9fa;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease,
+          background 0.25s ease;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .checkout-input::placeholder,
+      .checkout-textarea::placeholder {
+        color: #adb5bd;
+      }
+      .checkout-input:focus,
+      .checkout-textarea:focus {
+        border-color: #27ae60;
+        box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.15);
+        background: #ffffff;
+      }
+      .checkout-textarea {
+        resize: vertical;
+        min-height: 80px;
+        line-height: 1.5;
+      }
+
+      /* ==== Payment Method Section ==== */
+      .payment-method-section {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1px solid #e9ecef;
+      }
+      .payment-method-section__title {
+        font-family: "Bitter", serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .payment-method-section__title i {
+        color: #27ae60;
+        font-size: 18px;
+      }
+
+      .payment-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .payment-method-card {
+        cursor: pointer;
+        display: block;
+      }
+      .payment-method-card input[type="radio"] {
+        display: none;
+      }
+      .payment-method-card__inner {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 14px;
+        background: #f8f9fa;
+        transition: all 0.25s ease;
+      }
+      .payment-method-card:hover .payment-method-card__inner {
+        border-color: #27ae60;
+        background: #f0fdf4;
+      }
+      .payment-method-card
+        input[type="radio"]:checked
+        + .payment-method-card__inner {
+        border-color: #27ae60;
+        background: linear-gradient(135deg, #f0fdf4, #e8f8ee);
+        box-shadow: 0 2px 10px rgba(39, 174, 96, 0.15);
+      }
+      .payment-method-card__icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .payment-method-card__icon--qr {
+        background: linear-gradient(135deg, #00b894, #00cec9);
+      }
+      .payment-method-card__info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .payment-method-card__name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+      .payment-method-card__desc {
+        font-size: 12px;
+        color: #7f8c8d;
+      }
+      .payment-method-card__check {
+        color: #27ae60;
+        font-size: 20px;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+      .payment-method-card
+        input[type="radio"]:checked
+        + .payment-method-card__inner
+        .payment-method-card__check {
+        opacity: 1;
+      }
+
+      /* ==== Place Order Button ==== */
+      .checkout-submit-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px 24px;
+        margin-top: 20px;
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: #ffffff;
+        font-family: "Bitter", serif;
+        font-size: 16px;
+        font-weight: 700;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(39, 174, 96, 0.35);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .checkout-submit-btn:hover {
+        background: linear-gradient(135deg, #219653, #27ae60);
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 8px 24px rgba(39, 174, 96, 0.45);
+      }
+      .checkout-submit-btn:active {
+        transform: translateY(0) scale(0.99);
+      }
+      .checkout-submit-btn i {
+        font-size: 18px;
+      }
+
+      .checkout-empty-msg {
+        text-align: center;
+        color: #7f8c8d;
+        padding: 24px;
+        font-size: 14px;
+      }
+      .checkout-empty-msg i {
+        margin-right: 6px;
+        color: #7f8c8d;
+      }
+
+      /* ==== Order Summary ==== */
+      .checkout-summary-card .checkout-card__header {
+        background: linear-gradient(135deg, #ff6b35, #f7c948);
+      }
+      .checkout-summary-card .checkout-card__header i {
+        color: #ffffff;
+      }
+
+      /* Product list */
+      .checkout-product-list {
+        padding: 16px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .checkout-product-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .checkout-product-item__thumb {
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        overflow: hidden;
+        flex-shrink: 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .checkout-product-item__thumb:hover {
+        transform: scale(1.08);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      .checkout-product-item__thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .checkout-product-item__info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .checkout-product-item__name {
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.4;
+      }
+      .checkout-product-item__qty {
+        font-size: 12px;
+        color: #7f8c8d;
+      }
+      .checkout-product-item__price {
+        font-size: 13px;
+        font-weight: 700;
+        color: #e67e22;
+        white-space: nowrap;
+      }
+
+      /* Divider */
+      .checkout-summary-divider {
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          #e9ecef,
+          transparent
+        );
+        margin: 4px 0;
+      }
+
+      /* Summary rows */
+      .checkout-summary-rows {
+        padding: 12px 20px 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .checkout-summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: #555;
+      }
+      .checkout-summary-row--subtotal {
+        font-weight: 600;
+      }
+      .shipping-free {
+        color: #27ae60;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      .checkout-summary-row--total {
+        font-size: 16px;
+        font-weight: 700;
+        color: #2c3e50;
+        padding: 10px 0 12px;
+      }
+      .checkout-total-price {
+        color: #e74c3c;
+        font-size: 20px;
+        font-family: "Bitter", serif;
+      }
+
+      /* Trust badges */
+      .checkout-trust-badges {
+        display: flex;
+        justify-content: space-around;
+        padding: 14px 16px;
+        background: #f8f9fa;
+        border-top: 1px solid #e9ecef;
+      }
+      .trust-badge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        color: #7f8c8d;
+        font-weight: 500;
+      }
+      .trust-badge i {
+        font-size: 18px;
+        color: #27ae60;
+      }
+
+      /* ==== Responsive ==== */
+      @media (max-width: 991px) {
+        .checkout-layout {
+          flex-direction: column;
+        }
+        .checkout-form-wrapper {
+          width: 100%;
+        }
+      }
+      @media (max-width: 576px) {
+        .checkout-form-grid {
+          grid-template-columns: 1fr;
+        }
+        .checkout-page__title {
+          font-size: 26px;
+        }
+        .checkout-card__header {
+          padding: 16px 18px;
+        }
+        .checkout-card__body {
+          padding: 18px;
+        }
+        .checkout-trust-badges {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+      }
+
+      /* ==== QR Code Card ==== */
+      #qr-code-block {
+        margin-top: 16px;
+        overflow: hidden;
+      }
+
+      .qr-code-card {
+        background: linear-gradient(135deg, #ffffff, #f1fff5);
+        border: 2px solid #27ae60;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 6px 24px rgba(39, 174, 96, 0.15);
+        transition: all 0.3s ease;
+      }
+      .qr-code-card:hover {
+        box-shadow: 0 10px 36px rgba(39, 174, 96, 0.22);
+        transform: translateY(-2px);
+      }
+
+      .qr-code-card__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: #ffffff;
+        font-family: "Bitter", serif;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .qr-code-card__header i {
+        font-size: 20px;
+      }
+
+      .qr-code-card__body {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+      }
+      @media (max-width: 480px) {
+        .qr-code-card__body {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+      }
+
+      .qr-code-card__image-wrapper {
+        width: 160px;
+        height: 160px;
+        background: #ffffff;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e9ecef;
+        overflow: hidden;
+      }
+      .qr-code-card__image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 8px;
+      }
+
+      .qr-code-card__placeholder {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #adb5bd;
+        font-size: 12px;
+        text-align: center;
+        padding: 12px;
+      }
+      .qr-code-card__placeholder i {
+        font-size: 48px;
+        color: #dee2e6;
+      }
+      .qr-code-card__placeholder code {
+        font-size: 11px;
+        color: #adb5bd;
+        word-break: break-all;
+      }
+
+      .qr-code-card__info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .qr-code-card__amount {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .qr-code-card__amount-label {
+        font-size: 12px;
+        color: #7f8c8d;
+        font-weight: 500;
+      }
+      .qr-code-card__amount-value {
+        font-family: "Bitter", serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #e74c3c;
+      }
+
+      .qr-code-card__shop {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+      .qr-code-card__shop i {
+        color: #27ae60;
+        font-size: 16px;
+      }
+
+      .qr-code-card__guide {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        font-size: 12px;
+        color: #7f8c8d;
+        line-height: 1.5;
+      }
+      .qr-code-card__guide i {
+        color: #27ae60;
+        font-size: 14px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+    </style>
+
+    <style>
+      .ft__logo a img {
+        max-width: 20%;
+      }
+
+      .promo-tag {
+        display: inline-block;
+        margin: 0 0 14px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        background: linear-gradient(45deg, #ff5501, #ff9900);
+        border: none;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: "Bitter", serif;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+          inset 0 0 10px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .truncate-text {
+        display: inline-block;
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+      <!-- Header -->
+      <header th:replace="~{user/fragments/header :: header}"></header>
+      <!-- //Header -->
+      <!-- Start Search Popup -->
+      <div th:replace="user/fragments/search_popup :: search_popup"></div>
+      <!-- End Search Popup -->
+      <!-- Start Slider area -->
+      <div
+        class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme"
+      >
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--1 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--2 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+      </div>
+      <!-- End Slider area -->
+      <!-- Start Checkout Area -->
+      <section class="checkout-page-area section-padding--lg bg__white">
+        <div class="container">
+          <!-- Page Title -->
+          <div class="checkout-page__header">
+            <h2 class="checkout-page__title">Thanh toán</h2>
+            <p class="checkout-page__subtitle">
+              Vui lòng điền thông tin để hoàn tất đơn hàng
+            </p>
+          </div>
+
+          <div class="checkout-layout">
+            <!-- ====== LEFT: Customer Form ====== -->
+            <div class="checkout-form-wrapper">
+              <div class="checkout-card checkout-form-card">
+                <div class="checkout-card__header">
+                  <i class="bi bi-person-circle"></i>
+                  <h3>Thông tin khách hàng</h3>
+                </div>
+                <div class="checkout-card__body">
+                  <form
+                    method="post"
+                    th:action="@{/cart/place-order}"
+                    th:object="${orderPerson}"
+                    id="checkout-form"
+                  >
+                    <div class="checkout-form-grid">
+                      <div
+                        class="checkout-form-group checkout-form-group--full"
+                      >
+                        <label class="checkout-label"
+                          >Họ tên <span class="required">*</span></label
+                        >
+                        <input
+                          class="checkout-input"
+                          th:field="*{fullName}"
+                          type="text"
+                          placeholder="Nhập họ tên đầy đủ"
+                          required
+                        />
+                      </div>
+
+                      <div class="checkout-form-group">
+                        <label class="checkout-label"
+                          >Số điện thoại <span class="required">*</span></label
+                        >
+                        <input
+                          class="checkout-input"
+                          th:field="*{phoneNumber}"
+                          type="tel"
+                          placeholder="0xxx xxx xxx"
+                          required
+                        />
+                      </div>
+
+                      <div class="checkout-form-group">
+                        <label class="checkout-label"
+                          >Email <span class="required">*</span></label
+                        >
+                        <input
+                          class="checkout-input"
+                          th:field="*{email}"
+                          type="email"
+                          placeholder="email@example.com"
+                          required
+                        />
+                      </div>
+
+                      <div
+                        class="checkout-form-group checkout-form-group--full"
+                      >
+                        <label class="checkout-label"
+                          >Địa chỉ giao hàng
+                          <span class="required">*</span></label
+                        >
+                        <textarea
+                          class="checkout-textarea"
+                          cols="50"
+                          rows="3"
+                          th:field="*{address}"
+                          placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố"
+                          required
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="payment-method-section">
+                      <h4 class="payment-method-section__title">
+                        <i class="bi bi-credit-card-2-front"></i>
+                        Phương thức thanh toán
+                      </h4>
+                      <div class="payment-methods">
+                        <!-- COD -->
+                        <label
+                          class="payment-method-card"
+                          th:if="${totalCart > 0}"
+                        >
+                          <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="cod"
+                            checked
+                          />
+                          <div class="payment-method-card__inner">
+                            <div class="payment-method-card__icon">
+                              <i class="bi bi-truck"></i>
+                            </div>
+                            <div class="payment-method-card__info">
+                              <span class="payment-method-card__name"
+                                >Thanh toán khi nhận hàng (COD)</span
+                              >
+                              <span class="payment-method-card__desc"
+                                >Trả tiền mặt khi nhận được sản phẩm</span
+                              >
+                            </div>
+                            <div class="payment-method-card__check">
+                              <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                          </div>
+                        </label>
+                        <!-- QR Code -->
+                        <label
+                          class="payment-method-card"
+                          th:if="${totalCart > 0}"
+                        >
+                          <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="qr"
+                            onchange="toggleQRCode()"
+                          />
+                          <div class="payment-method-card__inner">
+                            <div
+                              class="payment-method-card__icon payment-method-card__icon--qr"
+                            >
+                              <i class="bi bi-qr-code-scan"></i>
+                            </div>
+                            <div class="payment-method-card__info">
+                              <span class="payment-method-card__name"
+                                >Thanh toán bằng QR Code</span
+                              >
+                              <span class="payment-method-card__desc"
+                                >Quét mã QR để thanh toán qua ngân hàng</span
+                              >
+                            </div>
+                            <div class="payment-method-card__check">
+                              <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                          </div>
+                        </label>
+                        <!-- QR Code Info Block -->
+                        <div id="qr-code-block" style="display: none">
+                          <div class="qr-code-card">
+                            <div class="qr-code-card__header">
+                              <i class="bi bi-qr-code-scan"></i>
+                              <span>Quét mã QR để thanh toán</span>
+                            </div>
+                            <div class="qr-code-card__body">
+                              <div class="qr-code-card__image-wrapper">
+                                <img
+                                  th:src="@{/images/qr-code-shop.jpg}"
+                                  alt="QR Code thanh toán"
+                                  onerror="this.style.display='none'; document.getElementById('qr-placeholder').style.display='flex';"
+                                />
+                                <div
+                                  id="qr-placeholder"
+                                  class="qr-code-card__placeholder"
+                                  style="display: none"
+                                >
+                                  <i class="bi bi-qr-code"></i>
+                                  <span
+                                    >Vui lòng đặt ảnh QR Code tại<br /><code
+                                      >/images/qr-code-shop.png</code
+                                    ></span
+                                  >
+                                </div>
+                              </div>
+                              <div class="qr-code-card__info">
+                                <div class="qr-code-card__amount">
+                                  <span class="qr-code-card__amount-label"
+                                    >Số tiền cần thanh toán</span
+                                  >
+                                  <span
+                                    class="qr-code-card__amount-value"
+                                    th:text="${#numbers.formatDecimal(__${(totalCart)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                                  ></span>
+                                </div>
+                                <div class="qr-code-card__shop">
+                                  <i class="bi bi-shop"></i>
+                                  <span>HTX Dương Hòa</span>
+                                </div>
+                                <div class="qr-code-card__guide">
+                                  <i class="bi bi-info-circle"></i>
+                                  <span
+                                    >Bấm "Đặt hàng ngay" bên dưới để tạo mã QR thanh toán động cho đơn hàng của bạn.</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- QR hint -->
+                        <div id="qr-hint" style="display:none; text-align:center; margin-top:12px;">
+                          <span style="color:#27ae60; font-size:13px;">
+                            <i class="bi bi-lightbulb"></i>
+                            Bạn sẽ được chuyển sang trang tạo mã QR thanh toán động
+                          </span>
+                        </div>
+                        <!-- Place Order Button -->
+                        <button
+                          class="checkout-submit-btn"
+                          th:if="${totalCart > 0}"
+                          type="submit"
+                          id="place-order-btn"
+                          onclick="handlePlaceOrder(this)"
+                        >
+                          <i class="bi bi-bag-check"></i>
+                          Đặt hàng ngay
+                        </button>
+                        <p
+                          th:unless="${totalCart > 0}"
+                          class="checkout-empty-msg"
+                        >
+                          <i class="bi bi-info-circle"></i> Giỏ hàng của bạn
+                          đang trống
+                        </p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <!-- ====== RIGHT: Order Summary ====== -->
+            <div class="checkout-summary-wrapper">
+              <!-- Order Summary Card -->
+              <div
+                class="checkout-card checkout-summary-card"
+                th:if="${totalCart > 0}"
+              >
+                <div class="checkout-card__header">
+                  <i class="bi bi-bag-check"></i>
+                  <h3>Đơn hàng của bạn</h3>
+                  <span
+                    class="checkout-card__count"
+                    th:text="${#lists.size(cart.cartItems)} + ' sản phẩm'"
+                  ></span>
+                </div>
+                <div class="checkout-card__body checkout-card__body--no-pad">
+                  <!-- Product List -->
+                  <div class="checkout-product-list">
+                    <div
+                      class="checkout-product-item"
+                      th:each="cartItem : ${cart.cartItems}"
+                    >
+                      <div class="checkout-product-item__thumb">
+                        <img th:src="${cartItem.coverImage}" alt="product" />
+                      </div>
+                      <div class="checkout-product-item__info">
+                        <span
+                          class="checkout-product-item__name"
+                          th:text="${cartItem.title}"
+                        ></span>
+                        <span class="checkout-product-item__qty"
+                          >× <span th:text="${cartItem.quantity}"></span
+                        ></span>
+                      </div>
+                      <div class="checkout-product-item__price">
+                        <span
+                          th:text="${#numbers.formatDecimal(__${(cartItem.price * cartItem.quantity)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                        ></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Divider -->
+                  <div class="checkout-summary-divider"></div>
+
+                  <!-- Price Summary -->
+                  <div class="checkout-summary-rows">
+                    <div
+                      class="checkout-summary-row checkout-summary-row--subtotal"
+                    >
+                      <span>Tạm tính</span>
+                      <span
+                        th:text="${#numbers.formatDecimal(__${(totalCart)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                      ></span>
+                    </div>
+                    <div
+                      class="checkout-summary-row checkout-summary-row--shipping"
+                    >
+                      <span>Phí vận chuyển</span>
+                      <span class="shipping-free">Miễn phí</span>
+                    </div>
+                    <div class="checkout-summary-divider"></div>
+                    <div
+                      class="checkout-summary-row checkout-summary-row--total"
+                    >
+                      <span>Tổng tiền</span>
+                      <span
+                        class="checkout-total-price"
+                        th:text="${#numbers.formatDecimal(__${(totalCart)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Trust badges -->
+                <div class="checkout-trust-badges">
+                  <div class="trust-badge">
+                    <i class="bi bi-shield-check"></i>
+                    <span>Thanh toán an toàn</span>
+                  </div>
+                  <div class="trust-badge">
+                    <i class="bi bi-truck"></i>
+                    <span>Giao hàng nhanh</span>
+                  </div>
+                  <div class="trust-badge">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                    <span>Đổi trả trong ngày</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Checkout Area -->
+      <!-- Footer Area -->
+      <footer th:replace="user/fragments/footer :: footer"></footer>
+      <!-- //Footer Area -->
+    </div>
+    <!-- //Main wrapper -->
+    <!-- JS Files -->
+    <script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/user/popper.min.js}"></script>
+    <script th:src="@{/js/user/bootstrap.min.js}"></script>
+    <script th:src="@{/js/user/plugins.js}"></script>
+    <script th:src="@{/js/user/active.js}"></script>
+  </body>
+</html>

@@ -1,0 +1,964 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <title>Danh mục - HTX Dương Hòa</title>
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" />
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}" />
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/user/material-design-iconic-font.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/style.css}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}" />
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+      .ft__logo a img {
+        max-width: 20%;
+      }
+      .promo-tag {
+        display: inline-block;
+        margin: 0 0 14px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        background: linear-gradient(45deg, #ff5501, #ff9900);
+        border: none;
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: "Bitter", serif;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+          inset 0 0 10px rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+      <!-- Header -->
+      <header th:replace="~{user/fragments/header :: header}"></header>
+      <!-- Header -->
+
+      <!-- Start Slider area -->
+      <div
+        class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme"
+      >
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--1 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--2 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+      </div>
+      <!-- End Slider area -->
+
+      <!-- Start Shop Page -->
+      <div class="page-shop-sidebar left--sidebar section-padding--lg">
+        <div class="container">
+          <!-- Category Header -->
+          <div class="category-header">
+            <div class="category-header__left">
+              <h2 class="category-header__title" th:text="${categoryName}"></h2>
+              <span
+                class="category-header__count"
+                th:text="${products.totalElements} + ' sản phẩm'"
+              ></span>
+            </div>
+            <div class="category-header__right">
+              <div class="shop__list nav" role="tablist">
+                <a
+                  class="nav-item nav-link active"
+                  data-toggle="tab"
+                  href="#nav-grid"
+                  role="tab"
+                  ><i class="fa fa-th"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layout: Sidebar + Products -->
+          <div class="shop-category-layout">
+            <!-- Sidebar Filters -->
+            <aside class="category-sidebar">
+              <div class="sidebar-card">
+                <div class="sidebar-card__header">
+                  <h3><i class="fa fa-filter"></i> Bộ lọc</h3>
+                </div>
+                <form
+                  method="get"
+                  th:action="@{/shop}"
+                  th:object="${searchModel}"
+                >
+                  <div class="sidebar-card__body">
+                    <!-- Categories -->
+                    <input
+                      type="hidden"
+                      id="filter-categoryId"
+                      name="categoryId"
+                      th:value="${categoryId}"
+                    />
+                    <div class="sidebar-categories">
+                      <ul class="sidebar-categories">
+                        <li>
+                          <a
+                            href="javascript:void(0)"
+                            class="cat-link"
+                            th:attr="data-id=''"
+                            th:classappend="${categoryId == null ? 'active' : ''}"
+                            onclick="selectCategory(this)"
+                          >
+                            <span
+                              ><i class="fa fa-th-large"></i> Tất cả sản
+                              phẩm</span
+                            >
+                          </a>
+                        </li>
+                        <li th:each="category : ${categories}">
+                          <a
+                            href="javascript:void(0)"
+                            class="cat-link"
+                            th:attr="data-id=${category.id}"
+                            th:classappend="${categoryId == category.id ? 'active' : ''}"
+                            onclick="selectCategory(this)"
+                          >
+                            <span th:text="${category.name}"></span>
+                            <!-- <span class="cat-count" th:text="${category.activeProductCount}"></span> -->
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Sort -->
+                    <div class="sidebar-sort">
+                      <h3 class="wedget__title">Sắp xếp theo</h3>
+                      <select
+                        id="sort-select"
+                        name="sortBy"
+                        th:field="*{sortBy}"
+                      >
+                        <option value="">Mặc định</option>
+                        <option value="priceLowToHigh">
+                          Giá: Thấp đến cao
+                        </option>
+                        <option value="priceHighToLow">
+                          Giá: Cao đến thấp
+                        </option>
+                        <option value="newest">Mới nhất</option>
+                        <option value="oldest">Cũ nhất</option>
+                      </select>
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Search -->
+                    <div class="sidebar-search">
+                      <h3 class="wedget__title">Tìm kiếm</h3>
+                      <input
+                        class="form-control"
+                        placeholder="Tên sản phẩm..."
+                        th:field="*{keyword}"
+                        type="text"
+                      />
+                    </div>
+
+                    <div class="sidebar-divider"></div>
+
+                    <!-- Price Filter -->
+                    <div class="sidebar-price">
+                      <h3 class="wedget__title">Lọc theo giá</h3>
+                      <input
+                        type="hidden"
+                        id="amount"
+                        name="amountGap"
+                        th:value="*{amountGap}"
+                      />
+                      <div class="price-range-buttons">
+                        <button
+                          type="button"
+                          class="price-btn"
+                          data-range=""
+                          th:classappend="*{amountGap == null || amountGap == ''} ? 'active'"
+                          onclick="selectPriceRange(this)"
+                        >
+                          Tất cả
+                        </button>
+                        <button
+                          type="button"
+                          class="price-btn"
+                          data-range="0 - 100000"
+                          th:classappend="*{amountGap == '0 - 100000'} ? 'active'"
+                          onclick="selectPriceRange(this)"
+                        >
+                          Dưới 100.000đ
+                        </button>
+                        <button
+                          type="button"
+                          class="price-btn"
+                          data-range="100000 - 300000"
+                          th:classappend="*{amountGap == '100000 - 300000'} ? 'active'"
+                          onclick="selectPriceRange(this)"
+                        >
+                          Từ 100.000đ - 300.000đ
+                        </button>
+                        <button
+                          type="button"
+                          class="price-btn"
+                          data-range="300000 - 500000"
+                          th:classappend="*{amountGap == '300000 - 500000'} ? 'active'"
+                          onclick="selectPriceRange(this)"
+                        >
+                          Từ 300.000đ - 500.000đ
+                        </button>
+                        <button
+                          type="button"
+                          class="price-btn"
+                          data-range="500000 - 999999999"
+                          th:classappend="*{amountGap == '500000 - 999999999'} ? 'active'"
+                          onclick="selectPriceRange(this)"
+                        >
+                          Trên 500.000đ
+                        </button>
+                      </div>
+                    </div>
+
+                    <button type="submit" class="filter-apply-btn">
+                      <i class="fa fa-search"></i> Áp dụng bộ lọc
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </aside>
+            <!-- End Sidebar -->
+
+            <!-- Products Area -->
+            <div class="category-products">
+              <div class="tab__container">
+                <!-- Grid View -->
+                <div
+                  class="shop-grid tab-pane fade show active"
+                  id="nav-grid"
+                  role="tabpanel"
+                >
+                  <div class="wn__product__area shop-page-product-card">
+                    <div class="product-grid-wrapper" id="productList">
+                      <div
+                        class="product product__style--3"
+                        th:each="product : ${products}"
+                      >
+                        <div class="product__thumb">
+                          <a
+                            class="first__img"
+                            th:href="@{/shop/product/__${product.id}__}"
+                          >
+                            <img
+                              th:src="${product.coverImage}"
+                              alt="product image"
+                            />
+                          </a>
+                          <div
+                            th:if="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}"
+                            class="sale-badge"
+                            th:text="'-' + ${T(java.lang.Math).round(100 - (product.salePrice.doubleValue() / product.originalPrice.doubleValue() * 100))} + '%'"
+                          ></div>
+                          <div class="product-action-overlay">
+                            <a
+                              class="btn-detail"
+                              th:href="@{/shop/product/__${product.id}__}"
+                            >
+                              <i class="bi bi-eye"></i> Xem chi tiết
+                            </a>
+                            <div class="action-icons">
+                              <a
+                                th:onclick="'addToCart(' + ${product.id} + ')'"
+                                title="Thêm vào giỏ hàng"
+                                ><i class="bi bi-cart3"></i
+                              ></a>
+                              <a
+                                th:onclick="'openModal(event, ' + ${product.id} + ')'"
+                                title="Xem nhanh"
+                                ><i class="bi bi-search"></i
+                              ></a>
+                              <a
+                                th:onclick="'addToWishlist(' + ${product.id} + ')'"
+                                title="Yêu thích"
+                                ><i class="bi bi-heart"></i
+                              ></a>
+                            </div>
+                          </div>
+                          <div class="product__content content--center">
+                            <h4>
+                              <a
+                                th:href="@{/shop/product/__${product.id}__}"
+                                th:text="${product.title}"
+                              ></a>
+                            </h4>
+                            <ul
+                              th:if="${product.salePrice > 0}"
+                              class="prize d-flex"
+                            >
+                              <li
+                                th:text="${#numbers.formatDecimal(product.salePrice, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                              ></li>
+                              <li
+                                class="old_prize"
+                                th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                              ></li>
+                            </ul>
+                            <ul
+                              th:unless="${product.salePrice > 0}"
+                              class="prize d-flex"
+                            >
+                              <li
+                                th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                              ></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <ul class="wn__pagination" th:if="${totalPages > 1}">
+                    <li
+                      th:class="${pageNumber == currentPage+1 ? 'active' : ''}"
+                      th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                    >
+                      <a
+                        th:href="@{/shop(page=${pageNumber}, sortBy=${sortBy}, categoryId=${categoryId}, amountGap=${amountGap})}"
+                        th:text="${pageNumber}"
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- End Grid View -->
+
+                <!-- List View -->
+                <div
+                  class="shop-grid tab-pane fade"
+                  id="nav-list"
+                  role="tabpanel"
+                >
+                  <div class="list__view__wrapper">
+                    <div
+                      class="list__view mb-5"
+                      th:each="product : ${products}"
+                    >
+                      <div class="thumb">
+                        <a
+                          class="first__img"
+                          th:href="@{/shop/product/__${product.id}__}"
+                        >
+                          <img
+                            th:src="${product.coverImage}"
+                            alt="product images"
+                          />
+                        </a>
+                      </div>
+                      <div class="content">
+                        <h2>
+                          <a
+                            th:href="@{/shop/product/__${product.id}__}"
+                            th:text="${product.title}"
+                          ></a>
+                        </h2>
+                        <ul th:if="${product.salePrice > 0}" class="prize__box">
+                          <li
+                            th:text="${#numbers.formatDecimal(product.salePrice, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                          ></li>
+                          <li
+                            class="old__prize"
+                            th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                          ></li>
+                        </ul>
+                        <ul
+                          th:unless="${product.salePrice > 0}"
+                          class="prize__box"
+                        >
+                          <li
+                            th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                          ></li>
+                        </ul>
+                        <p th:text="${product.description}"></p>
+                        <ul class="cart__action d-flex">
+                          <li class="cart">
+                            <a th:onclick="'addToCart(' + ${product.id} + ')'"
+                              >Thêm vào giỏ hàng</a
+                            >
+                          </li>
+                          <li class="wishlist">
+                            <a
+                              th:onclick="'addToWishlist(' + ${product.id} + ')'"
+                            ></a>
+                          </li>
+                          <li class="compare">
+                            <a
+                              th:onclick="'openModal(event, ' + ${product.id} + ')'"
+                            ></a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="wn__pagination" th:if="${totalPages > 1}">
+                    <li
+                      th:class="${pageNumber == currentPage+1 ? 'active' : ''}"
+                      th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                    >
+                      <a
+                        th:href="@{/shop(page=${pageNumber}, sortBy=${sortBy}, categoryId=${categoryId})}"
+                        th:text="${pageNumber}"
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- End List View -->
+              </div>
+            </div>
+            <!-- End Products -->
+          </div>
+        </div>
+      </div>
+      <!-- End Shop Page -->
+
+      <!-- QUICKVIEW PRODUCT -->
+      <div id="quickview-wrapper">
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="product-modal"
+          tabindex="-1"
+          role="dialog"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal__container" role="document">
+            <div class="modal-content">
+              <div class="modal-body modal-body--padded">
+                <button
+                  type="button"
+                  class="modal-close-btn"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <i class="zmdi zmdi-close"></i>
+                </button>
+                <div class="modal-product-inner">
+                  <!-- Left: Product Images -->
+                  <div class="modal-product__images">
+                    <div class="modal-main-image">
+                      <img id="modal-product-img" alt="product image" />
+                    </div>
+                  </div>
+                  <!-- Right: Product Info -->
+                  <div class="modal-product__info">
+                    <h2
+                      id="modal-product-title"
+                      class="modal-product__title"
+                    ></h2>
+
+                    <div class="modal-product__meta">
+                      <span
+                        class="modal-brand"
+                        id="modal-brand-container"
+                        style="display: none"
+                      >
+                        <i class="zmdi zmdi-store"></i>
+                        <span id="modal-product-brand"></span>
+                      </span>
+                      <span class="modal-stock">
+                        <i
+                          class="zmdi zmdi-check-circle"
+                          id="modal-stock-icon"
+                        ></i>
+                        <span id="modal-product-stock">Còn hàng</span>
+                      </span>
+                    </div>
+
+                    <div
+                      class="modal-product__price"
+                      id="modal-price-container"
+                    >
+                      <span
+                        class="modal-price-new"
+                        id="modal-product-sale-price"
+                      ></span>
+                      <span
+                        class="modal-price-old"
+                        id="modal-product-original-price"
+                      ></span>
+                    </div>
+
+                    <div
+                      class="modal-product__description"
+                      id="modal-product-description"
+                    ></div>
+
+                    <div class="modal-product__quantity">
+                      <label class="modal-qty-label">Số lượng</label>
+                      <div class="modal-qty-control">
+                        <button
+                          class="modal-qty-btn"
+                          id="modal-qty-minus"
+                          type="button"
+                        >
+                          −
+                        </button>
+                        <input
+                          type="number"
+                          id="modal-qty-input"
+                          class="modal-qty-input"
+                          value="1"
+                          min="1"
+                        />
+                        <button
+                          class="modal-qty-btn"
+                          id="modal-qty-plus"
+                          type="button"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <span
+                        class="modal-available"
+                        id="modal-available-count"
+                      ></span>
+                    </div>
+
+                    <div class="modal-product__actions">
+                      <button class="modal-btn-cart" id="modal-add-btn">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        Thêm vào giỏ hàng
+                      </button>
+                      <button
+                        class="modal-btn-wishlist"
+                        id="modal-wishlist-btn"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i class="zmdi zmdi-favorite-outline"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END QUICKVIEW PRODUCT -->
+
+      <!--    <div class="mt-5 mb-3 d-flex justify-content-center" th:if="${totalPages > 1}">-->
+      <!--        <ul class="pagination">-->
+      <!--            <li th:class="${pageNumber == currentPage+1 ? 'page-item active' : 'page-item'}"-->
+      <!--                th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">-->
+      <!--                <a class="page-link"-->
+      <!--                   th:href="@{/shop(page=${pageNumber}, sortBy=${sortBy},categoryId=${categoryId})}" th:text="${pageNumber}"></a>-->
+      <!--            </li>-->
+      <!--        </ul>-->
+      <!--    </div>-->
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const spans = document.querySelectorAll(".clickable-span");
+          spans.forEach((span) => {
+            span.addEventListener("click", function () {
+              const href = span.getAttribute("data-href");
+              if (href) {
+                window.location.href = href;
+              }
+            });
+          });
+        });
+
+        function addToCart(productId) {
+          $.ajax({
+            type: "POST",
+            url: "/cart/add-to-cart",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({ productId: productId, quantity: 1 }),
+            success: function (data) {
+              if (data.success) {
+                alert(data.message);
+                updateCartQuantity();
+              } else {
+                alert(data.message);
+              }
+            },
+            error: function (xhr) {
+              if (xhr.status === 401) {
+                alert("Bạn cần đăng nhập trước");
+                window.location.href = "/login";
+              } else {
+                alert("Đã xảy ra lỗi");
+              }
+            },
+          });
+        }
+
+        function updateCartQuantity() {
+          $.ajax({
+            type: "GET",
+            url: "/cart/cart-item-count", // Replace with the actual endpoint to get cart item count
+            success: function (data) {
+              $("#cart-quantity").text(data); // Update the cart quantity in the header
+            },
+            error: function () {
+              console.log("Error updating cart quantity.");
+            },
+          });
+        }
+      </script>
+
+      <!-- End Shop Page -->
+      <!-- Footer Area -->
+      <footer th:replace="user/fragments/footer :: footer"></footer>
+      <!-- //Footer Area -->
+    </div>
+    <!-- //Main wrapper -->
+    <!-- JS Files -->
+    <script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/user/popper.min.js}"></script>
+    <script th:src="@{/js/user/bootstrap.min.js}"></script>
+    <script th:src="@{/js/user/plugins.js}"></script>
+    <script th:src="@{/js/user/active.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script th:inline="javascript">
+      function openModal(event, productId) {
+        let id;
+        event.preventDefault();
+        $.ajax({
+          url: `/api/v1/products/get/${productId}`,
+          method: "GET",
+          contentType: "application/json",
+          data: { productId: productId },
+          success: function (res) {
+            $("#modal-product-img").attr("src", res.data.coverImage);
+            $("#modal-product-title").text(res.data.title);
+
+            // Nha phan phoi (publisher)
+            if (res.data.publisher) {
+              $("#modal-product-brand").text(res.data.publisher);
+              $("#modal-brand-container").css("display", "inline-flex");
+            } else if (res.data.producer) {
+              $("#modal-product-brand").text(res.data.producer);
+              $("#modal-brand-container").css("display", "inline-flex");
+            } else {
+              $("#modal-brand-container").css("display", "none");
+            }
+
+            // Format price
+            function fmt(n) {
+              if (!n) return "";
+              return Math.round(n)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            if (res.data.salePrice === null || res.data.salePrice <= 0) {
+              $("#modal-product-sale-price").text(
+                fmt(res.data.originalPrice) + " VND"
+              );
+              $("#modal-product-original-price").text("");
+            } else {
+              $("#modal-product-sale-price").text(
+                fmt(res.data.salePrice) + " VND"
+              );
+              $("#modal-product-original-price").text(
+                fmt(res.data.originalPrice) + " VND"
+              );
+            }
+
+            $("#modal-product-description").text(res.data.description);
+            id = res.data.id;
+
+            // Luu product data de dung khi add to cart
+            currentModalProduct = res.data;
+
+            // Reset quantity to 1
+            $("#modal-qty-input").val(1);
+
+            // Set cart button
+            $("#modal-add-btn").attr(
+              "onclick",
+              "addToCartFromModal(" + id + ")"
+            );
+
+            // Set wishlist button
+            $("#modal-wishlist-btn").attr(
+              "onclick",
+              "addToWishlist(" + id + ")"
+            );
+
+            // Stock info
+            if (res.data.qty !== undefined && res.data.qty !== null) {
+              $("#modal-available-count").text(
+                "(Còn " + res.data.qty + " sản phẩm)"
+              );
+              if (res.data.qty <= 0) {
+                $("#modal-add-btn")
+                  .prop("disabled", true)
+                  .css("opacity", "0.5")
+                  .text("Hết hàng");
+                $("#modal-product-stock").text("Hết hàng");
+                $("#modal-stock-icon")
+                  .removeClass("zmdi-check-circle")
+                  .addClass("zmdi-block");
+                $(".modal-stock").removeClass("in-stock").addClass("out-stock");
+              } else {
+                $("#modal-add-btn")
+                  .prop("disabled", false)
+                  .css("opacity", "1")
+                  .html(
+                    '<i class="zmdi zmdi-shopping-cart"></i> Thêm vào giỏ hàng'
+                  );
+                $("#modal-product-stock").text("Còn hàng");
+                $("#modal-stock-icon")
+                  .removeClass("zmdi-block")
+                  .addClass("zmdi-check-circle");
+                $(".modal-stock").removeClass("out-stock").addClass("in-stock");
+              }
+            }
+
+            $("#product-modal").modal("show");
+          },
+          error: function (err) {
+            alert("Something went wrong: " + err);
+          },
+        });
+      }
+
+      // Luu product hien tai cua modal
+      var currentModalProduct = null;
+
+      function addToCartFromModal(productId) {
+        var qtyInput = parseInt($("#modal-qty-input").val(), 10) || 1;
+        if (qtyInput < 1) qtyInput = 1;
+
+        $.ajax({
+          type: "POST",
+          url: "/cart/add-to-cart",
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify({ productId: productId, quantity: qtyInput }),
+          success: function (data) {
+            if (data.success) {
+              alert(data.message);
+              updateCartQuantity();
+            } else {
+              alert(data.message);
+            }
+          },
+          error: function (xhr) {
+            if (xhr.status === 401) {
+              alert("Bạn cần đăng nhập trước");
+              window.location.href = "/login";
+            } else {
+              alert("Đã xảy ra lỗi");
+            }
+          },
+        });
+      }
+
+      // Quantity handlers
+      $(document).on("click", "#modal-qty-minus", function () {
+        var current = parseInt($("#modal-qty-input").val(), 10) || 1;
+        if (current > 1) {
+          $("#modal-qty-input").val(current - 1);
+        }
+      });
+
+      $(document).on("click", "#modal-qty-plus", function () {
+        var current = parseInt($("#modal-qty-input").val(), 10) || 1;
+        var max =
+          currentModalProduct &&
+          currentModalProduct.qty !== null &&
+          currentModalProduct.qty !== undefined
+            ? currentModalProduct.qty
+            : 9999;
+        if (current < max) {
+          $("#modal-qty-input").val(current + 1);
+        }
+      });
+
+      // ====== Yêu thích ======
+      function addToWishlist(productId) {
+        $.ajax({
+          type: "POST",
+          url: "/wishlist/add",
+          data: { productId: productId },
+          success: function (res) {
+            if (res === "ok") {
+              // Đổi icon thành filled heart
+              var heartBtn = document.querySelector(
+                '.product-action a[onclick="addToWishlist(' + productId + ')"]'
+              );
+              if (heartBtn) {
+                heartBtn.classList.add("active");
+              }
+              // Toast notification
+              showNotification("Đã thêm vào danh sách yêu thích!", "success");
+            }
+          },
+          error: function () {
+            // Chưa đăng nhập → chuyển sang trang login
+            window.location.href = "/login";
+          },
+        });
+      }
+
+      function showNotification(message, type) {
+        var bg = type === "success" ? "#27ae60" : "#e74c3c";
+        var toast = document.createElement("div");
+        toast.style.cssText =
+          "position:fixed;bottom:24px;right:24px;background:" +
+          bg +
+          ";color:#fff;padding:12px 20px;border-radius:8px;" +
+          "font-size:14px;font-weight:600;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,0.2);" +
+          "animation:fadeInUp 0.3s ease;max-width:300px;";
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(function () {
+          toast.style.animation = "fadeOut 0.3s ease forwards";
+          setTimeout(function () {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 2500);
+      }
+
+      // CSS animation cho notification
+      var style = document.createElement("style");
+      style.textContent =
+        "@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}" +
+        "@keyframes fadeOut{from{opacity:1}to{opacity:0;transform:translateY(10px)}}";
+      document.head.appendChild(style);
+
+      $(document).on("input", "#modal-qty-input", function () {
+        var value = parseInt($(this).val(), 10);
+        if (isNaN(value) || value < 1) {
+          $(this).val(1);
+        }
+        if (
+          currentModalProduct &&
+          currentModalProduct.qty !== null &&
+          currentModalProduct.qty !== undefined
+        ) {
+          if (value > currentModalProduct.qty) {
+            $(this).css("color", "#e74c3c");
+          } else {
+            $(this).css("color", "#333");
+          }
+        }
+      });
+    </script>
+
+    <script>
+      function selectCategory(el) {
+        var catId = el.getAttribute("data-id");
+        document.getElementById("filter-categoryId").value = catId || "";
+        document.querySelectorAll(".cat-link").forEach(function (link) {
+          link.classList.remove("active");
+        });
+        el.classList.add("active");
+      }
+
+      function selectPriceRange(el) {
+        var range = el.getAttribute("data-range");
+        document.getElementById("amount").value = range;
+        document.querySelectorAll(".price-btn").forEach(function (btn) {
+          btn.classList.remove("active");
+        });
+        el.classList.add("active");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="producer"/>
+    <title>Dashboard - HTX Dương Hòa</title>
+    <link rel="stylesheet" th:href="@{/css/admin/admin.bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin/styles.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script crossorigin="anonymous" th:src="@{/js/admin/fontawesome-all.js}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f4f6fb;
+            color: #2d3748;
+        }
+
+        /* ===== STAT CARDS ===== */
+        .db-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 28px;
+            animation: fadeSlideUp 0.5s ease both;
+        }
+
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .db-stat-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 22px 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .db-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 14px 0 0 14px;
+        }
+
+        .db-stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .db-stat-card__icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .db-stat-card__icon i {
+            color: #fff;
+        }
+
+        .db-stat-card--orders .db-stat-card__icon {
+            background: linear-gradient(135deg, #4299e1, #2b6cb0);
+        }
+        .db-stat-card--orders::before { background: #4299e1; }
+
+        .db-stat-card--users .db-stat-card__icon {
+            background: linear-gradient(135deg, #f6ad55, #dd6b20);
+        }
+        .db-stat-card--users::before { background: #f6ad55; }
+
+        .db-stat-card--revenue .db-stat-card__icon {
+            background: linear-gradient(135deg, #48bb78, #2f855a);
+        }
+        .db-stat-card--revenue::before { background: #48bb78; }
+
+        .db-stat-card--products .db-stat-card__icon {
+            background: linear-gradient(135deg, #fc8181, #c53030);
+        }
+        .db-stat-card--products::before { background: #fc8181; }
+
+        .db-stat-card__info {
+            flex: 1;
+        }
+
+        .db-stat-card__label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #a0aec0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .db-stat-card__value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.1;
+        }
+
+        .db-stat-card__sub {
+            font-size: 11px;
+            color: #a0aec0;
+            margin-top: 4px;
+        }
+
+        /* ===== SECTION WRAPPER ===== */
+        .db-section {
+            background: #fff;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            animation: fadeSlideUp 0.5s ease both;
+        }
+
+        .db-section:nth-child(2) { animation-delay: 0.1s; }
+        .db-section:nth-child(3) { animation-delay: 0.2s; }
+        .db-section:nth-child(4) { animation-delay: 0.3s; }
+
+        /* ===== SECTION HEADER ===== */
+        .db-section__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .db-section__title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .db-section__title i {
+            color: #48bb78;
+            font-size: 18px;
+        }
+
+        /* ===== SELECT WRAPPER ===== */
+        .db-select {
+            position: relative;
+            min-width: 180px;
+        }
+
+        .db-select select {
+            width: 100%;
+            padding: 9px 36px 9px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 25px;
+            background: #fff;
+            color: #4a5568;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .db-select select:hover {
+            border-color: #48bb78;
+        }
+
+        .db-select select:focus {
+            border-color: #48bb78;
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.15);
+        }
+
+        .db-select::after {
+            content: '\f078';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: #a0aec0;
+            pointer-events: none;
+        }
+
+        /* ===== CHART ===== */
+        .db-chart-canvas {
+            width: 100%;
+            max-height: 360px;
+        }
+
+        /* ===== ACTION BUTTONS ===== */
+        .db-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .db-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .db-btn i {
+            font-size: 13px;
+        }
+
+        .db-btn--primary {
+            background: linear-gradient(135deg, #4299e1, #2b6cb0);
+            color: #fff;
+            box-shadow: 0 3px 12px rgba(66, 153, 225, 0.35);
+        }
+
+        .db-btn--primary:hover {
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 18px rgba(66, 153, 225, 0.45);
+        }
+
+        .db-btn--danger {
+            background: linear-gradient(135deg, #fc8181, #c53030);
+            color: #fff;
+            box-shadow: 0 3px 12px rgba(245, 101, 101, 0.35);
+        }
+
+        .db-btn--danger:hover {
+            background: linear-gradient(135deg, #f56565, #9b2c2c);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 18px rgba(245, 101, 101, 0.45);
+        }
+
+        .db-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* ===== TABLE ===== */
+        .db-table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .db-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 900px;
+        }
+
+        .db-table thead tr {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+        }
+
+        .db-table thead th {
+            padding: 13px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .db-table tbody tr {
+            border-bottom: 1px solid #f0f4f8;
+            transition: background-color 0.15s ease;
+        }
+
+        .db-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .db-table tbody tr:hover {
+            background: #f7fffe;
+        }
+
+        .db-table tbody td {
+            padding: 12px 16px;
+            color: #4a5568;
+            vertical-align: middle;
+        }
+
+        .db-table tbody td:first-child {
+            font-weight: 600;
+            color: #a0aec0;
+            font-size: 12px;
+        }
+
+        /* ===== BADGES ===== */
+        .db-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .db-badge--pending {
+            background: rgba(237, 137, 54, 0.12);
+            color: #dd6b20;
+        }
+
+        .db-badge--processing {
+            background: rgba(66, 153, 225, 0.12);
+            color: #2b6cb0;
+        }
+
+        .db-badge--delivering {
+            background: rgba(128, 90, 213, 0.12);
+            color: #6b46c1;
+        }
+
+        .db-badge--delivered {
+            background: rgba(72, 187, 120, 0.12);
+            color: #2f855a;
+        }
+
+        .db-badge--cancelled {
+            background: rgba(245, 101, 101, 0.12);
+            color: #c53030;
+        }
+
+        .db-badge--unpaid {
+            background: rgba(160, 174, 192, 0.12);
+            color: #718096;
+        }
+
+        .db-badge--cod {
+            background: rgba(72, 187, 120, 0.12);
+            color: #2f855a;
+        }
+
+        .db-badge--qr {
+            background: rgba(66, 153, 225, 0.12);
+            color: #2b6cb0;
+        }
+
+        /* ===== DETAIL LINK ===== */
+        .db-detail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
+        }
+
+        .db-detail-link:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(72, 187, 120, 0.4);
+            color: #fff;
+        }
+
+        .db-detail-link i {
+            font-size: 11px;
+        }
+
+        /* ===== PRICE ===== */
+        .db-price {
+            font-weight: 700;
+            color: #e53e3e;
+            font-size: 13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .db-stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .db-stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .db-stat-card__value {
+                font-size: 22px;
+            }
+
+            .db-section {
+                padding: 18px;
+            }
+
+            .db-section__header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body class="sb-nav-fixed">
+<div th:replace="admin/fragments/header :: header_nav"></div>
+<div id="layoutSidenav">
+    <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+    <div id="layoutSidenav_content">
+        <main style="padding: 24px 28px;">
+            <!-- Welcome -->
+            <div style="margin-bottom: 24px;">
+                <h1 style="font-size: 24px; font-weight: 700; color: #2d3748; margin-bottom: 4px;">
+                    Xin chào, <span th:text="${currentUser.fullName}"></span> 👋
+                </h1>
+                <p style="font-size: 14px; color: #a0aec0;">Chào mừng bạn quay trở lại Dashboard quản trị HTX Dương Hòa</p>
+            </div>
+
+            <!-- ===== STAT CARDS ===== -->
+            <div class="db-stat-grid">
+                <!-- Orders -->
+                <div class="db-stat-card db-stat-card--orders">
+                    <div class="db-stat-card__icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="db-stat-card__info">
+                        <div class="db-stat-card__label">Tổng đơn hàng</div>
+                        <div class="db-stat-card__value" th:text="${numberOfOrders}"></div>
+                        <div class="db-stat-card__sub">Đơn hàng được tạo</div>
+                    </div>
+                </div>
+                <!-- Users -->
+                <div class="db-stat-card db-stat-card--users">
+                    <div class="db-stat-card__icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="db-stat-card__info">
+                        <div class="db-stat-card__label">Người dùng</div>
+                        <div class="db-stat-card__value" th:text="${numberOfUsers}"></div>
+                        <div class="db-stat-card__sub">Tài khoản đã đăng ký</div>
+                    </div>
+                </div>
+                <!-- Revenue -->
+                <div class="db-stat-card db-stat-card--revenue">
+                    <div class="db-stat-card__icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="db-stat-card__info">
+                        <div class="db-stat-card__label">Tổng doanh thu</div>
+                        <div class="db-stat-card__value"
+                             th:text="${#numbers.formatDecimal(__${(totalRevenue)}__, 0, 'POINT', 0, 'POINT')} + ' đ'"></div>
+                        <div class="db-stat-card__sub">Doanh thu từ đơn đã giao</div>
+                    </div>
+                </div>
+                <!-- Products -->
+                <div class="db-stat-card db-stat-card--products">
+                    <div class="db-stat-card__icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="db-stat-card__info">
+                        <div class="db-stat-card__label">Sản phẩm</div>
+                        <div class="db-stat-card__value" th:text="${numberOfProducts}"></div>
+                        <div class="db-stat-card__sub">Nông sản đang bán</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TOP PRODUCTS CHART ===== -->
+            <div class="db-section">
+                <div class="db-section__header">
+                    <h2 class="db-section__title">
+                        <i class="fas fa-chart-bar"></i>
+                        Doanh thu top 10 sản phẩm bán chạy
+                    </h2>
+                    <div class="db-select">
+                        <label for="monthSelect"></label>
+                        <select id="monthSelect"></select>
+                    </div>
+                </div>
+                <div id="barChartEmpty" style="display:none; text-align:center; padding:40px; color:#a0aec0;">
+                    <i class="fas fa-chart-bar" style="font-size:36px; margin-bottom:10px; display:block;"></i>
+                    <p style="font-size:14px;">Chưa có doanh thu trong tháng này</p>
+                </div>
+                <canvas id="barProductChart" class="db-chart-canvas" style="display:block;"></canvas>
+            </div>
+
+            <!-- ===== MONTHLY REVENUE CHART ===== -->
+            <div class="db-section">
+                <div class="db-section__header">
+                    <h2 class="db-section__title">
+                        <i class="fas fa-chart-line"></i>
+                        Doanh thu theo tháng trong năm
+                    </h2>
+                    <div class="db-select">
+                        <label for="monthSelect2"></label>
+                        <select id="monthSelect2"></select>
+                    </div>
+                </div>
+                <div id="lineChartEmpty" style="display:none; text-align:center; padding:40px; color:#a0aec0;">
+                    <i class="fas fa-chart-line" style="font-size:36px; margin-bottom:10px; display:block;"></i>
+                    <p style="font-size:14px;">Chưa có doanh thu trong năm này</p>
+                </div>
+                <canvas id="pieCategoryChart" class="db-chart-canvas" style="display:block;"></canvas>
+            </div>
+
+            <!-- ===== ORDERS TABLE ===== -->
+            <div class="db-section">
+                <div class="db-section__header">
+                    <h2 class="db-section__title">
+                        <i class="fas fa-receipt"></i>
+                        Các đơn hàng gần đây
+                    </h2>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="db-actions">
+                    <button class="db-btn db-btn--primary" onclick="exportOrderHtml()">
+                        <i class="fas fa-file-code"></i> Xuất HTML
+                    </button>
+                    <button class="db-btn db-btn--danger" onclick="exportOrderPdf()">
+                        <i class="fas fa-file-pdf"></i> Xuất PDF
+                    </button>
+                </div>
+
+                <!-- Table -->
+                <div class="db-table-wrapper">
+                    <table class="db-table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mã đơn</th>
+                            <th>Người nhận</th>
+                            <th>Điện thoại</th>
+                            <th>Email</th>
+                            <th>Ngày tạo</th>
+                            <th>Tổng giá</th>
+                            <th>Trạng thái</th>
+                            <th>Thanh toán</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}"></td>
+                            <td>
+                                <span style="font-family: monospace; font-size: 12px; background: #f0f4f8; padding: 3px 8px; border-radius: 6px; color: #4a5568;"
+                                      th:text="${order.code == null ? '—' : order.code}"></span>
+                            </td>
+                            <td th:text="${order.reciever}"></td>
+                            <td th:text="${order.phoneNumber}"></td>
+                            <td th:text="${order.emailAddress}"></td>
+                            <td th:text="${#dates.format(order.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                            <td>
+                                <span class="db-price"
+                                      th:text="${#numbers.formatDecimal(__${(order.totalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' đ'"></span>
+                            </td>
+                            <td>
+                                <span class="db-badge" th:classappend="
+                                    ${order.status == 'PENDING' ? 'db-badge--pending' : ''}
+                                    + ${order.status == 'PROCESSING' ? 'db-badge--processing' : ''}
+                                    + ${order.status == 'DELIVERING' ? 'db-badge--delivering' : ''}
+                                    + ${order.status == 'DELIVERED' ? 'db-badge--delivered' : ''}
+                                    + ${order.status == 'CANCELLED' ? 'db-badge--cancelled' : ''}
+                                    + ${order.status == 'UNPAID' ? 'db-badge--unpaid' : ''}
+                                " th:text="${order.status}"></span>
+                            </td>
+                            <td>
+                                <span class="db-badge"
+                                      th:classappend="${order.paymentMethod == 'COD' ? 'db-badge--cod' : 'db-badge--qr'}"
+                                      th:text="${order.paymentMethod}"></span>
+                            </td>
+                            <td>
+                                <a class="db-detail-link"
+                                   th:href="@{/admin/orders_management/details/__${order.id}__}">
+                                    <i class="fas fa-eye"></i> Chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <div th:replace="admin/fragments/footer :: footer"></div>
+    </div>
+</div>
+<script crossorigin="anonymous" th:src="@{/js/admin/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/admin/scripts.js}"></script>
+<script crossorigin="anonymous" th:src="@{/js/admin/chart.js}"></script>
+<script crossorigin="anonymous" th:src="@{/js/admin/simple-datatables.min.js}"></script>
+<script th:src="@{/js/admin/datatables-simple-demo.js}"></script>
+
+<script th:inline="javascript">
+    function exportProductHtml() {
+        var selectedMonth = $('#monthSelect').val();
+        const url = `/admin/export/product/${selectedMonth}/html`;
+        $.ajax({
+            url: url, method: 'GET', data: { month: selectedMonth },
+            success: function (res) { alert(res); },
+            error: function (error) { console.log("Error:", error); }
+        });
+    }
+
+    function exportProductPdf() {
+        var selectedMonth = $('#monthSelect').val();
+        const url = `/admin/export/product/${selectedMonth}/pdf`;
+        $.ajax({
+            url: url, method: 'GET', data: { month: selectedMonth },
+            success: function (res) { alert(res); },
+            error: function (error) { console.log("Error:", error); }
+        });
+    }
+
+    function exportCategoryPdf() {
+        var selectedMonth = $('#monthSelect').val();
+        const url = `/admin/export/category/${selectedMonth}/pdf`;
+        $.ajax({
+            url: url, method: 'GET', data: { month: selectedMonth },
+            success: function (res) { alert(res); },
+            error: function (error) { console.log("Error:", error); }
+        });
+    }
+
+    function exportCategoryHtml() {
+        var selectedMonth = $('#monthSelect').val();
+        const url = `/admin/export/category/${selectedMonth}/html`;
+        $.ajax({
+            url: url, method: 'GET', data: { month: selectedMonth },
+            success: function (res) { alert(res); },
+            error: function (error) { console.log("Error:", error); }
+        });
+    }
+
+    function exportOrderPdf() {
+        const url = `/admin/export/order/pdf`;
+        $.ajax({
+            url: url, method: 'GET',
+            success: function (res) { alert(res); },
+            error: function (error) { console.log("Error:", error); }
+        });
+    }
+
+    function exportOrderHtml() {
+        const url = `/admin/export/order/html`;
+        $.ajax({
+            url: url, method: 'GET',
+            success: function (res) { alert(res); },
+            error: function (error) { console.log("Error:", error); }
+        });
+    }
+
+    $(document).ready(function () {
+        var currentMonth = new Date().getMonth() + 1;
+        var currentYear = new Date().getFullYear();
+
+        for (var month = 1; month <= currentMonth; month++) {
+            $('#monthSelect').append(new Option("Tháng " + month, month));
+        }
+        for (var year = 2020; year <= currentYear; year++) {
+            $('#monthSelect2').append(new Option("Năm " + year, year));
+        }
+
+        $('#monthSelect').val(currentMonth);
+        $('#monthSelect2').val(currentYear);
+
+        fetchData(currentMonth);
+        fetchRevenueByMonthData(currentYear);
+
+        $('#monthSelect').change(function () {
+            fetchData($(this).val());
+        });
+
+        $('#monthSelect2').change(function () {
+            fetchRevenueByMonthData($(this).val());
+        });
+
+        function fetchData(selectedMonth) {
+            const url = `/api/v1/get-revenue/products-by-month/${selectedMonth}`;
+            $.ajax({
+                url: url, method: 'GET', contentType: "application/json",
+                data: { month: selectedMonth },
+                success: function (res) {
+                    var labels = [], revenues = [];
+                    res.data.forEach(function (item) {
+                        labels.push(item.title);
+                        revenues.push(item.totalRevenue);
+                    });
+                    updateChart(labels, revenues);
+                },
+                error: function (error) { console.log("Error:", error); }
+            });
+        }
+
+        function fetchRevenueByMonthData(selectedYear) {
+            const url = `/api/v1/get-revenue/monthly-revenue-by-year/${selectedYear}`;
+            $.ajax({
+                url: url, method: 'GET', contentType: "application/json",
+                data: { selectedYear: selectedYear },
+                success: function (res) {
+                    var labels = [], revenues = [];
+                    res.data.forEach(function (item) {
+                        labels.push("Tháng " + item.month);
+                        revenues.push(item.revenue);
+                    });
+                    updateLineChart(labels, revenues);
+                },
+                error: function (error) { console.log("Error:", error); }
+            });
+        }
+
+        function updateChart(labels, data) {
+            var ctx = document.getElementById('barProductChart').getContext('2d');
+            if (window.myBarChart) { window.myBarChart.destroy(); }
+
+            // Toggle empty state
+            var emptyDiv = document.getElementById('barChartEmpty');
+            var canvas = document.getElementById('barProductChart');
+            if (!data || data.length === 0) {
+                emptyDiv.style.display = 'block';
+                canvas.style.display = 'none';
+                return;
+            }
+            emptyDiv.style.display = 'none';
+            canvas.style.display = 'block';
+
+            var gradients = labels.map(function (_, i) {
+                var colors = [
+                    ['#48bb78', '#2f855a'], ['#4299e1', '#2b6cb0'],
+                    ['#f6ad55', '#dd6b20'], ['#fc8181', '#c53030'],
+                    ['#b794f4', '#6b46c1'], ['#4fd1c5', '#319795'],
+                    ['#f687b3', '#d53f8c'], ['#90cdf4', '#63b3ed'],
+                    ['#fbd38d', '#f6ad55'], ['#68d391', '#38a169']
+                ];
+                var c = colors[i % colors.length];
+                var grd = ctx.createLinearGradient(0, 0, 0, 400);
+                grd.addColorStop(0, c[0] + 'cc');
+                grd.addColorStop(1, c[1] + '44');
+                return grd;
+            });
+
+            var borderColors = labels.map(function (_, i) {
+                var colors = [
+                    '#48bb78', '#4299e1', '#f6ad55', '#fc8181',
+                    '#b794f4', '#4fd1c5', '#f687b3', '#90cdf4',
+                    '#fbd38d', '#68d391'
+                ];
+                return colors[i % colors.length];
+            });
+
+            window.myBarChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Doanh thu (VND)',
+                        data: data,
+                        backgroundColor: gradients,
+                        borderColor: borderColors,
+                        borderWidth: 1.5,
+                        borderRadius: 8,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    animation: { duration: 800, easing: 'easeOutQuart' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#fff',
+                            titleColor: '#2d3748',
+                            bodyColor: '#4a5568',
+                            borderColor: '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 10,
+                            titleFont: { family: "'Be Vietnam Pro', sans-serif", size: 13, weight: '600' },
+                            bodyFont: { family: "'Be Vietnam Pro', sans-serif", size: 12 },
+                            boxPadding: 4,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: "'Be Vietnam Pro', sans-serif", size: 11 },
+                                color: '#a0aec0'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f0f4f8', lineWidth: 1 },
+                            ticks: {
+                                font: { family: "'Be Vietnam Pro', sans-serif", size: 11 },
+                                color: '#a0aec0',
+                                callback: function(value) {
+                                    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
+                                    if (value >= 1000) return (value / 1000).toFixed(0) + 'K';
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateLineChart(labels, data) {
+            var ctx2 = document.getElementById('pieCategoryChart').getContext('2d');
+            if (window.myPieChart) { window.myPieChart.destroy(); }
+
+            // Toggle empty state
+            var emptyDiv = document.getElementById('lineChartEmpty');
+            var canvas = document.getElementById('pieCategoryChart');
+            if (!data || data.length === 0) {
+                emptyDiv.style.display = 'block';
+                canvas.style.display = 'none';
+                return;
+            }
+            emptyDiv.style.display = 'none';
+            canvas.style.display = 'block';
+
+            var grd = ctx2.createLinearGradient(0, 0, 0, 400);
+            grd.addColorStop(0, 'rgba(72, 187, 120, 0.35)');
+            grd.addColorStop(1, 'rgba(72, 187, 120, 0.02)');
+
+            window.myPieChart = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Doanh thu (VND)',
+                        data: data,
+                        backgroundColor: grd,
+                        borderColor: '#48bb78',
+                        borderWidth: 2.5,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#48bb78',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    animation: { duration: 800, easing: 'easeOutQuart' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#fff',
+                            titleColor: '#2d3748',
+                            bodyColor: '#4a5568',
+                            borderColor: '#e2e8f0',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 10,
+                            titleFont: { family: "'Be Vietnam Pro', sans-serif", size: 13, weight: '600' },
+                            bodyFont: { family: "'Be Vietnam Pro', sans-serif", size: 12 },
+                            boxPadding: 4,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: "'Be Vietnam Pro', sans-serif", size: 11 },
+                                color: '#a0aec0'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f0f4f8', lineWidth: 1 },
+                            ticks: {
+                                font: { family: "'Be Vietnam Pro', sans-serif", size: 11 },
+                                color: '#a0aec0',
+                                callback: function(value) {
+                                    if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
+                                    if (value >= 1000) return (value / 1000).toFixed(0) + 'K';
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <title>Chi tiết đơn hàng - HTX Dương Hòa</title>
+    <link rel="stylesheet" th:href="@{/css/admin/styles.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script crossorigin="anonymous" th:src="@{/js/admin/fontawesome-all.js}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; }
+
+        .page-content { padding: 28px; animation: fadeSlideUp 0.4s ease both; }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+        .breadcrumb a { color: #6366f1; text-decoration: none; font-weight: 500; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb .sep { color: #cbd5e1; font-size: 10px; }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+        .page-header__left { display: flex; align-items: center; gap: 12px; }
+        .page-header__icon {
+            width: 46px; height: 46px; border-radius: 12px;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 20px;
+        }
+        .page-header__title { font-size: 22px; font-weight: 700; color: #1e293b; }
+        .page-header__sub { font-size: 13px; color: #94a3b8; }
+
+        /* ===== INFO GRID ===== */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+
+        /* ===== INFO CARD ===== */
+        .info-card {
+            background: #fff; border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07); overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+        .info-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+
+        .info-card__header {
+            padding: 14px 20px; border-bottom: 2px solid #f1f5f9;
+            font-size: 14px; font-weight: 700; color: #1e293b;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .info-card__header i { color: #6366f1; font-size: 16px; }
+
+        .info-card__body { padding: 20px; }
+        .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+        .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .info-row__label { font-size: 13px; color: #64748b; font-weight: 500; min-width: 140px; }
+        .info-row__value { font-size: 13px; color: #1e293b; font-weight: 600; text-align: right; word-break: break-word; }
+
+        /* ===== BADGES ===== */
+        .badge-status {
+            display: inline-flex; align-items: center; padding: 4px 12px;
+            border-radius: 20px; font-size: 11px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.3px;
+        }
+        .badge-status--pending { background: rgba(245,158,11,0.12); color: #d97706; }
+        .badge-status--processing { background: rgba(99,102,241,0.12); color: #4f46e5; }
+        .badge-status--delivering { background: rgba(168,85,247,0.12); color: #7c3aed; }
+        .badge-status--delivered { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .badge-status--cancelled { background: rgba(239,68,68,0.12); color: #dc2626; }
+        .badge-status--cod { background: rgba(34,197,94,0.12); color: #16a34a; }
+        .badge-status--qr { background: rgba(99,102,241,0.12); color: #4f46e5; }
+
+        /* ===== TABLE CARD ===== */
+        .table-card {
+            background: #fff; border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07); overflow: hidden;
+            transition: box-shadow 0.3s ease; margin-bottom: 24px;
+        }
+        .table-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+
+        .table-card__header {
+            padding: 14px 20px; border-bottom: 2px solid #f1f5f9;
+            font-size: 14px; font-weight: 700; color: #1e293b;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .table-card__header i { color: #6366f1; font-size: 16px; }
+
+        /* ===== TABLE ===== */
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+        .admin-table thead tr { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
+        .admin-table thead th {
+            padding: 12px 16px; text-align: left; font-weight: 600;
+            color: #64748b; font-size: 12px; text-transform: uppercase;
+            letter-spacing: 0.4px; border-bottom: 2px solid #e2e8f0; white-space: nowrap;
+        }
+        .admin-table tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.15s ease; }
+        .admin-table tbody tr:last-child { border-bottom: none; }
+        .admin-table tbody tr:hover { background: #f8fffe; }
+        .admin-table tbody td { padding: 12px 16px; color: #475569; vertical-align: middle; }
+
+        /* ===== ACTION BUTTONS ===== */
+        .btn-action {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 20px; border-radius: 25px;
+            font-size: 13px; font-weight: 600;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            border: none; cursor: pointer; text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .btn-action--back {
+            background: #f1f5f9; color: #64748b;
+        }
+        .btn-action--back:hover { background: #e2e8f0; color: #475569; }
+        .btn-action--process {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: #fff; box-shadow: 0 3px 12px rgba(99,102,241,0.3);
+        }
+        .btn-action--process:hover { box-shadow: 0 5px 18px rgba(99,102,241,0.4); color: #fff; }
+        .btn-action--cancel {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff; box-shadow: 0 3px 12px rgba(239,68,68,0.3);
+        }
+        .btn-action--cancel:hover { box-shadow: 0 5px 18px rgba(239,68,68,0.4); color: #fff; }
+        .btn-action--deliver {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff; box-shadow: 0 3px 12px rgba(16,185,129,0.3);
+        }
+        .btn-action--deliver:hover { box-shadow: 0 5px 18px rgba(16,185,129,0.4); color: #fff; }
+
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .page-content { padding: 20px 16px; }
+            .admin-table-wrapper { overflow-x: auto; }
+            .admin-table { min-width: 700px; }
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="admin/fragments/header :: header_nav"></div>
+<div id="layoutSidenav">
+    <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+    <div id="layoutSidenav_content">
+        <main class="page-content">
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a th:href="@{/admin}"><i class="fas fa-home"></i> Trang chủ</a>
+                <span class="sep"><i class="fas fa-chevron-right"></i></span>
+                <a th:href="@{/admin/orders_management}">Đơn hàng</a>
+                <span class="sep"><i class="fas fa-chevron-right"></i></span>
+                <span>Chi tiết đơn hàng #<th:block th:text="${orderDetail.orderId}"></th:block></span>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-header__left">
+                    <div class="page-header__icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <div>
+                        <h1 class="page-header__title">Chi tiết đơn hàng</h1>
+                        <p class="page-header__sub">Mã đơn: <th:block th:text="${orderDetail.code != null ? orderDetail.code : '—'}"></th:block></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="info-grid">
+                <!-- Card 1: Người nhận -->
+                <div class="info-card">
+                    <div class="info-card__header">
+                        <i class="fas fa-user"></i>
+                        Thông tin người nhận
+                    </div>
+                    <div class="info-card__body">
+                        <div class="info-row">
+                            <span class="info-row__label">Người nhận</span>
+                            <span class="info-row__value" th:text="${orderDetail.receiver != null ? orderDetail.receiver : '—'}"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-row__label">Số điện thoại</span>
+                            <span class="info-row__value" th:text="${orderDetail.phoneNumber != null ? orderDetail.phoneNumber : '—'}"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-row__label">Email</span>
+                            <span class="info-row__value" th:text="${orderDetail.emailAddress != null ? orderDetail.emailAddress : '—'}"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-row__label">Địa chỉ giao hàng</span>
+                            <span class="info-row__value" th:text="${orderDetail.shippingAddress != null ? orderDetail.shippingAddress : '—'}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Đơn hàng -->
+                <div class="info-card">
+                    <div class="info-card__header">
+                        <i class="fas fa-shopping-bag"></i>
+                        Thông tin đơn hàng
+                    </div>
+                    <div class="info-card__body">
+                        <div class="info-row">
+                            <span class="info-row__label">Ngày tạo</span>
+                            <span class="info-row__value" th:text="${orderDetail.createdAt != null ? orderDetail.createdAt : '—'}"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-row__label">Tổng giá</span>
+                            <span class="info-row__value" style="color: #ef4444; font-size: 15px;"
+                                  th:text="${orderDetail.totalPriceFormatted != null ? orderDetail.totalPriceFormatted + ' đ' : '0 đ'}"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-row__label">Trạng thái</span>
+                            <th:block th:if="${orderDetail.status == 'PENDING'}">
+                                <span class="badge-status badge-status--pending" th:text="${orderDetail.status}"></span>
+                            </th:block>
+                            <th:block th:if="${orderDetail.status == 'PROCESSING'}">
+                                <span class="badge-status badge-status--processing" th:text="${orderDetail.status}"></span>
+                            </th:block>
+                            <th:block th:if="${orderDetail.status == 'DELIVERING'}">
+                                <span class="badge-status badge-status--delivering" th:text="${orderDetail.status}"></span>
+                            </th:block>
+                            <th:block th:if="${orderDetail.status == 'DELIVERED'}">
+                                <span class="badge-status badge-status--delivered" th:text="${orderDetail.status}"></span>
+                            </th:block>
+                            <th:block th:if="${orderDetail.status == 'CANCELLED'}">
+                                <span class="badge-status badge-status--cancelled" th:text="${orderDetail.status}"></span>
+                            </th:block>
+                            <th:block th:if="${orderDetail.status == 'UNPAID'}">
+                                <span class="badge-status badge-status--pending">UNPAID</span>
+                            </th:block>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-row__label">Thanh toán</span>
+                            <th:block th:if="${orderDetail.paymentMethod == 'COD'}">
+                                <span class="badge-status badge-status--cod" th:text="${orderDetail.paymentMethod}"></span>
+                            </th:block>
+                            <th:block th:if="${orderDetail.paymentMethod != 'COD'}">
+                                <span class="badge-status badge-status--qr" th:text="${orderDetail.paymentMethod}"></span>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Table -->
+            <div class="table-card">
+                <div class="table-card__header">
+                    <i class="fas fa-box"></i>
+                    Danh sách sản phẩm trong đơn
+                </div>
+                <th:block th:if="${orderDetail.items == null or orderDetail.items.isEmpty()}">
+                    <div style="text-align:center; padding:40px; color:#94a3b8;">
+                        <i class="fas fa-inbox" style="font-size:36px; display:block; margin-bottom:10px;"></i>
+                        <p>Không có sản phẩm nào</p>
+                    </div>
+                </th:block>
+                <th:block th:if="${orderDetail.items != null and not orderDetail.items.isEmpty()}">
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên nông sản</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Danh mục</th>
+                                    <th>Giá gốc</th>
+                                    <th>Giá đã giảm</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="item : ${orderDetail.items}">
+                                    <td th:text="${item.productId}"></td>
+                                    <td style="font-weight:500; color:#1e293b;" th:text="${item.productTitle != null ? item.productTitle : '—'}"></td>
+                                    <td th:text="${item.producer != null ? item.producer : '—'}"></td>
+                                    <td th:text="${item.categoryName != null ? item.categoryName : '—'}"></td>
+                                    <td th:text="${item.originalPriceFormatted != null ? item.originalPriceFormatted + ' đ' : '0 đ'}"></td>
+                                    <td th:text="${item.salePriceFormatted != null ? item.salePriceFormatted + ' đ' : '0 đ'}"></td>
+                                    <td th:text="${item.quantity != null ? item.quantity : 0}"></td>
+                                    <td style="font-weight:700; color:#ef4444;"
+                                        th:text="${item.totalPriceFormatted != null ? item.totalPriceFormatted + ' đ' : '0 đ'}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th:block>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="btn-group">
+                <a class="btn-action btn-action--back" th:href="@{/admin/orders_management}">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+                <th:block th:if="${orderDetail.status == 'PENDING'}">
+                    <a class="btn-action btn-action--process"
+                       th:href="@{/admin/orders_management/details/process/{id}(id=${orderDetail.orderId})}">
+                        <i class="fas fa-cog"></i> Xử lý đơn
+                    </a>
+                    <a class="btn-action btn-action--cancel"
+                       th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}">
+                        <i class="fas fa-times"></i> Hủy đơn
+                    </a>
+                </th:block>
+                <th:block th:if="${orderDetail.status == 'PROCESSING'}">
+                    <a class="btn-action btn-action--deliver"
+                       th:href="@{/admin/orders_management/details/deliver/{id}(id=${orderDetail.orderId})}">
+                        <i class="fas fa-truck"></i> Giao hàng
+                    </a>
+                    <a class="btn-action btn-action--cancel"
+                       th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}">
+                        <i class="fas fa-times"></i> Hủy đơn
+                    </a>
+                </th:block>
+                <th:block th:if="${orderDetail.status == 'DELIVERING'}">
+                    <a class="btn-action btn-action--deliver"
+                       th:href="@{/admin/orders_management/details/delivered/{id}(id=${orderDetail.orderId})}">
+                        <i class="fas fa-check-circle"></i> Đã giao
+                    </a>
+                    <a class="btn-action btn-action--cancel"
+                       th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}">
+                        <i class="fas fa-times"></i> Hủy đơn
+                    </a>
+                </th:block>
+                <th:block th:if="${orderDetail.status == 'DELIVERED'}">
+                    <span style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:25px;font-size:13px;font-weight:600;font-family:'Be Vietnam Pro',sans-serif;background:rgba(34,197,94,0.1);color:#16a34a;border:1px solid rgba(34,197,94,0.2);">
+                        <i class="fas fa-check-double"></i> Đơn hàng đã hoàn thành
+                    </span>
+                </th:block>
+                <th:block th:if="${orderDetail.status == 'CANCELLED'}">
+                    <span style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:25px;font-size:13px;font-weight:600;font-family:'Be Vietnam Pro',sans-serif;background:rgba(239,68,68,0.1);color:#dc2626;border:1px solid rgba(239,68,68,0.2);">
+                        <i class="fas fa-ban"></i> Đơn hàng đã bị hủy
+                    </span>
+                </th:block>
+            </div>
+        </main>
+        <div th:replace="admin/fragments/footer :: footer"></div>
+    </div>
+</div>
+
+<script crossorigin="anonymous" th:src="@{/js/admin/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/admin/scripts.js}"></script>
+</body>
+</html>

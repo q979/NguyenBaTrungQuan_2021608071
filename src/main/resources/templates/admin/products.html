@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <title>Quản lý sản phẩm - HTX Dương Hòa</title>
+    <link rel="stylesheet" th:href="@{/css/admin/styles.css}" />
+    <script
+      crossorigin="anonymous"
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+    ></script>
+    <script
+      crossorigin="anonymous"
+      th:src="@{/js/admin/fontawesome-all.js}"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
+
+      .page-content {
+        padding: 28px;
+        animation: fadeSlideUp 0.4s ease both;
+      }
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== ALERTS ===== */
+      .alert-custom {
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .alert-custom--success {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        border: 1px solid #6ee7b7;
+        color: #065f46;
+      }
+      .alert-custom--danger {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border: 1px solid #fca5a5;
+        color: #991b1b;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .page-header__left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .page-header__icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 20px;
+      }
+      .page-header__title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .page-header__sub {
+        font-size: 13px;
+        color: #94a3b8;
+      }
+
+      /* ===== ADD BUTTON ===== */
+      .btn-add {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 22px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+        transition: all 0.25s ease;
+      }
+      .btn-add:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
+        color: #fff;
+      }
+
+      /* ===== SEARCH / FILTER BAR ===== */
+      .filter-bar {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        padding: 20px 24px;
+        margin-bottom: 24px;
+        display: flex;
+        gap: 14px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+      }
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1;
+        min-width: 180px;
+      }
+      .filter-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+      .filter-input,
+      .filter-select {
+        padding: 10px 14px;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 13px;
+        font-family: "Be Vietnam Pro", sans-serif;
+        color: #334155;
+        background: #f8fafc;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .filter-input:focus,
+      .filter-select:focus {
+        border-color: #8b5cf6;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+      }
+      .btn-search {
+        padding: 10px 22px;
+        border-radius: 25px;
+        border: none;
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: "Be Vietnam Pro", sans-serif;
+        box-shadow: 0 3px 12px rgba(139, 92, 246, 0.3);
+        transition: all 0.25s ease;
+        white-space: nowrap;
+      }
+      .btn-search:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 18px rgba(139, 92, 246, 0.4);
+      }
+
+      /* ===== PRODUCT GRID ===== */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 20px;
+      }
+
+      /* ===== PRODUCT CARD ===== */
+      .product-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
+      }
+
+      .product-card__image {
+        position: relative;
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        background: #f8fafc;
+      }
+      .product-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+      .product-card:hover .product-card__image img {
+        transform: scale(1.06);
+      }
+
+      .product-card__badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .badge--active {
+        background: rgba(34, 197, 94, 0.9);
+        color: #fff;
+      }
+      .badge--inactive {
+        background: rgba(239, 68, 68, 0.9);
+        color: #fff;
+      }
+      .badge--promo {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(245, 158, 11, 0.9);
+        color: #fff;
+      }
+
+      .product-card__body {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .product-card__category {
+        font-size: 11px;
+        font-weight: 600;
+        color: #8b5cf6;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 6px;
+      }
+      .product-card__title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        line-height: 1.4;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        flex: 1;
+      }
+      .product-card__meta {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+      }
+      .product-card__meta-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        color: #64748b;
+      }
+      .product-card__meta-item i {
+        font-size: 11px;
+        color: #94a3b8;
+      }
+      .product-card__price {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .product-card__price-sale {
+        font-size: 16px;
+        font-weight: 700;
+        color: #ef4444;
+      }
+      .product-card__price-original {
+        font-size: 12px;
+        color: #94a3b8;
+        text-decoration: line-through;
+      }
+      .product-card__actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: auto;
+      }
+
+      .btn-sm-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        font-family: "Be Vietnam Pro", sans-serif;
+        transition: all 0.2s ease;
+        text-decoration: none;
+      }
+      .btn-sm-action--edit {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+      }
+      .btn-sm-action--edit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+        color: #fff;
+      }
+      .btn-sm-action--toggle {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+      }
+      .btn-sm-action--toggle:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+        color: #fff;
+      }
+      .btn-sm-action--promo {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      }
+      .btn-sm-action--promo:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+        color: #fff;
+      }
+      .btn-sm-action--remove {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+      }
+      .btn-sm-action--remove:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        color: #fff;
+      }
+      .btn-sm-action--delete {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+      }
+      .btn-sm-action--delete:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        color: #fff;
+      }
+
+      /* ===== EMPTY STATE ===== */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #94a3b8;
+      }
+      .empty-state__icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+        color: #cbd5e1;
+      }
+      .empty-state__text {
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      /* ===== PAGINATION ===== */
+      .pagination-custom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .pagination-custom a,
+      .pagination-custom span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
+      .pagination-custom a:hover {
+        background: #8b5cf6;
+        color: #fff;
+        border-color: #8b5cf6;
+        transform: translateY(-1px);
+      }
+      .pagination-custom .active {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        color: #fff;
+        border-color: #8b5cf6;
+        box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
+      }
+      .pagination-custom .disabled {
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 640px) {
+        .page-content {
+          padding: 20px 16px;
+        }
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+        .filter-bar {
+          flex-direction: column;
+        }
+        .filter-group {
+          width: 100%;
+        }
+        .btn-search {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div th:replace="admin/fragments/header :: header_nav"></div>
+    <div id="layoutSidenav">
+      <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+      <div id="layoutSidenav_content">
+        <main class="page-content">
+          <!-- Alerts -->
+          <div
+            class="alert-custom alert-custom--success"
+            th:if="${message != null and #strings.contains(message, 'thành công')}"
+          >
+            <i class="fas fa-check-circle"></i>
+            <span th:text="${message}"></span>
+          </div>
+          <div
+            class="alert-custom alert-custom--danger"
+            th:if="${message != null and #strings.contains(message, 'đơn hàng')}"
+          >
+            <i class="fas fa-exclamation-circle"></i>
+            <span th:text="${message}"></span>
+          </div>
+
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header__left">
+              <div class="page-header__icon">
+                <i class="fas fa-box-open"></i>
+              </div>
+              <div>
+                <h1 class="page-header__title">Danh sách sản phẩm</h1>
+                <p class="page-header__sub">Quản lý nông sản trong hệ thống</p>
+              </div>
+            </div>
+            <a class="btn-add" th:href="@{/admin/products_management/add}">
+              <i class="fas fa-plus"></i> Thêm sản phẩm
+            </a>
+          </div>
+
+          <!-- Search / Filter Bar -->
+          <div class="filter-bar">
+            <form
+              th:action="@{/admin/products_management}"
+              method="get"
+              th:object="${search}"
+              style="display: contents"
+            >
+              <div class="filter-group">
+                <label class="filter-label">Danh mục</label>
+                <select class="filter-select" th:field="*{categoryId}">
+                  <option value="">Tất cả danh mục</option>
+                  <option
+                    th:each="category : ${categories}"
+                    th:text="${category.name}"
+                    th:value="${category.id}"
+                  ></option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label class="filter-label">Từ khóa</label>
+                <input
+                  class="filter-input"
+                  th:field="*{keyword}"
+                  type="text"
+                  placeholder="Tìm tên sản phẩm..."
+                />
+              </div>
+              <button class="btn-search" type="submit">
+                <i class="fas fa-search"></i> Tìm kiếm
+              </button>
+            </form>
+          </div>
+
+          <!-- Product Grid -->
+          <div
+            class="product-grid"
+            th:if="${productPage != null and !productPage.isEmpty()}"
+          >
+            <div class="product-card" th:each="product : ${productPage}">
+              <!-- Image -->
+              <div class="product-card__image">
+                <img
+                  th:src="${product.coverImage}"
+                  alt="product"
+                  onerror="this.src='/images/default-product.png'"
+                />
+                <span
+                  class="product-card__badge"
+                  th:classappend="${product.activeFlag} ? 'badge--active' : 'badge--inactive'"
+                  th:text="${product.activeFlag} ? 'Đang bán' : 'Đã ẩn'"
+                ></span>
+                <span
+                  class="product-card__badge badge--promo"
+                  th:if="${product.promotion != null}"
+                >
+                  <i class="fas fa-fire"></i> Khuyến mãi
+                </span>
+              </div>
+
+              <!-- Body -->
+              <div class="product-card__body">
+                <div
+                  class="product-card__category"
+                  th:text="${product.category != null} ? ${product.category.name} : 'Chưa phân loại'"
+                ></div>
+                <div
+                  class="product-card__title"
+                  th:text="${product.title}"
+                ></div>
+                <div class="product-card__meta">
+                  <span class="product-card__meta-item">
+                    <i class="fas fa-cube"></i>
+                    <span
+                      th:text="${product.qty != null} ? ${product.qty} : '0'"
+                    ></span>
+                    còn
+                  </span>
+                  <span
+                    class="product-card__meta-item"
+                    th:if="${product.weight != null}"
+                  >
+                    <i class="fas fa-weight"></i>
+                    <span th:text="${product.weight}"></span>
+                  </span>
+                </div>
+                <div class="product-card__price">
+                  <span
+                    class="product-card__price-sale"
+                    th:text="${#numbers.formatDecimal(__${(product.salePrice != null and product.salePrice > 0 ? product.salePrice : product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' đ'"
+                  ></span>
+                  <span
+                    class="product-card__price-original"
+                    th:if="${product.salePrice != null and product.salePrice > 0}"
+                    th:text="${#numbers.formatDecimal(__${product.originalPrice}__, 0, 'POINT', 0, 'POINT')} + ' đ'"
+                  ></span>
+                </div>
+                <div class="product-card__actions">
+                  <a
+                    class="btn-sm-action btn-sm-action--edit"
+                    th:href="@{/admin/products_management/edit/__${product.id}__}"
+                  >
+                    <i class="fas fa-edit"></i> Sửa
+                  </a>
+                  <button
+                    class="btn-sm-action btn-sm-action--toggle"
+                    th:classappend="${product.activeFlag} ? 'btn-sm-action--toggle' : 'btn-sm-action--remove'"
+                    th:data-product-id="${product.id}"
+                    th:data-action="${!product.activeFlag}"
+                    th:onclick="'openToggleModal(' + ${product.id} + ', ' + (${!product.activeFlag} ? 'true' : 'false') + ')'"
+                  >
+                    <i
+                      th:classappend="${product.activeFlag} ? 'fas fa-ban' : 'fas fa-check'"
+                    ></i>
+                    <span
+                      th:text="${product.activeFlag} ? 'Ẩn' : 'Kích hoạt'"
+                    ></span>
+                  </button>
+                  <button
+                    class="btn-sm-action btn-sm-action--delete"
+                    th:data-product-id="${product.id}"
+                    th:data-product-name="${product.title}"
+                    onclick="openDeleteModal(this)"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                    Xóa
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div
+            class="empty-state"
+            th:if="${productPage == null or productPage.isEmpty()}"
+          >
+            <div class="empty-state__icon">
+              <i class="fas fa-box-open"></i>
+            </div>
+            <p class="empty-state__text">Không có sản phẩm nào</p>
+          </div>
+
+          <!-- Pagination -->
+          <div
+            class="pagination-custom"
+            th:if="${totalPages != null and totalPages > 1}"
+          >
+            <a
+              th:href="@{/admin/products_management(page=1)}"
+              th:class="${currentPage == 1} ? 'disabled' : ''"
+            >
+              <i class="fas fa-angle-double-left"></i>
+            </a>
+            <a
+              th:href="@{/admin/products_management(page=${currentPage - 1})}"
+              th:if="${currentPage > 1}"
+            >
+              <i class="fas fa-angle-left"></i>
+            </a>
+
+            <span
+              th:each="i : ${#numbers.sequence(1, totalPages)}"
+              th:classappend="${i == currentPage} ? 'active' : ''"
+            >
+              <a
+                th:href="@{/admin/products_management(page=${i})}"
+                th:text="${i}"
+                th:if="${i != currentPage}"
+              ></a>
+              <span th:text="${i}" th:if="${i == currentPage}"></span>
+            </span>
+
+            <a
+              th:href="@{/admin/products_management(page=${currentPage + 1})}"
+              th:if="${currentPage < totalPages}"
+            >
+              <i class="fas fa-angle-right"></i>
+            </a>
+            <a
+              th:href="@{/admin/products_management(page=${totalPages})}"
+              th:class="${currentPage == totalPages} ? 'disabled' : ''"
+            >
+              <i class="fas fa-angle-double-right"></i>
+            </a>
+          </div>
+        </main>
+        <div th:replace="admin/fragments/footer :: footer"></div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div
+      class="modal-overlay"
+      id="deleteModal"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 99999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          border-radius: 16px;
+          padding: 32px;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+          animation: fadeSlideUp 0.3s ease;
+        "
+      >
+        <div style="text-align: center; margin-bottom: 20px">
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              background: rgba(239, 68, 68, 0.1);
+              margin: 0 auto 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i
+              class="fas fa-trash-alt"
+              style="font-size: 28px; color: #ef4444"
+            ></i>
+          </div>
+          <h3
+            style="
+              font-size: 18px;
+              font-weight: 700;
+              color: #1e293b;
+              margin-bottom: 8px;
+            "
+          >
+            Xóa sản phẩm
+          </h3>
+          <p style="font-size: 14px; color: #64748b" id="deleteModalText">
+            Bạn có chắc chắn muốn xóa sản phẩm này?
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px">
+          <button
+            onclick="closeDeleteModal()"
+            style="
+              flex: 1;
+              padding: 11px;
+              border-radius: 25px;
+              border: 1.5px solid #e2e8f0;
+              background: #fff;
+              color: #64748b;
+              font-size: 14px;
+              font-weight: 600;
+              font-family: 'Be Vietnam Pro', sans-serif;
+              cursor: pointer;
+            "
+          >
+            Hủy
+          </button>
+          <a
+            id="confirmDeleteBtn"
+            href="#"
+            style="
+              flex: 1;
+              padding: 11px;
+              border-radius: 25px;
+              border: none;
+              background: linear-gradient(135deg, #ef4444, #dc2626);
+              color: #fff;
+              font-size: 14px;
+              font-weight: 600;
+              font-family: 'Be Vietnam Pro', sans-serif;
+              cursor: pointer;
+              text-align: center;
+              text-decoration: none;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+            "
+          >
+            <i class="fas fa-trash-alt"></i> Xóa
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggle Status Modal -->
+    <div
+      class="modal-overlay"
+      id="toggleModal"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          border-radius: 16px;
+          padding: 32px;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+          animation: fadeSlideUp 0.3s ease;
+        "
+      >
+        <div style="text-align: center; margin-bottom: 20px">
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              background: rgba(245, 158, 11, 0.1);
+              margin: 0 auto 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i
+              class="fas fa-exchange-alt"
+              style="font-size: 28px; color: #f59e0b"
+            ></i>
+          </div>
+          <h3
+            style="
+              font-size: 18px;
+              font-weight: 700;
+              color: #1e293b;
+              margin-bottom: 8px;
+            "
+          >
+            Cập nhật trạng thái sản phẩm
+          </h3>
+          <p style="font-size: 14px; color: #64748b" id="toggleModalText">
+            Bạn có chắc chắn muốn thay đổi trạng thái sản phẩm này?
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px">
+          <button
+            onclick="closeToggleModal()"
+            style="
+              flex: 1;
+              padding: 11px;
+              border-radius: 25px;
+              border: 1.5px solid #e2e8f0;
+              background: #fff;
+              color: #64748b;
+              font-size: 14px;
+              font-weight: 600;
+              font-family: 'Be Vietnam Pro', sans-serif;
+              cursor: pointer;
+            "
+          >
+            Hủy
+          </button>
+          <a
+            id="confirmToggleBtn"
+            style="
+              flex: 1;
+              padding: 11px;
+              border-radius: 25px;
+              border: none;
+              background: linear-gradient(135deg, #f59e0b, #d97706);
+              color: #fff;
+              font-size: 14px;
+              font-weight: 600;
+              font-family: 'Be Vietnam Pro', sans-serif;
+              cursor: pointer;
+              text-align: center;
+              text-decoration: none;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+            "
+          >
+            Xác nhận
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Promotion Modal -->
+    <div
+      class="modal-overlay"
+      id="promoModal"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          border-radius: 16px;
+          padding: 32px;
+          max-width: 400px;
+          width: 90%;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+          animation: fadeSlideUp 0.3s ease;
+        "
+      >
+        <div style="text-align: center; margin-bottom: 20px">
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+              background: rgba(16, 185, 129, 0.1);
+              margin: 0 auto 16px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <i class="fas fa-tag" style="font-size: 28px; color: #10b981"></i>
+          </div>
+          <h3
+            style="
+              font-size: 18px;
+              font-weight: 700;
+              color: #1e293b;
+              margin-bottom: 8px;
+            "
+          >
+            Cập nhật khuyến mãi
+          </h3>
+          <p style="font-size: 14px; color: #64748b">
+            Bạn có chắc muốn thêm / xóa sản phẩm này khỏi chương trình khuyến
+            mãi?
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px">
+          <button
+            onclick="closePromoModal()"
+            style="
+              flex: 1;
+              padding: 11px;
+              border-radius: 25px;
+              border: 1.5px solid #e2e8f0;
+              background: #fff;
+              color: #64748b;
+              font-size: 14px;
+              font-weight: 600;
+              font-family: 'Be Vietnam Pro', sans-serif;
+              cursor: pointer;
+            "
+          >
+            Hủy
+          </button>
+          <a
+            id="confirmPromoBtn"
+            style="
+              flex: 1;
+              padding: 11px;
+              border-radius: 25px;
+              border: none;
+              background: linear-gradient(135deg, #10b981, #059669);
+              color: #fff;
+              font-size: 14px;
+              font-weight: 600;
+              font-family: 'Be Vietnam Pro', sans-serif;
+              cursor: pointer;
+              text-align: center;
+              text-decoration: none;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+            "
+          >
+            Xác nhận
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script
+      crossorigin="anonymous"
+      th:src="@{/js/admin/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/js/admin/scripts.js}"></script>
+    <script>
+      function openToggleModal(productId, action) {
+        document.getElementById("confirmToggleBtn").href =
+          "/admin/products_management/delete/" +
+          productId +
+          "?activeFlag=" +
+          action;
+        document.getElementById("toggleModal").style.display = "flex";
+      }
+      function closeToggleModal() {
+        document.getElementById("toggleModal").style.display = "none";
+      }
+      document
+        .getElementById("toggleModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeToggleModal();
+        });
+
+      function openDeleteModal(btn) {
+        var productId = btn.getAttribute("data-product-id");
+        var productName = btn.getAttribute("data-product-name");
+        document.getElementById("deleteModalText").innerHTML =
+          "Bạn có chắc chắn muốn <strong>xóa vĩnh viễn</strong> sản phẩm<br><strong style=\"color:#ef4444\">" +
+          productName +
+          "</strong>?<br><span style=\"color:#94a3b8;font-size:12px\">Hành động này không thể hoàn tác.</span>";
+        document.getElementById("confirmDeleteBtn").href =
+          "/admin/products_management/remove/" + productId;
+        document.getElementById("deleteModal").style.display = "flex";
+      }
+      function closeDeleteModal() {
+        document.getElementById("deleteModal").style.display = "none";
+      }
+      document
+        .getElementById("deleteModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeDeleteModal();
+        });
+
+      function openPromoModal(productId, hasPromo) {
+        var btn = document.getElementById("confirmPromoBtn");
+        if (hasPromo) {
+          // Đã có khuyến mãi -> xóa khỏi khuyến mãi (activeFlag=false)
+          btn.href =
+            "/admin/products_management/promotion/" +
+            productId +
+            "?activeFlag=false";
+        } else {
+          // Chưa có khuyến mãi -> thêm vào khuyến mãi
+          btn.href = "/admin/products_management/promotion/" + productId;
+        }
+        document.getElementById("promoModal").style.display = "flex";
+      }
+      function closePromoModal() {
+        document.getElementById("promoModal").style.display = "none";
+      }
+      document
+        .getElementById("promoModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closePromoModal();
+        });
+
+      // Giữ lại filter khi chuyển trang
+      $(document).ready(function () {
+        var categoryId = $('select[name="categoryId"]').val();
+        var keyword = $('input[name="keyword"]').val();
+        var params = [];
+        if (categoryId)
+          params.push("categoryId=" + encodeURIComponent(categoryId));
+        if (keyword) params.push("keyword=" + encodeURIComponent(keyword));
+        var searchStr = params.length > 0 ? "&" + params.join("&") : "";
+
+        $(".pagination-custom a").each(function () {
+          var href = $(this).attr("href");
+          if (href && href.indexOf("page=") !== -1 && searchStr) {
+            $(this).attr("href", href + searchStr);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

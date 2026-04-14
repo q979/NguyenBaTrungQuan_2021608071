@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <title>HTX Dương Hòa</title>
+    <meta content="" name="description">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+    <link rel="apple-touch-icon" th:href="@{/images/icon.png}"}>
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}">
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}">
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}">
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}">
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}">
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}">
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}">
+    <link rel="stylesheet" th:href="@{/css/user/style.css}">
+    <!-- Cusom css -->
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+    <style>
+        .ft__logo a img {
+            max-width: 20%;
+        }
+    </style>
+    <style>
+
+        .prod {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product_img {
+            height: 300px;
+            overflow: hidden;
+            display: block;
+        }
+
+        .product_img img {
+            height: 100%;
+            width: auto !important;
+        }
+
+        .title-container {
+            height: 60px;
+        }
+
+        .promo-contentbox {
+            padding: 24px 28px;
+        }
+
+        /* Animation: tag xuat hien tu tren xuong */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animation: title xuat hien tu trai sang phai */
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Animation: nut button xuat hien tu duoi len */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* .promo-tag {
+            display: inline-block;
+            margin: 0 0 12px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: transparent;
+            color: #ffffff !important;
+            border: 1px solid #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Bitter', serif;
+            text-transform: uppercase;
+            animation: slideDown 0.8s ease-out forwards;
+            opacity: 0;
+        } */
+         .promo-tag {
+            display: inline-block;
+            margin: 0 0 14px;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: linear-gradient(45deg, #ff5501, #ff9900);
+            border: none;
+            color: #fff !important;
+    
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Bitter', serif;
+
+            backdrop-filter: blur(6px); /* hiệu ứng kính */
+            -webkit-backdrop-filter: blur(6px);
+
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2),
+            inset 0 0 10px rgba(255,255,255,0.1);
+
+            transition: all 0.3s ease;
+    
+            animation: slideDown 0.8s ease-out forwards;
+            opacity: 0;
+        }
+            .promo-tag:hover {
+            background: #ffffff;
+            color: #ff5501 !important;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+        .promo-title {
+            margin: 14px 0 14px;
+            line-height: 1.3;
+            font-size: 48px;
+            font-weight: 700;
+            font-family: 'Bitter', serif;
+            word-break: break-word;
+            opacity: 0;
+            animation: slideRight 0.8s ease-out 0.2s forwards !important;
+        }
+
+        .promo-title .char {
+            display: inline-block;
+            /* background: linear-gradient(180deg,
+                #ffffff 0%,
+                #80deea 20%,
+                #4dd0e1 40%,
+                #26c6da 60%,
+                #00acc1 80%,
+                #b2ebf2 100%
+            ); */
+            background: linear-gradient(180deg,
+    #f9fff1 0%,
+    #d4fc79 20%,
+    #96e6a1 40%,
+    #5cd65c 60%,
+    #38b000 80%,
+    #ecfccb 100%    
+);
+            background-size: 100% 600%;
+            background-position: 0% 0%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: waterFlow 4s ease-in-out infinite;
+        }
+
+        @keyframes waterFlow {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 0% 80%; }
+        }
+
+        .promo-text {
+            font-size: 22px !important;
+            color: #fff !important;
+            font-weight: 500; /* cho nổi bật hơn */
+            font-family: 'Bitter', serif;
+        }
+
+        /* ==== Nền gradient đỏ-cam cho phần sản phẩm ==== */
+        .promo__product__area {
+            background: transparent;
+            position: relative;
+        }
+
+        .promo__product__area .container {
+            background: transparent;
+        }
+
+        .promo__section__inner {
+            background: linear-gradient(135deg, #c94b4b 0%, #e85d3b 30%, #f07c38 60%, #f5a623 100%);
+            border-radius: 24px;
+            padding: 25px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo__section__inner .section__title h2 {
+            color: #ffffff !important;
+        }
+
+        .promo__section__inner .section__title p {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        .promo__section__inner .title__be--2 {
+            color: #ffffff !important;
+        }
+
+        .promo__section__inner .title__be--2 .color--theme {
+            color: #ffd700 !important;
+        }
+
+        /* ==== Product Card Hiện Đại - Hover Effect ==== */
+        /* Card base: flex column, overflow hidden */
+        .promo__section__inner .product__style--3 {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .promo__section__inner .product__style--3:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+        }
+
+        /* ==== Product Image Wrapper: fill the thumb area ==== */
+        .promo__section__inner .product__style--3 .product__thumb {
+            overflow: hidden;
+            position: relative;
+            height: 380px;
+            transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .promo__section__inner .product__style--3:hover .product__thumb {
+            height: 380px;
+        }
+
+        .promo__section__inner .product__style--3 .product__thumb .first__img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .promo__section__inner .product__style--3 .product__thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.4s ease;
+        }
+
+        .promo__section__inner .product__style--3:hover .product__thumb img {
+            transform: scale(1.08);
+            filter: brightness(1.05);
+        }
+
+        /* ==== Action Overlay: nam ngay tren product__thumb, trượt lên ==== */
+        .promo__section__inner .product__style--3 .product-action-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(44, 62, 80, 0.96) 0%, rgba(44, 62, 80, 0.82) 50%, transparent 100%);
+            padding: 14px 12px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.35s ease;
+            z-index: 3;
+        }
+
+        .promo__section__inner .product__style--3:hover .product-action-overlay {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Nut "Xem chi tiet" */
+        .promo__section__inner .product__style--3 .product-action-overlay .btn-detail {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 100%;
+            max-width: 170px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 22px;
+            text-decoration: none;
+            box-shadow: 0 3px 12px rgba(39, 174, 96, 0.45);
+            transform: translateY(12px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.05s,
+                        opacity 0.35s ease 0.05s,
+                        background 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        .promo__section__inner .product__style--3:hover .product-action-overlay .btn-detail {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .promo__section__inner .product__style--3 .product-action-overlay .btn-detail:hover {
+            background: linear-gradient(135deg, #2ecc71, #1e8449);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.55);
+            transform: translateY(-2px) !important;
+        }
+
+        /* Icon row */
+        .promo__section__inner .product__style--3 .product-action-overlay .action-icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .promo__section__inner .product__style--3 .product-action-overlay .action-icons a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 15px;
+            text-decoration: none;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        .promo__section__inner .product__style--3:hover .product-action-overlay .action-icons a {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Base transition cho icon 1 */
+        .promo__section__inner .product__style--3 .product-action-overlay .action-icons a:nth-child(1) {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.12s,
+                        opacity 0.35s ease 0.12s,
+                        background 0.3s ease,
+                        border-color 0.3s ease;
+        }
+        /* Base transition cho icon 2 */
+        .promo__section__inner .product__style--3 .product-action-overlay .action-icons a:nth-child(2) {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.18s,
+                        opacity 0.35s ease 0.18s,
+                        background 0.3s ease,
+                        border-color 0.3s ease;
+        }
+        /* Base transition cho icon 3 */
+        .promo__section__inner .product__style--3 .product-action-overlay .action-icons a:nth-child(3) {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.24s,
+                        opacity 0.35s ease 0.24s,
+                        background 0.3s ease,
+                        border-color 0.3s ease;
+        }
+
+        .promo__section__inner .product__style--3 .product-action-overlay .action-icons a:hover {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #2c3e50;
+            transform: translateY(-3px) !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
+
+        /* An action cu trong product__content */
+        .promo__section__inner .product__style--3 .product__content .action {
+            display: none;
+        }
+
+        /* ==== Product Content: ẩn khi hover (anh chiếm toàn bộ) ==== */
+        .promo__section__inner .product__style--3 .product__content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 16px !important;
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.35s ease;
+            z-index: 5;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .promo__section__inner .product__style--3:hover .product__content {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        /* Text content */
+        .promo__section__inner .product__style--3 .product__content h4 a {
+            color: #222222 !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            line-height: 1.4 !important;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal !important;
+            transition: color 0.3s ease;
+        }
+
+        .promo__section__inner .product__style--3 .product__content h4 a:hover {
+            color: #c94b4b !important;
+        }
+
+        /* Gia san pham */
+        .promo__section__inner .product__style--3 .prize {
+            margin-top: 6px !important;
+        }
+
+        .promo__section__inner .product__style--3 .prize li:first-child {
+            /* color: #c94b4b !important;
+            font-size: 16px !important;
+            font-weight: 800 !important; */
+            color: #ff6b00 !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+        }
+
+        .promo__section__inner .product__style--3 .prize li.old_prize {
+            color: #999999 !important;
+            font-size: 13px !important;
+            font-weight: 400 !important;
+            text-decoration: line-through;
+        }
+
+        /* Fix owl-stage width */
+        .promo__section__inner .owl-carousel .owl-stage {
+            margin-top: 10px !important;
+        }
+
+        /* Nút navigation mũi tên trên nền gradient */
+        .promo__section__inner .owl-theme {
+            position: relative;
+        }
+
+        .promo__section__inner .owl-theme .owl-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .promo__section__inner .owl-theme .owl-nav [class*="owl-"] {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.25) !important;
+            border: 2px solid rgba(255, 255, 255, 0.5) !important;
+            color: white !important;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        .promo__section__inner .owl-theme .owl-nav [class*="owl-"]:hover {
+            background-color: #c94b4b !important;
+            border-color: #c94b4b !important;
+            color: white !important;
+            transform: translateY(-50%) scale(1.15);
+            box-shadow: 0 6px 20px rgba(201, 75, 75, 0.4);
+        }
+
+        .promo__section__inner .owl-theme .owl-nav .owl-prev {
+            left: 10px;
+        }
+
+        .promo__section__inner .owl-theme .owl-nav .owl-next {
+            right: 10px;
+        }
+
+        .promo__section__inner .owl-theme .owl-nav [class*="owl-"] i {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .promo__section__inner .product__indicator--4 {
+            padding: 20px 0;
+        }
+
+        .promo__section__inner .product__indicator--4 .product__style--3,
+        .promo__section__inner .furniture--4 .product__style--3 {
+            margin: 0 10px;
+        }
+
+        .promo__section__inner .owl-carousel {
+            padding-bottom: 20px;
+        }
+
+        .promo__product__meta {
+            margin: 0 0 14px;
+            font-size: 45px;
+            font-weight: 500;
+            color: #ffffff;
+            font-family: 'Bitter', serif;
+            animation: slideRight 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+        
+
+        /* .promo-meta p span {
+            color: #ff5501;
+            font-size: 40px;
+            font-weight: 700;
+        } */
+        .promo-meta p span {
+            font-size: 42px;
+            font-weight: 900;
+            color: #ff5501;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        } 
+
+        .promo-btn,
+        .slide .slider__content a.shopbtn {
+            margin-top: 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-family: 'Bitter', serif;
+            color: #ffffff !important;
+            animation: slideUp 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+
+
+        .slide .slider__content a.shopbtn:hover {
+            color: #ffffff !important;
+        }
+
+        .slide .slider__content a.shopbtn::after {
+            filter: brightness(0) invert(1);
+        }
+
+        .slide .slider__content a.shopbtn:hover::after {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Header navigation white text */
+        .header__area .container-fluid {
+            background: transparent !important;
+        }
+
+        .header__area .mainmenu__nav .meninmenu li a {
+            color: #ffffff !important;
+        }
+
+        .header__area .header__sidebar__right > li > a i {
+            color: #ffffff !important;
+        }
+
+        /* Keep cart badge color unchanged */
+        .header__area .header__sidebar__right > li.shopcart > a span.product_qun {
+            background: #ce7852 !important;
+            color: #fff !important;
+            filter: none !important;
+        }
+
+        .header__area .header__sidebar__right > li.shopcart > a span.product_qun::before {
+            border-color: transparent #ce7852 transparent transparent !important;
+            filter: none !important;
+        }
+
+        /* Keep icon filter white - exclude shopcart so badge stays orange */
+        .header__area .header__sidebar__right > li.shop_search > a,
+        .header__area .header__sidebar__right > li.wishlist > a {
+            filter: brightness(0) invert(1);
+        }
+
+        .header__area .header__sidebar__right > li.setting__bar__icon > a {
+            background: transparent url('/images/icons/user.png') no-repeat scroll left center !important;
+            background-size: 20px 20px !important;
+            filter: brightness(0) invert(1) !important;
+        }
+        .promo-btn,
+        .slide .slider__content a.shopbtn {
+            margin-top: 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-family: 'Bitter', serif;
+            color: #ffffff !important;
+        }
+
+        @media (max-width: 768px) {
+            .promo-contentbox {
+                max-width: 100%;
+                padding: 16px 18px;
+            }
+
+            .promo-title {
+                font-size: 30px;
+            }
+
+            .promo-meta p {
+                font-size: 17px;
+            }
+        }
+
+        /* ==== Sale Badge tren san pham ==== */
+        .product__thumb .sale-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+            z-index: 5;
+            line-height: 1.2;
+        }
+
+        /* ==== Quick View Modal - Modern E-commerce Style ==== */
+        #product-modal .modal-dialog {
+            max-width: 960px;
+            width: 96%;
+            margin: 100px auto;
+        }
+
+        #product-modal .modal-content {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.18);
+        }
+
+        #product-modal .modal-body--padded {
+            padding: 40px;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #f5f5f5;
+            color: #333;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            z-index: 10;
+        }
+
+        .modal-close-btn:hover {
+            background: #e74c3c;
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .modal-product-inner {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .modal-product__images {
+            flex: 0 0 45%;
+            max-width: 45%;
+        }
+
+        .modal-main-image {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f8f8f8;
+        }
+
+        .modal-main-image img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-product__info {
+            flex: 1;
+            padding-top: 5px;
+        }
+
+        .modal-product__title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin: 0 0 16px;
+            line-height: 1.3;
+        }
+
+        .modal-product__meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .modal-brand,
+        .modal-stock {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-brand i,
+        .modal-stock i {
+            font-size: 16px;
+            color: #999;
+        }
+
+        .modal-stock.in-stock i { color: #27ae60; }
+        .modal-stock.out-stock i { color: #e74c3c; }
+
+        .modal-product__price {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .modal-price-new {
+            font-size: 32px;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+
+        .modal-price-old {
+            font-size: 18px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .modal-product__description {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .modal-product__quantity {
+            margin-bottom: 24px;
+        }
+
+        .modal-qty-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-qty-control {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal-qty-btn {
+            width: 42px;
+            height: 42px;
+            border: none;
+            background: #f5f5f5;
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-qty-btn:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .modal-qty-input {
+            width: 60px;
+            height: 42px;
+            border: none;
+            border-left: 2px solid #e0e0e0;
+            border-right: 2px solid #e0e0e0;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            outline: none;
+            -moz-appearance: textfield;
+        }
+
+        .modal-qty-input::-webkit-outer-spin-button,
+        .modal-qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            appearance: none;
+        }
+
+        .modal-available {
+            font-size: 12px;
+            color: #999;
+            margin-left: 12px;
+        }
+
+        .modal-product__actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .modal-btn-cart {
+            flex: 1;
+            height: 52px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.35);
+        }
+
+        .modal-btn-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.45);
+        }
+
+        .modal-btn-cart:active {
+            transform: translateY(0);
+        }
+
+        .modal-btn-wishlist {
+            width: 52px;
+            height: 52px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fff;
+            color: #999;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-wishlist:hover {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            background: #fff5f5;
+        }
+
+        @media (max-width: 768px) {
+            .modal-product-inner {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .modal-product__images {
+                flex: none;
+                max-width: 100%;
+            }
+            .modal-main-image img {
+                height: 280px;
+            }
+            .modal-product__title {
+                font-size: 22px;
+            }
+            .modal-product__actions {
+                flex-direction: column;
+            }
+            .modal-btn-wishlist {
+                width: 100%;
+            }
+            .modal-body--padded {
+                padding: 24px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{user/fragments/header :: header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="user/fragments/search_popup :: search_popup"></div>
+    <!-- End Search Popup -->
+    <!-- Start Slider area -->
+    <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <!-- Start Single Slide -->
+        <div th:each="promotion : ${promotionList}"
+             class="slide animation__style10 bg-image--1 fullscreen align__center--left"
+             th:style="${promotion.image != null and !#strings.isEmpty(promotion.image) ? 'background-image: url(' + promotion.image + '); background-repeat: no-repeat; background-size: cover; background-position: center center;' : ''}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="slider__content">
+                            <div class="contentbox promo-contentbox">
+                                <p class="promo-tag" style="animation: slideDown 0.8s ease-out 0s forwards; opacity: 0;">Chương trình ưu đãi</p>
+                                <h2 class="promo-title" th:inline="text">[[${promotion.getTitle()}]]</h2>
+                                <div class="promo-meta">
+                                    <p style="animation: slideRight 0.8s ease-out 0.6s forwards; opacity: 0;"><span class="promo-text">Ưu đãi tới   </span> <span th:text="${promotion.getDiscountPercentage()} + '%'">  </span></p>
+                                    <p style="animation: slideRight 0.8s ease-out 0.8s forwards; opacity: 0;"><span class="promo-text">Kết thúc vào     </span> <span th:text="${#dates.format(promotion.endDate, 'dd/MM/yyyy')}">  </span></p>
+                                </div>
+                                <!-- <a class="shopbtn promo-btn" th:href="@{/shop}" style="animation: slideUp 0.8s ease-out 1s forwards; opacity: 0;">Mua hàng ngay</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Single Slide -->
+    </div>
+    <!-- End Slider area -->
+    <!-- Start BEst Seller Area -->
+    <section class="wn__product__area promo__product__area pt--80 pb--30">
+        <div class="container">
+            <div class="promo__section__inner" style="background: linear-gradient(135deg, #c94b4b 0%, #e85d3b 30%, #f07c38 60%, #f5a623 100%); border-radius: 24px; padding: 25px 30px; position: relative; overflow: hidden;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">Bán <span class="color--theme">chạy nhất</span></h2>
+                        <p>Khám phá những sản phẩm nông sản bán chạy nhất hiện nay tại cửa hàng của chúng tôi</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Start Single Tab Content -->
+            <div class="furniture--4 border--round arrows_style owl-carousel owl-theme mt--20">
+                <!-- Start Single Product -->
+                <div class="product product__style--3" th:each="product : ${top4BestSeller}">
+                    <p id="productDescription2" th:text="${product.description}" hidden="hidden"></p>
+                    <div class="product__thumb">
+                        <a class="first__img" th:href="@{/shop/product/__${product.id}__}"><img th:src="${product.coverImage}" alt="product image"></a>
+                        <div th:if="${product.promotion != null}" class="hot__box">
+                            <span class="hot-label">SALE</span>
+                        </div>
+                        <div th:if="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}" class="sale-badge"
+                             th:text="'-' + ${T(java.lang.Math).round(100 - (product.salePrice.doubleValue() / product.originalPrice.doubleValue() * 100))} + '%'">
+                        </div>
+                        <!-- Action Overlay - Slide Up -->
+                        <div class="product-action-overlay">
+                            <a class="btn-detail" th:href="@{/shop/product/__${product.id}__}">
+                                <i class="bi bi-eye"></i> Xem chi tiết
+                            </a>
+                            <div class="action-icons">
+                                <a th:onclick="'addToCart(' + ${product.id} + ')'" title="Thêm vào giỏ hàng"><i class="bi bi-cart3"></i></a>
+                                <a th:onclick="'openModal(event, ' + ${product.id} + ')'" title="Xem nhanh"><i class="bi bi-search"></i></a>
+                                <a th:onclick="'addToWishlist(' + ${product.id} + ')'" title="Yêu thích"><i class="bi bi-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__content content--center">
+                        <h4><a th:href="@{/shop/product/__${product.id}__}" th:text="${product.title}"></a></h4>
+                        <ul th:if="${product.salePrice > 0}" class="prize d-flex">
+                            <li th:text="${#numbers.formatDecimal(__${(product.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                            <li class="old_prize" th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                        </ul>
+                        <ul th:if="${product.salePrice == null || product.salePrice <= 0}" class="prize d-flex">
+                            <li th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                        </ul>
+                        <div class="action">
+                            <div class="actions_inner">
+                                <ul class="add_to_links">
+                                    <li><a class="cart" th:onclick="'addToCart(' + ${product.id} + ')'"><i class="bi bi-cart3"></i></a></li>
+                                    <li><a class="wishlist" th:onclick="'addToWishlist(' + ${product.id} + ')'"><i class="bi bi-heart"></i></a></li>
+                                    <li><a data-toggle="modal" id="openModalButton" th:onclick="'openModal(event, ' + ${product.id} + ')'" title="Quick View" class="quickview modal-view detail-link"><i class="bi bi-search"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Product -->
+            </div>
+            <!-- End Single Tab Content -->
+            </div>
+        </div>
+    </section>
+    <!-- Start BEst Seller Area -->
+
+    <!-- Start Best Seller Area -->
+    <section class="wn__bestseller__area promo__product__area pt--80 pb--30">
+        <div class="container">
+            <div class="promo__section__inner" style="background: linear-gradient(135deg,#1b5e20 0%,#2e7d32 30%,#4caf50 60%,#aed581 100%); border-radius: 24px; padding: 25px 30px; position: relative; overflow: hidden;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">
+                            Nông Sản <span class="color--theme">Mới</span>
+                        </h2>
+                        <p>
+                            Những sản phẩm nông sản mới nhất trên thị trường đều có tại đây
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+                    <div class="furniture--4 border--round arrows_style owl-carousel owl-theme mt--20">
+                        <!-- Start Single Product -->
+                        <div class="product product__style--3" th:each="product : ${newProducts}">
+                            <p id="productDescription" th:text="${product.description}" hidden="hidden">
+
+                            </p>
+                            <div class="product__thumb">
+                                <a class="first__img" th:href="@{/shop/product/__${product.id}__}"><img th:src="${product.coverImage}" alt="product image"></a>
+                                <!--                            <a class="second__img animation1" href="single-product.html"><img src="images/products/2.jpg" alt="product image"></a>-->
+                                <div th:if="${product.promotion != null}" class="hot__box">
+                                    <span class="hot-label">SALE</span>
+                                </div>
+                                <div th:if="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}" class="sale-badge"
+                                     th:text="'-' + ${T(java.lang.Math).round(100 - (product.salePrice.doubleValue() / product.originalPrice.doubleValue() * 100))} + '%'">
+                                </div>
+                                <!-- Action Overlay - Slide Up -->
+                                <div class="product-action-overlay">
+                                    <a class="btn-detail" th:href="@{/shop/product/__${product.id}__}">
+                                        <i class="bi bi-eye"></i> Xem chi tiết
+                                    </a>
+                                    <div class="action-icons">
+                                        <a th:onclick="'addToCart(' + ${product.id} + ')'" title="Thêm vào giỏ hàng"><i class="bi bi-cart3"></i></a>
+                                        <a th:onclick="'openModal(event, ' + ${product.id} + ')'" title="Xem nhanh"><i class="bi bi-search"></i></a>
+                                        <a th:onclick="'addToWishlist(' + ${product.id} + ')'" title="Yêu thích"><i class="bi bi-heart"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product__content content--center">
+                                <h4><a th:href="@{/shop/product/__${product.id}__}" th:text="${product.title}"></a></h4>
+                                <ul th:if="${product.salePrice > 0}" class="prize d-flex">
+                                    <li th:text="${#numbers.formatDecimal(__${(product.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                    <li class="old_prize" th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                </ul>
+                                <ul th:if="${product.salePrice == null || product.salePrice <= 0}" class="prize d-flex">
+                                    <li th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                </ul>
+                                <div class="action">
+                                    <div class="actions_inner">
+                                        <ul class="add_to_links">
+                                            <li><a class="cart" th:onclick="'addToCart(' + ${product.id} + ')'"><i class="bi bi-cart3"></i></a></li>
+                                            <li><a class="wishlist" th:onclick="'addToWishlist(' + ${product.id} + ')'"><i class="bi bi-heart"></i></a></li>
+                                            <li><a data-toggle="modal" id="openModalButton2" th:onclick="'openModal(event, ' + ${product.id} + ')'" title="Quick View" class="quickview modal-view detail-link"><i class="bi bi-search"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Product -->
+                    </div>
+        </div>
+    </section>
+
+    <!-- Add this section for all users -->
+    <section th:if="${recommendedProducts != null and not #lists.isEmpty(recommendedProducts)}" class="wn__product__area promo__product__area pt--80 pb--30">
+        <div class="container">
+            <div class="promo__section__inner" style="background: linear-gradient(135deg,#009688 0%,#26a69a 30%,#4db6ac 60%,#80cbc4 100%); border-radius: 24px; padding: 25px 30px; position: relative; overflow: hidden;">
+                <div class="section__title text-center">
+                    <h2 class="title__be--2">Đề xuất <span class="color--theme">cho bạn</span></h2>
+                    <p>Dựa trên sở thích và lịch sử tương tác của bạn</p>
+                </div>
+                <div class="furniture--4 border--round arrows_style owl-carousel owl-theme mt--20">
+                    <div class="product product__style--3" th:each="product : ${recommendedProducts}">
+                        <div class="product__thumb">
+                            <a class="first__img" th:href="@{/shop/product/__${product.id}__}">
+                                <img th:src="${product.coverImage}" alt="product image">
+                            </a>
+                            <div th:if="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}" class="sale-badge"
+                                 th:text="'-' + ${T(java.lang.Math).round(100 - (product.salePrice.doubleValue() / product.originalPrice.doubleValue() * 100))} + '%'">
+                            </div>
+                            <!-- Action Overlay - Slide Up -->
+                            <div class="product-action-overlay">
+                                <a class="btn-detail" th:href="@{/shop/product/__${product.id}__}">
+                                    <i class="bi bi-eye"></i> Xem chi tiết
+                                </a>
+                                <div class="action-icons">
+                                    <a th:onclick="'addToCart(' + ${product.id} + ')'" title="Thêm vào giỏ hàng"><i class="bi bi-cart3"></i></a>
+                                    <a th:onclick="'openModal(event, ' + ${product.id} + ')'" title="Xem nhanh"><i class="bi bi-search"></i></a>
+                                    <a th:onclick="'addToWishlist(' + ${product.id} + ')'" title="Yêu thích"><i class="bi bi-heart"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__content content--center">
+                            <h4><a th:href="@{/shop/product/__${product.id}__}" th:text="${product.title}"></a></h4>
+                            <ul th:if="${product.salePrice > 0}" class="prize d-flex">
+                                <li th:text="${#numbers.formatDecimal(__${(product.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                                <li class="old_prize" th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                            </ul>
+                            <ul th:if="${product.salePrice == null || product.salePrice <= 0}" class="prize d-flex">
+                                <li th:text="${#numbers.formatDecimal(__${(product.originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Area -->
+    <th:block th:replace="~{user/fragments/footer :: footer}"></th:block>
+    <!-- //Footer Area -->
+
+    <!-- QUICKVIEW PRODUCT -->
+    <div id="quickview-wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="product-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal__container" role="document">
+                <div class="modal-content">
+                    <div class="modal-body modal-body--padded">
+                        <button type="button" class="modal-close-btn" data-dismiss="modal" aria-label="Close">
+                            <i class="zmdi zmdi-close"></i>
+                        </button>
+                        <div class="modal-product-inner">
+                            <!-- Left: Product Images -->
+                            <div class="modal-product__images">
+                                <div class="modal-main-image">
+                                    <img id="modal-product-img" alt="product image">
+                                </div>
+                            </div>
+                            <!-- Right: Product Info -->
+                            <div class="modal-product__info">
+                                <h2 id="modal-product-title" class="modal-product__title"></h2>
+
+                                <div class="modal-product__meta">
+                                    <span class="modal-brand" id="modal-brand-container" style="display:none;">
+                                        <i class="zmdi zmdi-store"></i> <span id="modal-product-brand"></span>
+                                    </span>
+                                    <span class="modal-stock">
+                                        <i class="zmdi zmdi-check-circle" id="modal-stock-icon"></i>
+                                        <span id="modal-product-stock">Còn hàng</span>
+                                    </span>
+                                </div>
+
+                                <div class="modal-product__price" id="modal-price-container">
+                                    <span class="modal-price-new" id="modal-product-sale-price"></span>
+                                    <span class="modal-price-old" id="modal-product-original-price"></span>
+                                </div>
+
+                                <div class="modal-product__description" id="modal-product-description"></div>
+
+                                <div class="modal-product__quantity">
+                                    <label class="modal-qty-label">Số lượng</label>
+                                    <div class="modal-qty-control">
+                                        <button class="modal-qty-btn" id="modal-qty-minus" type="button">−</button>
+                                        <input type="number" id="modal-qty-input" class="modal-qty-input" value="1" min="1">
+                                        <button class="modal-qty-btn" id="modal-qty-plus" type="button">+</button>
+                                    </div>
+                                    <span class="modal-available" id="modal-available-count"></span>
+                                </div>
+
+                                <div class="modal-product__actions">
+                                    <button class="modal-btn-cart" id="modal-add-btn">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                    <button class="modal-btn-wishlist" id="modal-wishlist-btn" title="Thêm vào yêu thích">
+                                        <i class="zmdi zmdi-favorite-outline"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END QUICKVIEW PRODUCT -->
+
+
+
+</div>
+<!-- //Main wrapper -->
+<!-- JS Files -->
+
+<script type="text/javascript">
+
+    let isReading = false;
+    let speech = null;
+    let paused = false;
+    const readButton = document.getElementById("readButton");
+    const description = document.getElementById("productDescription").innerText;
+
+    function readDescription(){
+        if (!speech) {
+            speech = new SpeechSynthesisUtterance(description);
+            speech.lang = 'en-EN';
+            speech.rate = 1;
+        }
+
+        if (isReading) {
+            if (!paused) {
+                window.speechSynthesis.pause();
+                paused = true;
+                readButton.classList.remove("reading");
+            } else {
+                window.speechSynthesis.resume();
+                paused = false;
+                readButton.classList.add("reading");
+            }
+        } else {
+            // Nếu chưa đọc, bắt đầu đọc
+            window.speechSynthesis.speak(speech);
+            isReading = true;
+            readButton.classList.add("reading");
+        }
+
+        speech.onend = () => {
+            isReading = false;
+            paused = false;
+            readButton.classList.remove("reading");
+        };
+    }
+
+    let isReading2 = false;
+    let paused2 = false;
+    const readButton2 = document.getElementById("readButton2");
+    const description2 = document.getElementById("productDescription2").innerText;
+
+    function readDescription2(){
+        if (!speech) {
+            speech = new SpeechSynthesisUtterance(description2);
+            speech.lang = 'en-EN';
+            speech.rate = 1;
+        }
+
+        if (isReading2) {
+            if (!paused2) {
+                window.speechSynthesis.pause();
+                paused2 = true;
+                readButton2.classList.remove("reading");
+            } else {
+                window.speechSynthesis.resume();
+                paused2 = false;
+                readButton2.classList.add("reading");
+            }
+        } else {
+            // Nếu chưa đọc, bắt đầu đọc
+            window.speechSynthesis.speak(speech);
+            isReading2 = true;
+            readButton2.classList.add("reading");
+        }
+
+        speech.onend = () => {
+            isReading2 = false;
+            paused2 = false;
+            readButton2.classList.remove("reading");
+        };
+    }
+
+    function addToCart(productId) {
+        $.ajax({
+            type: "POST",
+            url: "/cart/add-to-cart",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({ productId: productId, quantity: 1 }),
+            success: function (data) {
+                if (data.success) {
+                    alert(data.message);
+                    updateCartQuantity();
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    alert("Bạn cần đăng nhập trước");
+                    window.location.href = "/login";
+                } else {
+                    alert("Đã xảy ra lỗi");
+                }
+            }
+        });
+    }
+
+    function updateCartQuantity() {
+        $.ajax({
+            type: "GET",
+            url: "/cart/cart-item-count",  // Replace with the actual endpoint to get cart item count
+            success: function (data) {
+                $("#cart-quantity").text(data); // Update the cart quantity in the header
+            },
+            error: function () {
+                console.log("Lỗi cập nhật giỏ hàng");
+            }
+        });
+    }
+
+    function addToWishlist(productId) {
+
+        $.ajax({
+            type: "POST",
+            url: "/wishlist/add",
+            data: {
+                productId: productId
+            },
+            success: function (response) {
+                if (response === "ok") {
+                    alert("Đã thêm vào danh nông sản yêu thích !")
+                } else {
+                    alert("Bạn cần đăng nhập trước");
+                    window.location.href = "/login";
+                }
+            },
+            error: function (xhr, status, error) {
+
+                alert("Đã có lỗi : " + error);
+            }
+        });
+    }
+
+
+    /* An hieu ung nuoc cho promo-title - moi tu co animation gradient */
+    setTimeout(function() {
+        $('.promo-title').each(function() {
+            var text = $(this).text();
+            if (!text || text.length === 0) return;
+            var words = text.split(' ');
+            var html = '';
+            for (var i = 0; i < words.length; i++) {
+                var delay = (i * 0.2).toFixed(2);
+                html += '<span class="char" style="animation-delay:' + delay + 's;">' + words[i] + '</span>';
+                if (i < words.length - 1) html += ' ';
+            }
+            $(this).html(html);
+        });
+    }, 100);
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+<script th:src="@{/js/user/plugins.js}"></script>
+<script th:src="@{/js/user/active.js}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.slide__activation').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            autoplay: true,
+            autoplayTimeout: 1500,
+            autoplayHoverPause: true,
+            items: 1,
+            navText: ['<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>'],
+            dots: false,
+            lazyLoad: true
+        });
+    });
+</script>
+
+<script th:inline="javascript">
+
+    var currentModalProduct = null;
+
+    function addToCartFromModal(productId) {
+        var qtyInput = parseInt($('#modal-qty-input').val(), 10) || 1;
+        if (qtyInput < 1) qtyInput = 1;
+
+        $.ajax({
+            type: "POST",
+            url: "/cart/add-to-cart",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({ productId: productId, quantity: qtyInput }),
+            success: function (data) {
+                if (data.success) {
+                    alert(data.message);
+                    updateCartQuantity();
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (xhr) {
+                if (xhr.status === 401) {
+                    alert("Bạn cần đăng nhập trước");
+                    window.location.href = "/login";
+                } else {
+                    alert("Đã xảy ra lỗi");
+                }
+            }
+        });
+    }
+
+    function openModal(event, productId){
+        let id;
+        event.preventDefault();
+        $.ajax({
+            url: `/api/v1/products/get/${productId}`,
+            method: 'GET',
+            contentType: "application/json",
+            data: {productId: productId},
+            success: function (res) {
+                $('#modal-product-img').attr('src', res.data.coverImage);
+                $('#modal-product-title').text(res.data.title);
+
+                // Nha phan phoi (publisher)
+                if (res.data.publisher) {
+                    $('#modal-product-brand').text(res.data.publisher);
+                    $('#modal-brand-container').css('display', 'inline-flex');
+                } else if (res.data.producer) {
+                    $('#modal-product-brand').text(res.data.producer);
+                    $('#modal-brand-container').css('display', 'inline-flex');
+                } else {
+                    $('#modal-brand-container').css('display', 'none');
+                }
+
+                // Format price
+                function fmt(n) {
+                    if (!n) return '';
+                    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                }
+
+                if (res.data.salePrice === null || res.data.salePrice <= 0) {
+                    $('#modal-product-sale-price').text(fmt(res.data.originalPrice) + ' VND');
+                    $('#modal-product-original-price').text('');
+                } else {
+                    $('#modal-product-sale-price').text(fmt(res.data.salePrice) + ' VND');
+                    $('#modal-product-original-price').text(fmt(res.data.originalPrice) + ' VND');
+                }
+
+                $('#modal-product-description').text(res.data.description);
+                id = res.data.id;
+
+                // Luu product data de dung khi add to cart
+                currentModalProduct = res.data;
+
+                // Reset quantity to 1
+                $('#modal-qty-input').val(1);
+
+                // Set cart button
+                $('#modal-add-btn').attr('onclick', 'addToCartFromModal(' + id + ')');
+
+                // Set wishlist button
+                $('#modal-wishlist-btn').attr('onclick', 'addToWishlist(' + id + ')');
+
+                // Stock info
+                if (res.data.qty !== undefined && res.data.qty !== null) {
+                    $('#modal-available-count').text('(Còn ' + res.data.qty + ' sản phẩm)');
+                    if (res.data.qty <= 0) {
+                        $('#modal-add-btn').prop('disabled', true).css('opacity', '0.5').text('Hết hàng');
+                        $('#modal-product-stock').text('Hết hàng');
+                        $('#modal-stock-icon').removeClass('zmdi-check-circle').addClass('zmdi-block');
+                        $('.modal-stock').removeClass('in-stock').addClass('out-stock');
+                    } else {
+                        $('#modal-add-btn').prop('disabled', false).css('opacity', '1').html('<i class="zmdi zmdi-shopping-cart"></i> Thêm vào giỏ hàng');
+                        $('#modal-product-stock').text('Còn hàng');
+                        $('#modal-stock-icon').removeClass('zmdi-block').addClass('zmdi-check-circle');
+                        $('.modal-stock').removeClass('out-stock').addClass('in-stock');
+                    }
+                }
+
+                $('#product-modal').modal('show');
+            },
+            error: function (err) {
+                alert("Something went wrong: " + JSON.stringify(err));
+            }
+        });
+    }
+
+    // Quantity handlers
+    $(document).on('click', '#modal-qty-minus', function () {
+        var current = parseInt($('#modal-qty-input').val(), 10) || 1;
+        if (current > 1) {
+            $('#modal-qty-input').val(current - 1);
+        }
+    });
+
+    $(document).on('click', '#modal-qty-plus', function () {
+        var current = parseInt($('#modal-qty-input').val(), 10) || 1;
+        var max = (currentModalProduct && currentModalProduct.qty !== null && currentModalProduct.qty !== undefined) ? currentModalProduct.qty : 9999;
+        if (current < max) {
+            $('#modal-qty-input').val(current + 1);
+        }
+    });
+
+    $(document).on('input', '#modal-qty-input', function () {
+        var value = parseInt($(this).val(), 10);
+        if (isNaN(value) || value < 1) {
+            $(this).val(1);
+        }
+        if (currentModalProduct && currentModalProduct.qty !== null && currentModalProduct.qty !== undefined) {
+            if (value > currentModalProduct.qty) {
+                $(this).css('color', '#e74c3c');
+            } else {
+                $(this).css('color', '#333');
+            }
+        }
+    });
+
+</script>
+
+
+</body>
+
+</html>

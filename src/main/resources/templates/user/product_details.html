@@ -1,0 +1,526 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <title>Chi tiết sản phẩm - HTX Dương Hòa</title>
+    <meta content="" name="description" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" />
+    <link rel=" apple-touch-icon" th:href="@{/images/icon.png}" } />
+
+    <!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+    <link rel="stylesheet" th:href="@{/css/user/open_sans.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/poppins.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/roboto.css}" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/user/bootstrap.min.css}" />
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" th:href="@{/css/user/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/bicon.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/pe-icon-7-stroke.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/slick.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fakeloader.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-slider.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/nivo-preview-2.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.carousel.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/owl.theme.default.min.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/css/user/material-design-iconic-font.min.css}"
+    />
+    <link rel="stylesheet" th:href="@{/css/user/animation.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fancybox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/mainmenu.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/fotorama.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/jquery-ui.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/lightbox.css}" />
+    <link rel="stylesheet" th:href="@{/css/user/style.css}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&display=swap"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/user/custom.css}" />
+
+    <!-- Modernizer js -->
+    <script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+  </head>
+  <style>
+    .ft__logo a img {
+      max-width: 20%;
+    }
+    .promo-tag {
+      display: inline-block;
+      margin: 0 0 14px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #ff5501, #ff9900);
+      border: none;
+      color: #fff !important;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: "Bitter", serif;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+  </style>
+  <body>
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+      <!-- Header -->
+      <header th:replace="~{user/fragments/header :: header}"></header>
+      <!-- //Header -->
+
+      <!-- Start Slider area -->
+      <div
+        class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme"
+      >
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--1 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+        <!-- Start Single Slide -->
+        <div
+          class="slide animation__style10 bg-image--2 fullscreen align__center--left"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="slider__content">
+                  <div class="contentbox">
+                    <p class="promo-tag">Nông sản organic</p>
+                    <h2><span>Mua các sản phẩm nông sản </span></h2>
+                    <h2><span>với tiêu chuẩn organic </span></h2>
+                    <h2><span>tại Dương Hòa </span></h2>
+                    <!-- <a class="shopbtn" th:href="@{/shop}">Mua hàng ngay</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Single Slide -->
+      </div>
+      <!-- End Slider area -->
+      <!-- Start main Content -->
+      <div class="pd-main">
+        <div class="container">
+          <div class="pd-container">
+            <!-- Left: Image -->
+            <div class="pd-images">
+              <div class="pd-image-card">
+                <div
+                  class="pd-sale-badge"
+                  th:if="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}"
+                  th:text="'-' + ${T(java.lang.Math).round(100 - (product.salePrice.doubleValue() / product.originalPrice.doubleValue() * 100))} + '%'"
+                ></div>
+                <img
+                  th:src="${product.coverImage}"
+                  th:alt="${product.title}"
+                  class="pd-img"
+                />
+              </div>
+            </div>
+
+            <!-- Right: Product Info -->
+            <div class="pd-info">
+              <!-- Title -->
+              <h1 class="pd-title" th:text="${product.title}"></h1>
+
+              <!-- Meta: SKU + Category -->
+              <div class="pd-meta">
+                <span class="pd-meta-item">
+                  <i class="bi bi-hash"></i>
+                  <span>Mã: <strong th:text="${product.id}"></strong></span>
+                </span>
+                <span class="pd-meta-sep">|</span>
+                <span class="pd-meta-item">
+                  <i class="bi bi-tag"></i>
+                  <a
+                    th:href="@{/shop(categoryId=${product.category.id})}"
+                    th:text="${product.category.name}"
+                  ></a>
+                </span>
+              </div>
+
+              <!-- Price -->
+              <div class="pd-price-block">
+                <th:block
+                  th:if="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}"
+                >
+                  <span
+                    class="pd-price-new"
+                    th:text="${#numbers.formatDecimal(product.salePrice, 0, 'POINT', 0, 'POINT')} + ' đ'"
+                  ></span>
+                  <span
+                    class="pd-price-old"
+                    th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'POINT')} + ' đ'"
+                  ></span>
+                </th:block>
+                <th:block
+                  th:unless="${product.salePrice > 0 and product.originalPrice != null and product.originalPrice > 0}"
+                >
+                  <span
+                    class="pd-price-new pd-price-single"
+                    th:text="${#numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'POINT')} + ' đ'"
+                  ></span>
+                </th:block>
+              </div>
+
+              <!-- Description -->
+              <div class="pd-desc-box">
+                <p class="pd-desc" th:text="${product.description}"></p>
+              </div>
+
+              <!-- Stock + Producer badges -->
+              <div class="pd-badges">
+                <span
+                  class="pd-badge pd-badge-success"
+                  th:if="${product.qty != null and product.qty > 0}"
+                >
+                  <i class="bi bi-check-circle-fill"></i> Số lượng trong
+                  kho:<span th:text="${product.qty}"></span>sản phẩm
+                </span>
+                <span
+                  class="pd-badge pd-badge-danger"
+                  th:unless="${product.qty != null and product.qty > 0}"
+                >
+                  <i class="bi bi-x-circle-fill"></i> Hết hàng
+                </span>
+              </div>
+
+              <!-- Quantity + Add to Cart -->
+              <div class="pd-actions">
+                <div class="pd-qty-wrap">
+                  <label class="pd-qty-label">Số lượng</label>
+                  <div class="pd-qty-box">
+                    <button class="pd-qty-btn" id="pd-qty-minus" type="button">
+                      −
+                    </button>
+                    <input
+                      type="number"
+                      id="qty"
+                      class="pd-qty-input"
+                      value="1"
+                      min="1"
+                      th:max="${product.qty}"
+                    />
+                    <button class="pd-qty-btn" id="pd-qty-plus" type="button">
+                      +
+                    </button>
+                  </div>
+                </div>
+                <button
+                  class="pd-btn-cart"
+                  th:onclick="'addToCart(' + ${product.id} + ')'"
+                >
+                  <i class="bi bi-cart3"></i> Thêm vào giỏ hàng
+                </button>
+              </div>
+
+              <!-- Icon Actions -->
+              <div class="pd-icon-row">
+                <button
+                  class="pd-icon-btn"
+                  th:onclick="'addToWishlist(' + ${product.id} + ')'"
+                  title="Yêu thích"
+                >
+                  <i class="bi bi-heart"></i> <span>Yêu thích</span>
+                </button>
+                <button
+                  class="pd-icon-btn"
+                  id="readButton"
+                  th:onclick="'readDescription()'"
+                  title="Nghe mô tả"
+                >
+                  <i class="bi bi-volume-up"></i> <span>Nghe mô tả</span>
+                </button>
+                <button
+                  class="pd-icon-btn"
+                  onclick="navigator.share({title: document.title, url: location.href})"
+                  title="Chia sẻ"
+                >
+                  <i class="bi bi-share"></i> <span>Chia sẻ</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Details Card -->
+          <div class="pd-details-section">
+            <div class="pd-section-header">
+              <h3 class="pd-section-title active">Thông tin chi tiết</h3>
+            </div>
+            <div class="pd-details-card">
+              <div class="pd-details-grid">
+                <div class="pd-detail-item">
+                  <span class="pd-detail-label">Mã sản phẩm</span>
+                  <span
+                    class="pd-detail-value"
+                    th:text="${'#' + product.id}"
+                  ></span>
+                </div>
+                <div class="pd-detail-item">
+                  <span class="pd-detail-label">Người nhập hàng</span>
+                  <span
+                    class="pd-detail-value"
+                    th:text="${product.producer}"
+                  ></span>
+                </div>
+                <div class="pd-detail-item">
+                  <span class="pd-detail-label">Nhà phân phối</span>
+                  <span
+                    class="pd-detail-value"
+                    th:text="${product.publisher}"
+                  ></span>
+                </div>
+                <div class="pd-detail-item">
+                  <span class="pd-detail-label">Số lượng tồn kho</span>
+                  <span class="pd-detail-value" th:text="${product.qty}"></span>
+                </div>
+                <div class="pd-detail-item">
+                  <span class="pd-detail-label">Khối lượng tịnh</span>
+                  <span
+                    class="pd-detail-value"
+                    th:text="${product.weight}"
+                  ></span>
+                </div>
+                <div class="pd-detail-item">
+                  <span class="pd-detail-label">Ngày hết hạn</span>
+                  <span
+                    class="pd-detail-value"
+                    th:text="${#dates.format(product.publishedDate, 'dd-MM-yyyy')}"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script th:inline="javascript">
+        /* Lấy số lượng tồn kho từ model */
+        var productMaxStock = /*[[${product.qty != null ? product.qty : 9999}]]*/ 9999;
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var minusBtn = document.getElementById("pd-qty-minus");
+          var plusBtn = document.getElementById("pd-qty-plus");
+          var qtyInput = document.getElementById("qty");
+
+          /* Disable nút + nếu đã đạt max lúc đầu */
+          if (plusBtn && qtyInput && productMaxStock > 0) {
+            if (parseInt(qtyInput.value) >= productMaxStock) {
+              plusBtn.disabled = true;
+              plusBtn.style.color = "#ccc";
+              plusBtn.style.cursor = "not-allowed";
+            }
+          }
+
+          if (minusBtn && qtyInput) {
+            minusBtn.addEventListener("click", function () {
+              var val = parseInt(qtyInput.value) || 1;
+              if (val > 1) qtyInput.value = val - 1;
+              /* Khi giảm thì bật lại nút + */
+              if (plusBtn) {
+                var newVal = parseInt(qtyInput.value) || 1;
+                if (newVal < productMaxStock) {
+                  plusBtn.disabled = false;
+                  plusBtn.style.color = "";
+                  plusBtn.style.cursor = "";
+                }
+              }
+            });
+          }
+          if (plusBtn && qtyInput) {
+            plusBtn.addEventListener("click", function () {
+              if (plusBtn.disabled) return;
+              var val = parseInt(qtyInput.value) || 1;
+              if (val < productMaxStock) {
+                qtyInput.value = val + 1;
+              }
+              /* Disable nút + khi đạt max */
+              var newVal = parseInt(qtyInput.value) || 1;
+              if (newVal >= productMaxStock) {
+                plusBtn.disabled = true;
+                plusBtn.style.color = "#ccc";
+                plusBtn.style.cursor = "not-allowed";
+              }
+            });
+          }
+        });
+
+        // Speech synthesis
+        window.speechSynthesis.onvoiceschanged = () => {};
+        function loadResponsiveVoice() {
+          return new Promise((resolve) => {
+            if (window.responsiveVoice) {
+              resolve();
+              return;
+            }
+            const s = document.createElement("script");
+            s.src =
+              "https://code.responsivevoice.org/responsivevoice.js?key=demo";
+            s.onload = resolve;
+            s.onerror = resolve;
+            document.head.appendChild(s);
+          });
+        }
+        let isReading = false,
+          paused = false;
+        async function readDescription() {
+          const desc = document.querySelector(".pd-desc")
+            ? document.querySelector(".pd-desc").innerText
+            : "";
+          const btn = document.getElementById("readButton");
+          if (!window.responsiveVoice) {
+            btn && btn.classList.add("reading");
+            await loadResponsiveVoice();
+          }
+          if (isReading) {
+            if (paused) {
+              if (window.responsiveVoice && window.responsiveVoice.isPlaying())
+                window.responsiveVoice.resume();
+              paused = false;
+              btn && btn.classList.add("reading");
+            } else {
+              if (window.responsiveVoice) window.responsiveVoice.pause();
+              paused = true;
+              btn && btn.classList.remove("reading");
+            }
+          } else {
+            btn && btn.classList.add("reading");
+            isReading = true;
+            if (window.responsiveVoice) {
+              window.responsiveVoice.speak(desc, "Vietnamese Female", {
+                rate: 0.9,
+                onend: () => {
+                  isReading = false;
+                  paused = false;
+                  btn && btn.classList.remove("reading");
+                },
+                onerror: () => fallback(desc, btn),
+              });
+            } else {
+              fallback(desc, btn);
+            }
+          }
+        }
+        function fallback(desc, btn) {
+          const u = new SpeechSynthesisUtterance(desc);
+          u.lang = "vi-VN";
+          u.rate = 0.9;
+          const vi = speechSynthesis
+            .getVoices()
+            .find((v) => v.lang.includes("vi"));
+          if (vi) u.voice = vi;
+          u.onend = u.onerror = () => {
+            isReading = false;
+            paused = false;
+            btn && btn.classList.remove("reading");
+          };
+          speechSynthesis.speak(u);
+        }
+        window.addEventListener("beforeunload", () => {
+          speechSynthesis.cancel();
+          if (window.responsiveVoice) window.responsiveVoice.cancel();
+        });
+
+        function addToWishlist(productId) {
+          $.ajax({
+            type: "POST",
+            url: "/wishlist/add",
+            data: { productId: productId },
+            success: function (r) {
+              if (r === "ok") alert("Đã thêm vào danh sách yêu thích!");
+              else {
+                alert("Bạn cần đăng nhập trước");
+                window.location.href = "/login";
+              }
+            },
+            error: function () {
+              alert("Đã có lỗi xảy ra.");
+            },
+          });
+        }
+
+        function addToCart(productId) {
+          var qty = $("#qty").val();
+          $.ajax({
+            type: "POST",
+            url: "/cart/add-to-cart",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify({ productId: productId, quantity: qty }),
+            success: function (data) {
+              if (data.success) {
+                alert(data.message);
+                updateCartQuantity();
+              } else {
+                alert(data.message);
+              }
+            },
+            error: function (xhr) {
+              if (xhr.status === 401) {
+                alert("Bạn cần đăng nhập trước");
+                window.location.href = "/login";
+              } else {
+                alert("Đã xảy ra lỗi");
+              }
+            },
+          });
+        }
+
+        function updateCartQuantity() {
+          $.ajax({
+            type: "GET",
+            url: "/cart/cart-item-count",
+            success: function (data) {
+              $("#cart-quantity").text(data);
+            },
+          });
+        }
+      </script>
+
+      <!-- Add a hidden input with the product ID for JavaScript -->
+      <input type="hidden" id="product-id" th:value="${product.id}" />
+
+      <!-- Footer Area -->
+      <footer th:replace="user/fragments/footer :: footer"></footer>
+      <!-- //Footer Area -->
+    </div>
+    <!-- //Main wrapper -->
+    <!-- JS Files -->
+    <script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/user/popper.min.js}"></script>
+    <script th:src="@{/js/user/bootstrap.min.js}"></script>
+    <script th:src="@{/js/user/plugins.js}"></script>
+    <script th:src="@{/js/user/active.js}"></script>
+  </body>
+</html>
