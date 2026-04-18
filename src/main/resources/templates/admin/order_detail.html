@@ -1,354 +1,1304 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="utf-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
     <title>Chi tiết đơn hàng - HTX Dương Hòa</title>
-    <link rel="stylesheet" th:href="@{/css/admin/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/admin/styles.css}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script crossorigin="anonymous" th:src="@{/js/admin/fontawesome-all.js}"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script
+      crossorigin="anonymous"
+      th:src="@{/js/admin/fontawesome-all.js}"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Be Vietnam Pro', sans-serif; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
 
-        .page-content { padding: 28px; animation: fadeSlideUp 0.4s ease both; }
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
+      .page-content {
+        padding: 28px;
+        animation: fadeSlideUp 0.4s ease both;
+      }
+      @keyframes fadeSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-        /* ===== BREADCRUMB ===== */
-        .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
-        .breadcrumb a { color: #6366f1; text-decoration: none; font-weight: 500; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        .breadcrumb .sep { color: #cbd5e1; font-size: 10px; }
+      /* ===== BREADCRUMB ===== */
+      .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #94a3b8;
+        margin-bottom: 20px;
+      }
+      .breadcrumb a {
+        color: #6366f1;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+      .breadcrumb .sep {
+        color: #cbd5e1;
+        font-size: 10px;
+      }
 
-        /* ===== PAGE HEADER ===== */
-        .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-        .page-header__left { display: flex; align-items: center; gap: 12px; }
-        .page-header__icon {
-            width: 46px; height: 46px; border-radius: 12px;
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 20px;
-        }
-        .page-header__title { font-size: 22px; font-weight: 700; color: #1e293b; }
-        .page-header__sub { font-size: 13px; color: #94a3b8; }
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .page-header__left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .page-header__icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 20px;
+      }
+      .page-header__title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .page-header__sub {
+        font-size: 13px;
+        color: #94a3b8;
+      }
 
-        /* ===== INFO GRID ===== */
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+      /* ===== INFO GRID ===== */
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
 
-        /* ===== INFO CARD ===== */
-        .info-card {
-            background: #fff; border-radius: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.07); overflow: hidden;
-            transition: box-shadow 0.3s ease;
-        }
-        .info-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+      /* ===== INFO CARD ===== */
+      .info-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+      }
+      .info-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
 
-        .info-card__header {
-            padding: 14px 20px; border-bottom: 2px solid #f1f5f9;
-            font-size: 14px; font-weight: 700; color: #1e293b;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .info-card__header i { color: #6366f1; font-size: 16px; }
+      .info-card__header {
+        padding: 14px 20px;
+        border-bottom: 2px solid #f1f5f9;
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .info-card__header i {
+        color: #6366f1;
+        font-size: 16px;
+      }
 
-        .info-card__body { padding: 20px; }
-        .info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
-        .info-row:last-child { border-bottom: none; padding-bottom: 0; }
-        .info-row__label { font-size: 13px; color: #64748b; font-weight: 500; min-width: 140px; }
-        .info-row__value { font-size: 13px; color: #1e293b; font-weight: 600; text-align: right; word-break: break-word; }
+      .info-card__body {
+        padding: 20px;
+      }
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 8px 0;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .info-row:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .info-row__label {
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+        min-width: 140px;
+      }
+      .info-row__value {
+        font-size: 13px;
+        color: #1e293b;
+        font-weight: 600;
+        text-align: right;
+        word-break: break-word;
+      }
 
-        /* ===== BADGES ===== */
-        .badge-status {
-            display: inline-flex; align-items: center; padding: 4px 12px;
-            border-radius: 20px; font-size: 11px; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.3px;
-        }
-        .badge-status--pending { background: rgba(245,158,11,0.12); color: #d97706; }
-        .badge-status--processing { background: rgba(99,102,241,0.12); color: #4f46e5; }
-        .badge-status--delivering { background: rgba(168,85,247,0.12); color: #7c3aed; }
-        .badge-status--delivered { background: rgba(34,197,94,0.12); color: #16a34a; }
-        .badge-status--cancelled { background: rgba(239,68,68,0.12); color: #dc2626; }
-        .badge-status--cod { background: rgba(34,197,94,0.12); color: #16a34a; }
-        .badge-status--qr { background: rgba(99,102,241,0.12); color: #4f46e5; }
+      /* ===== BADGES ===== */
+      .badge-status {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .badge-status--pending {
+        background: rgba(245, 158, 11, 0.12);
+        color: #d97706;
+      }
+      .badge-status--processing {
+        background: rgba(99, 102, 241, 0.12);
+        color: #4f46e5;
+      }
+      .badge-status--delivering {
+        background: rgba(168, 85, 247, 0.12);
+        color: #7c3aed;
+      }
+      .badge-status--delivered {
+        background: rgba(34, 197, 94, 0.12);
+        color: #16a34a;
+      }
+      .badge-status--cancelled {
+        background: rgba(239, 68, 68, 0.12);
+        color: #dc2626;
+      }
+      .badge-status--cod {
+        background: rgba(34, 197, 94, 0.12);
+        color: #16a34a;
+      }
+      .badge-status--qr {
+        background: rgba(99, 102, 241, 0.12);
+        color: #4f46e5;
+      }
 
-        /* ===== TABLE CARD ===== */
-        .table-card {
-            background: #fff; border-radius: 14px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.07); overflow: hidden;
-            transition: box-shadow 0.3s ease; margin-bottom: 24px;
-        }
-        .table-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+      /* ===== TABLE CARD ===== */
+      .table-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+        margin-bottom: 24px;
+      }
+      .table-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
 
-        .table-card__header {
-            padding: 14px 20px; border-bottom: 2px solid #f1f5f9;
-            font-size: 14px; font-weight: 700; color: #1e293b;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .table-card__header i { color: #6366f1; font-size: 16px; }
+      .table-card__header {
+        padding: 14px 20px;
+        border-bottom: 2px solid #f1f5f9;
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .table-card__header i {
+        color: #6366f1;
+        font-size: 16px;
+      }
 
-        /* ===== TABLE ===== */
-        .admin-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
-        .admin-table thead tr { background: linear-gradient(135deg, #f8fafc, #f1f5f9); }
-        .admin-table thead th {
-            padding: 12px 16px; text-align: left; font-weight: 600;
-            color: #64748b; font-size: 12px; text-transform: uppercase;
-            letter-spacing: 0.4px; border-bottom: 2px solid #e2e8f0; white-space: nowrap;
-        }
-        .admin-table tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.15s ease; }
-        .admin-table tbody tr:last-child { border-bottom: none; }
-        .admin-table tbody tr:hover { background: #f8fffe; }
-        .admin-table tbody td { padding: 12px 16px; color: #475569; vertical-align: middle; }
+      /* ===== TABLE ===== */
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13.5px;
+      }
+      .admin-table thead tr {
+        background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+      }
+      .admin-table thead th {
+        padding: 12px 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #64748b;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 2px solid #e2e8f0;
+        white-space: nowrap;
+      }
+      .admin-table tbody tr {
+        border-bottom: 1px solid #f1f5f9;
+        transition: background 0.15s ease;
+      }
+      .admin-table tbody tr:last-child {
+        border-bottom: none;
+      }
+      .admin-table tbody tr:hover {
+        background: #f8fffe;
+      }
+      .admin-table tbody td {
+        padding: 12px 16px;
+        color: #475569;
+        vertical-align: middle;
+      }
 
-        /* ===== ACTION BUTTONS ===== */
-        .btn-action {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 10px 20px; border-radius: 25px;
-            font-size: 13px; font-weight: 600;
-            font-family: 'Be Vietnam Pro', sans-serif;
-            border: none; cursor: pointer; text-decoration: none;
-            transition: all 0.25s ease;
-        }
-        .btn-action--back {
-            background: #f1f5f9; color: #64748b;
-        }
-        .btn-action--back:hover { background: #e2e8f0; color: #475569; }
-        .btn-action--process {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
-            color: #fff; box-shadow: 0 3px 12px rgba(99,102,241,0.3);
-        }
-        .btn-action--process:hover { box-shadow: 0 5px 18px rgba(99,102,241,0.4); color: #fff; }
-        .btn-action--cancel {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: #fff; box-shadow: 0 3px 12px rgba(239,68,68,0.3);
-        }
-        .btn-action--cancel:hover { box-shadow: 0 5px 18px rgba(239,68,68,0.4); color: #fff; }
-        .btn-action--deliver {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: #fff; box-shadow: 0 3px 12px rgba(16,185,129,0.3);
-        }
-        .btn-action--deliver:hover { box-shadow: 0 5px 18px rgba(16,185,129,0.4); color: #fff; }
+      /* ===== ACTION BUTTONS ===== */
+      .btn-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: "Be Vietnam Pro", sans-serif;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.25s ease;
+      }
+      .btn-action--back {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+      .btn-action--back:hover {
+        background: #e2e8f0;
+        color: #475569;
+      }
+      .btn-action--process {
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(99, 102, 241, 0.3);
+      }
+      .btn-action--process:hover {
+        box-shadow: 0 5px 18px rgba(99, 102, 241, 0.4);
+        color: #fff;
+      }
+      .btn-action--cancel {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(239, 68, 68, 0.3);
+      }
+      .btn-action--cancel:hover {
+        box-shadow: 0 5px 18px rgba(239, 68, 68, 0.4);
+        color: #fff;
+      }
+      .btn-action--deliver {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(16, 185, 129, 0.3);
+      }
+      .btn-action--deliver:hover {
+        box-shadow: 0 5px 18px rgba(16, 185, 129, 0.4);
+        color: #fff;
+      }
 
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+      .btn-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .info-grid { grid-template-columns: 1fr; }
-            .page-content { padding: 20px 16px; }
-            .admin-table-wrapper { overflow-x: auto; }
-            .admin-table { min-width: 700px; }
+      .btn-action--print {
+        background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(14, 165, 233, 0.3);
+      }
+      .btn-action--print:hover {
+        box-shadow: 0 5px 18px rgba(14, 165, 233, 0.4);
+        color: #fff;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        .info-grid {
+          grid-template-columns: 1fr;
         }
+        .page-content {
+          padding: 20px 16px;
+        }
+        .admin-table-wrapper {
+          overflow-x: auto;
+        }
+        .admin-table {
+          min-width: 700px;
+        }
+      }
+
+      /* ================================================
+         INVOICE PRINT MODAL
+      ================================================ */
+
+      /* Modal Overlay */
+      .invoice-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 9999;
+        justify-content: center;
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 24px 16px;
+      }
+      .invoice-modal-overlay.show {
+        display: flex !important;
+      }
+
+      /* Modal Container */
+      .invoice-modal {
+        background: #fff;
+        width: 100%;
+        max-width: 780px;
+        margin: 0 auto 40px;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        position: relative;
+      }
+
+      /* Invoice Wrapper (what gets printed) */
+      .invoice-wrapper {
+        padding: 0;
+      }
+
+      /* ========== INVOICE HEADER ========== */
+      .invoice-header {
+        background: linear-gradient(135deg, #16a34a, #15803d);
+        color: #fff;
+        padding: 32px 40px 24px;
+        border-radius: 12px 12px 0 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .invoice-header::after {
+        content: "";
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .invoice-header::before {
+        content: "";
+        position: absolute;
+        bottom: -60px;
+        left: -20px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .invoice-store-name {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        position: relative;
+        z-index: 1;
+      }
+      .invoice-store-info {
+        font-size: 13px;
+        opacity: 0.9;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+      }
+      .invoice-title-block {
+        text-align: right;
+        position: absolute;
+        top: 32px;
+        right: 40px;
+        z-index: 1;
+      }
+      .invoice-title-block h2 {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px 18px;
+        border-radius: 8px;
+        display: inline-block;
+      }
+      .invoice-title-block p {
+        font-size: 12px;
+        opacity: 0.85;
+        margin-top: 6px;
+        text-align: right;
+      }
+
+      /* ========== INVOICE BODY ========== */
+      .invoice-body {
+        padding: 28px 40px;
+      }
+
+      /* Info Row Layout */
+      .invoice-info-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 40px;
+        margin-bottom: 24px;
+      }
+      .invoice-info-block {
+        background: #f8fafc;
+        border-radius: 10px;
+        padding: 16px 20px;
+        border-left: 4px solid #16a34a;
+      }
+      .invoice-info-block h4 {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #16a34a;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .invoice-info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 4px 0;
+        font-size: 13px;
+        border-bottom: 1px dashed #e2e8f0;
+      }
+      .invoice-info-item:last-child {
+        border-bottom: none;
+      }
+      .invoice-info-item .label {
+        color: #64748b;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .invoice-info-item .value {
+        color: #1e293b;
+        font-weight: 600;
+        text-align: right;
+        max-width: 220px;
+        word-break: break-word;
+      }
+
+      /* ========== PRODUCTS TABLE ========== */
+      .invoice-table-wrap {
+        overflow-x: auto;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 24px;
+      }
+      .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .invoice-table thead tr {
+        background: #16a34a;
+      }
+      .invoice-table thead th {
+        padding: 12px 16px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #fff;
+        white-space: nowrap;
+      }
+      .invoice-table thead th:first-child {
+        text-align: left;
+      }
+      .invoice-table thead th:nth-child(2) {
+        text-align: left;
+      }
+      .invoice-table thead th:last-child {
+        text-align: right;
+      }
+      .invoice-table tbody tr {
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .invoice-table tbody tr:last-child {
+        border-bottom: none;
+      }
+      .invoice-table tbody tr:nth-child(even) {
+        background: #f8fafc;
+      }
+      .invoice-table tbody td {
+        padding: 11px 14px;
+        color: #334155;
+        vertical-align: middle;
+      }
+      .invoice-table tbody td:nth-child(1) {
+        text-align: center;
+        font-weight: 700;
+        color: #64748b;
+        width: 40px;
+      }
+      .invoice-table tbody td:nth-child(2) {
+        text-align: left;
+        font-weight: 600;
+        color: #1e293b;
+      }
+      .invoice-table tbody td:nth-child(3) {
+        text-align: center;
+        width: 70px;
+      }
+      .invoice-table tbody td:nth-child(4) {
+        text-align: right;
+        font-weight: 700;
+        color: #16a34a;
+        white-space: nowrap;
+      }
+
+      /* ========== INVOICE TOTALS ========== */
+      .invoice-totals {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 24px;
+      }
+      .invoice-totals-box {
+        background: #f0fdf4;
+        border: 2px solid #16a34a;
+        border-radius: 10px;
+        padding: 18px 24px;
+        min-width: 280px;
+      }
+      .invoice-totals-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        font-size: 14px;
+      }
+      .invoice-totals-row.grand-total {
+        border-top: 2px solid #16a34a;
+        margin-top: 8px;
+        padding-top: 12px;
+      }
+      .invoice-totals-row .label {
+        color: #374151;
+        font-weight: 500;
+      }
+      .invoice-totals-row.grand-total .label {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .invoice-totals-row .value {
+        font-weight: 700;
+        color: #15803d;
+      }
+      .invoice-totals-row.grand-total .value {
+        font-size: 20px;
+        color: #16a34a;
+      }
+
+      /* ========== INVOICE FOOTER ========== */
+      .invoice-footer {
+        background: #f8fafc;
+        padding: 24px 40px;
+        border-radius: 0 0 12px 12px;
+        border-top: 2px solid #e2e8f0;
+        text-align: center;
+      }
+      .invoice-footer-thanks {
+        font-size: 16px;
+        font-weight: 700;
+        color: #16a34a;
+        margin-bottom: 6px;
+      }
+      .invoice-footer-note {
+        font-size: 13px;
+        color: #64748b;
+        font-style: italic;
+      }
+      .invoice-footer-divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(135deg, #16a34a, #0ea5e9);
+        border-radius: 2px;
+        margin: 14px auto;
+      }
+
+      /* ========== MODAL ACTIONS ========== */
+      .invoice-modal-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        padding: 16px 40px;
+        border-top: 1px solid #f1f5f9;
+        background: #fff;
+        border-radius: 0 0 12px 12px;
+      }
+      .invoice-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 11px 22px;
+        border-radius: 26px;
+        font-size: 13.5px;
+        font-weight: 600;
+        font-family: "Be Vietnam Pro", sans-serif;
+        border: none;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+      .invoice-btn--print {
+        background: linear-gradient(135deg, #16a34a, #15803d);
+        color: #fff;
+        box-shadow: 0 3px 12px rgba(22, 163, 74, 0.35);
+      }
+      .invoice-btn--print:hover {
+        box-shadow: 0 5px 18px rgba(22, 163, 74, 0.45);
+        transform: translateY(-1px);
+        color: #fff;
+      }
+      .invoice-btn--close {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+      .invoice-btn--close:hover {
+        background: #e2e8f0;
+        color: #475569;
+      }
+
+      /* ========== PRINT STYLES ========== */
+      @media print {
+        /* Hide everything except invoice */
+        body * {
+          visibility: hidden;
+        }
+        .invoice-modal-overlay,
+        .invoice-modal-overlay *,
+        .invoice-wrapper *,
+        .invoice-modal,
+        .invoice-modal * {
+          visibility: visible;
+        }
+        /* Reset print area */
+        .invoice-modal-overlay {
+          display: flex !important;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: auto;
+          background: #fff;
+          padding: 0;
+          overflow: visible;
+          justify-content: center;
+        }
+        .invoice-modal {
+          box-shadow: none;
+          border-radius: 0;
+          max-width: 100%;
+          margin: 0;
+          width: 100%;
+        }
+        .invoice-modal-actions {
+          display: none !important;
+        }
+        .invoice-header {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .invoice-table thead tr {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .invoice-totals-box,
+        .invoice-info-block {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        /* Remove rounded corners on print */
+        .invoice-header {
+          border-radius: 0;
+        }
+        .invoice-footer {
+          border-radius: 0;
+        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<div th:replace="admin/fragments/header :: header_nav"></div>
-<div id="layoutSidenav">
-    <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
-    <div id="layoutSidenav_content">
+  <body>
+    <div th:replace="admin/fragments/header :: header_nav"></div>
+    <div id="layoutSidenav">
+      <div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+      <div id="layoutSidenav_content">
         <main class="page-content">
+          <!-- Breadcrumb -->
+          <div class="breadcrumb">
+            <a th:href="@{/admin}"><i class="fas fa-home"></i> Trang chủ</a>
+            <span class="sep"><i class="fas fa-chevron-right"></i></span>
+            <a th:href="@{/admin/orders_management}">Đơn hàng</a>
+            <span class="sep"><i class="fas fa-chevron-right"></i></span>
+            <span
+              >Chi tiết đơn hàng #<th:block
+                th:text="${orderDetail.orderId}"
+              ></th:block
+            ></span>
+          </div>
 
-            <!-- Breadcrumb -->
-            <div class="breadcrumb">
-                <a th:href="@{/admin}"><i class="fas fa-home"></i> Trang chủ</a>
-                <span class="sep"><i class="fas fa-chevron-right"></i></span>
-                <a th:href="@{/admin/orders_management}">Đơn hàng</a>
-                <span class="sep"><i class="fas fa-chevron-right"></i></span>
-                <span>Chi tiết đơn hàng #<th:block th:text="${orderDetail.orderId}"></th:block></span>
+          <!-- Page Header -->
+          <div class="page-header">
+            <div class="page-header__left">
+              <div class="page-header__icon">
+                <i class="fas fa-receipt"></i>
+              </div>
+              <div>
+                <h1 class="page-header__title">Chi tiết đơn hàng</h1>
+                <p class="page-header__sub">
+                  Mã đơn:
+                  <th:block
+                    th:text="${orderDetail.code != null ? orderDetail.code : '—'}"
+                  ></th:block>
+                </p>
+              </div>
             </div>
+          </div>
 
-            <!-- Page Header -->
-            <div class="page-header">
-                <div class="page-header__left">
-                    <div class="page-header__icon">
-                        <i class="fas fa-receipt"></i>
-                    </div>
-                    <div>
-                        <h1 class="page-header__title">Chi tiết đơn hàng</h1>
-                        <p class="page-header__sub">Mã đơn: <th:block th:text="${orderDetail.code != null ? orderDetail.code : '—'}"></th:block></p>
-                    </div>
+          <!-- Info Grid -->
+          <div class="info-grid">
+            <!-- Card 1: Người nhận -->
+            <div class="info-card">
+              <div class="info-card__header">
+                <i class="fas fa-user"></i>
+                Thông tin người nhận
+              </div>
+              <div class="info-card__body">
+                <div class="info-row">
+                  <span class="info-row__label">Người nhận</span>
+                  <span
+                    class="info-row__value"
+                    th:text="${orderDetail.receiver != null ? orderDetail.receiver : '—'}"
+                  ></span>
                 </div>
-            </div>
-
-            <!-- Info Grid -->
-            <div class="info-grid">
-                <!-- Card 1: Người nhận -->
-                <div class="info-card">
-                    <div class="info-card__header">
-                        <i class="fas fa-user"></i>
-                        Thông tin người nhận
-                    </div>
-                    <div class="info-card__body">
-                        <div class="info-row">
-                            <span class="info-row__label">Người nhận</span>
-                            <span class="info-row__value" th:text="${orderDetail.receiver != null ? orderDetail.receiver : '—'}"></span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-row__label">Số điện thoại</span>
-                            <span class="info-row__value" th:text="${orderDetail.phoneNumber != null ? orderDetail.phoneNumber : '—'}"></span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-row__label">Email</span>
-                            <span class="info-row__value" th:text="${orderDetail.emailAddress != null ? orderDetail.emailAddress : '—'}"></span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-row__label">Địa chỉ giao hàng</span>
-                            <span class="info-row__value" th:text="${orderDetail.shippingAddress != null ? orderDetail.shippingAddress : '—'}"></span>
-                        </div>
-                    </div>
+                <div class="info-row">
+                  <span class="info-row__label">Số điện thoại</span>
+                  <span
+                    class="info-row__value"
+                    th:text="${orderDetail.phoneNumber != null ? orderDetail.phoneNumber : '—'}"
+                  ></span>
                 </div>
-
-                <!-- Card 2: Đơn hàng -->
-                <div class="info-card">
-                    <div class="info-card__header">
-                        <i class="fas fa-shopping-bag"></i>
-                        Thông tin đơn hàng
-                    </div>
-                    <div class="info-card__body">
-                        <div class="info-row">
-                            <span class="info-row__label">Ngày tạo</span>
-                            <span class="info-row__value" th:text="${orderDetail.createdAt != null ? orderDetail.createdAt : '—'}"></span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-row__label">Tổng giá</span>
-                            <span class="info-row__value" style="color: #ef4444; font-size: 15px;"
-                                  th:text="${orderDetail.totalPriceFormatted != null ? orderDetail.totalPriceFormatted + ' đ' : '0 đ'}"></span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-row__label">Trạng thái</span>
-                            <th:block th:if="${orderDetail.status == 'PENDING'}">
-                                <span class="badge-status badge-status--pending" th:text="${orderDetail.status}"></span>
-                            </th:block>
-                            <th:block th:if="${orderDetail.status == 'PROCESSING'}">
-                                <span class="badge-status badge-status--processing" th:text="${orderDetail.status}"></span>
-                            </th:block>
-                            <th:block th:if="${orderDetail.status == 'DELIVERING'}">
-                                <span class="badge-status badge-status--delivering" th:text="${orderDetail.status}"></span>
-                            </th:block>
-                            <th:block th:if="${orderDetail.status == 'DELIVERED'}">
-                                <span class="badge-status badge-status--delivered" th:text="${orderDetail.status}"></span>
-                            </th:block>
-                            <th:block th:if="${orderDetail.status == 'CANCELLED'}">
-                                <span class="badge-status badge-status--cancelled" th:text="${orderDetail.status}"></span>
-                            </th:block>
-                            <th:block th:if="${orderDetail.status == 'UNPAID'}">
-                                <span class="badge-status badge-status--pending">UNPAID</span>
-                            </th:block>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-row__label">Thanh toán</span>
-                            <th:block th:if="${orderDetail.paymentMethod == 'COD'}">
-                                <span class="badge-status badge-status--cod" th:text="${orderDetail.paymentMethod}"></span>
-                            </th:block>
-                            <th:block th:if="${orderDetail.paymentMethod != 'COD'}">
-                                <span class="badge-status badge-status--qr" th:text="${orderDetail.paymentMethod}"></span>
-                            </th:block>
-                        </div>
-                    </div>
+                <div class="info-row">
+                  <span class="info-row__label">Email</span>
+                  <span
+                    class="info-row__value"
+                    th:text="${orderDetail.emailAddress != null ? orderDetail.emailAddress : '—'}"
+                  ></span>
                 </div>
-            </div>
-
-            <!-- Product Table -->
-            <div class="table-card">
-                <div class="table-card__header">
-                    <i class="fas fa-box"></i>
-                    Danh sách sản phẩm trong đơn
+                <div class="info-row">
+                  <span class="info-row__label">Địa chỉ giao hàng</span>
+                  <span
+                    class="info-row__value"
+                    th:text="${orderDetail.shippingAddress != null ? orderDetail.shippingAddress : '—'}"
+                  ></span>
                 </div>
-                <th:block th:if="${orderDetail.items == null or orderDetail.items.isEmpty()}">
-                    <div style="text-align:center; padding:40px; color:#94a3b8;">
-                        <i class="fas fa-inbox" style="font-size:36px; display:block; margin-bottom:10px;"></i>
-                        <p>Không có sản phẩm nào</p>
-                    </div>
-                </th:block>
-                <th:block th:if="${orderDetail.items != null and not orderDetail.items.isEmpty()}">
-                    <div class="admin-table-wrapper">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tên nông sản</th>
-                                    <th>Nhà cung cấp</th>
-                                    <th>Danh mục</th>
-                                    <th>Giá gốc</th>
-                                    <th>Giá đã giảm</th>
-                                    <th>Số lượng</th>
-                                    <th>Thành tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="item : ${orderDetail.items}">
-                                    <td th:text="${item.productId}"></td>
-                                    <td style="font-weight:500; color:#1e293b;" th:text="${item.productTitle != null ? item.productTitle : '—'}"></td>
-                                    <td th:text="${item.producer != null ? item.producer : '—'}"></td>
-                                    <td th:text="${item.categoryName != null ? item.categoryName : '—'}"></td>
-                                    <td th:text="${item.originalPriceFormatted != null ? item.originalPriceFormatted + ' đ' : '0 đ'}"></td>
-                                    <td th:text="${item.salePriceFormatted != null ? item.salePriceFormatted + ' đ' : '0 đ'}"></td>
-                                    <td th:text="${item.quantity != null ? item.quantity : 0}"></td>
-                                    <td style="font-weight:700; color:#ef4444;"
-                                        th:text="${item.totalPriceFormatted != null ? item.totalPriceFormatted + ' đ' : '0 đ'}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </th:block>
+              </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="btn-group">
-                <a class="btn-action btn-action--back" th:href="@{/admin/orders_management}">
-                    <i class="fas fa-arrow-left"></i> Quay lại
-                </a>
-                <th:block th:if="${orderDetail.status == 'PENDING'}">
-                    <a class="btn-action btn-action--process"
-                       th:href="@{/admin/orders_management/details/process/{id}(id=${orderDetail.orderId})}">
-                        <i class="fas fa-cog"></i> Xử lý đơn
-                    </a>
-                    <a class="btn-action btn-action--cancel"
-                       th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}">
-                        <i class="fas fa-times"></i> Hủy đơn
-                    </a>
-                </th:block>
-                <th:block th:if="${orderDetail.status == 'PROCESSING'}">
-                    <a class="btn-action btn-action--deliver"
-                       th:href="@{/admin/orders_management/details/deliver/{id}(id=${orderDetail.orderId})}">
-                        <i class="fas fa-truck"></i> Giao hàng
-                    </a>
-                    <a class="btn-action btn-action--cancel"
-                       th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}">
-                        <i class="fas fa-times"></i> Hủy đơn
-                    </a>
-                </th:block>
-                <th:block th:if="${orderDetail.status == 'DELIVERING'}">
-                    <a class="btn-action btn-action--deliver"
-                       th:href="@{/admin/orders_management/details/delivered/{id}(id=${orderDetail.orderId})}">
-                        <i class="fas fa-check-circle"></i> Đã giao
-                    </a>
-                    <a class="btn-action btn-action--cancel"
-                       th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}">
-                        <i class="fas fa-times"></i> Hủy đơn
-                    </a>
-                </th:block>
-                <th:block th:if="${orderDetail.status == 'DELIVERED'}">
-                    <span style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:25px;font-size:13px;font-weight:600;font-family:'Be Vietnam Pro',sans-serif;background:rgba(34,197,94,0.1);color:#16a34a;border:1px solid rgba(34,197,94,0.2);">
-                        <i class="fas fa-check-double"></i> Đơn hàng đã hoàn thành
-                    </span>
-                </th:block>
-                <th:block th:if="${orderDetail.status == 'CANCELLED'}">
-                    <span style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:25px;font-size:13px;font-weight:600;font-family:'Be Vietnam Pro',sans-serif;background:rgba(239,68,68,0.1);color:#dc2626;border:1px solid rgba(239,68,68,0.2);">
-                        <i class="fas fa-ban"></i> Đơn hàng đã bị hủy
-                    </span>
-                </th:block>
+            <!-- Card 2: Đơn hàng -->
+            <div class="info-card">
+              <div class="info-card__header">
+                <i class="fas fa-shopping-bag"></i>
+                Thông tin đơn hàng
+              </div>
+              <div class="info-card__body">
+                <div class="info-row">
+                  <span class="info-row__label">Ngày tạo</span>
+                  <span
+                    class="info-row__value"
+                    th:text="${orderDetail.createdAt != null ? orderDetail.createdAt : '—'}"
+                  ></span>
+                </div>
+                <div class="info-row">
+                  <span class="info-row__label">Tổng giá</span>
+                  <span
+                    class="info-row__value"
+                    style="color: #ef4444; font-size: 15px"
+                    th:text="${orderDetail.totalPriceFormatted != null ? orderDetail.totalPriceFormatted + ' đ' : '0 đ'}"
+                  ></span>
+                </div>
+                <div class="info-row">
+                  <span class="info-row__label">Trạng thái</span>
+                  <th:block th:if="${orderDetail.status == 'PENDING'}">
+                    <span
+                      class="badge-status badge-status--pending"
+                      th:text="${orderDetail.status}"
+                    ></span>
+                  </th:block>
+                  <th:block th:if="${orderDetail.status == 'PROCESSING'}">
+                    <span
+                      class="badge-status badge-status--processing"
+                      th:text="${orderDetail.status}"
+                    ></span>
+                  </th:block>
+                  <th:block th:if="${orderDetail.status == 'DELIVERING'}">
+                    <span
+                      class="badge-status badge-status--delivering"
+                      th:text="${orderDetail.status}"
+                    ></span>
+                  </th:block>
+                  <th:block th:if="${orderDetail.status == 'DELIVERED'}">
+                    <span
+                      class="badge-status badge-status--delivered"
+                      th:text="${orderDetail.status}"
+                    ></span>
+                  </th:block>
+                  <th:block th:if="${orderDetail.status == 'CANCELLED'}">
+                    <span
+                      class="badge-status badge-status--cancelled"
+                      th:text="${orderDetail.status}"
+                    ></span>
+                  </th:block>
+                  <th:block th:if="${orderDetail.status == 'UNPAID'}">
+                    <span class="badge-status badge-status--pending"
+                      >UNPAID</span
+                    >
+                  </th:block>
+                </div>
+                <div class="info-row">
+                  <span class="info-row__label">Thanh toán</span>
+                  <th:block th:if="${orderDetail.paymentMethod == 'COD'}">
+                    <span
+                      class="badge-status badge-status--cod"
+                      th:text="${orderDetail.paymentMethod}"
+                    ></span>
+                  </th:block>
+                  <th:block th:if="${orderDetail.paymentMethod != 'COD'}">
+                    <span
+                      class="badge-status badge-status--qr"
+                      th:text="${orderDetail.paymentMethod}"
+                    ></span>
+                  </th:block>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <!-- Product Table -->
+          <div class="table-card">
+            <div class="table-card__header">
+              <i class="fas fa-box"></i>
+              Danh sách sản phẩm trong đơn
+            </div>
+            <th:block
+              th:if="${orderDetail.items == null or orderDetail.items.isEmpty()}"
+            >
+              <div style="text-align: center; padding: 40px; color: #94a3b8">
+                <i
+                  class="fas fa-inbox"
+                  style="font-size: 36px; display: block; margin-bottom: 10px"
+                ></i>
+                <p>Không có sản phẩm nào</p>
+              </div>
+            </th:block>
+            <th:block
+              th:if="${orderDetail.items != null and not orderDetail.items.isEmpty()}"
+            >
+              <div class="admin-table-wrapper">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Tên nông sản</th>
+                      <th>Nhà cung cấp</th>
+                      <th>Danh mục</th>
+                      <th>Giá gốc</th>
+                      <th>Giá đã giảm</th>
+                      <th>Số lượng</th>
+                      <th>Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="item : ${orderDetail.items}">
+                      <td th:text="${item.productId}"></td>
+                      <td
+                        style="font-weight: 500; color: #1e293b"
+                        th:text="${item.productTitle != null ? item.productTitle : '—'}"
+                      ></td>
+                      <td
+                        th:text="${item.producer != null ? item.producer : '—'}"
+                      ></td>
+                      <td
+                        th:text="${item.categoryName != null ? item.categoryName : '—'}"
+                      ></td>
+                      <td
+                        th:text="${item.originalPriceFormatted != null ? item.originalPriceFormatted + ' đ' : '0 đ'}"
+                      ></td>
+                      <td
+                        th:text="${item.salePriceFormatted != null ? item.salePriceFormatted + ' đ' : '0 đ'}"
+                      ></td>
+                      <td
+                        th:text="${item.quantity != null ? item.quantity : 0}"
+                      ></td>
+                      <td
+                        style="font-weight: 700; color: #ef4444"
+                        th:text="${item.totalPriceFormatted != null ? item.totalPriceFormatted + ' đ' : '0 đ'}"
+                      ></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </th:block>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="btn-group">
+            <a
+              class="btn-action btn-action--back"
+              th:href="@{/admin/orders_management}"
+            >
+              <i class="fas fa-arrow-left"></i> Quay lại
+            </a>
+            <a
+              class="btn-action btn-action--print"
+              href="#"
+              onclick="openInvoiceModal(); return false;"
+            >
+              <i class="fas fa-print"></i> In hóa đơn
+            </a>
+            <th:block th:if="${orderDetail.status == 'PENDING'}">
+              <a
+                class="btn-action btn-action--process"
+                th:href="@{/admin/orders_management/details/process/{id}(id=${orderDetail.orderId})}"
+              >
+                <i class="fas fa-cog"></i> Xử lý đơn
+              </a>
+              <a
+                class="btn-action btn-action--cancel"
+                th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}"
+              >
+                <i class="fas fa-times"></i> Hủy đơn
+              </a>
+            </th:block>
+            <th:block th:if="${orderDetail.status == 'PROCESSING'}">
+              <a
+                class="btn-action btn-action--deliver"
+                th:href="@{/admin/orders_management/details/deliver/{id}(id=${orderDetail.orderId})}"
+              >
+                <i class="fas fa-truck"></i> Giao hàng
+              </a>
+              <a
+                class="btn-action btn-action--cancel"
+                th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}"
+              >
+                <i class="fas fa-times"></i> Hủy đơn
+              </a>
+            </th:block>
+            <th:block th:if="${orderDetail.status == 'DELIVERING'}">
+              <a
+                class="btn-action btn-action--deliver"
+                th:href="@{/admin/orders_management/details/delivered/{id}(id=${orderDetail.orderId})}"
+              >
+                <i class="fas fa-check-circle"></i> Đã giao
+              </a>
+              <a
+                class="btn-action btn-action--cancel"
+                th:href="@{/admin/orders_management/details/cancel/{id}(id=${orderDetail.orderId})}"
+              >
+                <i class="fas fa-times"></i> Hủy đơn
+              </a>
+            </th:block>
+            <th:block th:if="${orderDetail.status == 'DELIVERED'}">
+              <span
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 6px;
+                  padding: 10px 20px;
+                  border-radius: 25px;
+                  font-size: 13px;
+                  font-weight: 600;
+                  font-family: 'Be Vietnam Pro', sans-serif;
+                  background: rgba(34, 197, 94, 0.1);
+                  color: #16a34a;
+                  border: 1px solid rgba(34, 197, 94, 0.2);
+                "
+              >
+                <i class="fas fa-check-double"></i> Đơn hàng đã hoàn thành
+              </span>
+            </th:block>
+            <th:block th:if="${orderDetail.status == 'CANCELLED'}">
+              <span
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 6px;
+                  padding: 10px 20px;
+                  border-radius: 25px;
+                  font-size: 13px;
+                  font-weight: 600;
+                  font-family: 'Be Vietnam Pro', sans-serif;
+                  background: rgba(239, 68, 68, 0.1);
+                  color: #dc2626;
+                  border: 1px solid rgba(239, 68, 68, 0.2);
+                "
+              >
+                <i class="fas fa-ban"></i> Đơn hàng đã bị hủy
+              </span>
+            </th:block>
+          </div>
         </main>
         <div th:replace="admin/fragments/footer :: footer"></div>
+      </div>
     </div>
-</div>
 
-<script crossorigin="anonymous" th:src="@{/js/admin/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/js/admin/scripts.js}"></script>
-</body>
+    <!-- ================================================
+         INVOICE PRINT MODAL
+    ================================================ -->
+    <div class="invoice-modal-overlay" id="invoiceModal">
+      <div class="invoice-modal">
+        <div class="invoice-wrapper">
+          <!-- HEADER -->
+          <div class="invoice-header">
+            <div class="invoice-store-name">HTX Dương Hòa</div>
+            <div class="invoice-store-info">
+              Địa chỉ: Xã Dương Hòa, Hà Nội<br />
+              Điện thoại: 0123456789 &nbsp;|&nbsp; Email: duonghoa@gmail.com
+            </div>
+            <div class="invoice-title-block">
+              <h2>Hóa Đơn</h2>
+              <p>PAYMENT INVOICE</p>
+            </div>
+          </div>
+
+          <!-- BODY -->
+          <div class="invoice-body">
+            <!-- Order Info + Customer Info side by side -->
+            <div class="invoice-info-row">
+              <!-- Thong tin don hang -->
+              <div class="invoice-info-block">
+                <h4>Thông tin đơn hàng</h4>
+                <div class="invoice-info-item">
+                  <span class="label">Mã đơn hàng</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.code != null} ? ${orderDetail.code} : '—'"
+                  ></span>
+                </div>
+                <div class="invoice-info-item">
+                  <span class="label">Ngày đặt</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.createdAt != null ? orderDetail.createdAt : '—'}"
+                  ></span>
+                </div>
+                <div class="invoice-info-item">
+                  <span class="label">Phương thức</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.paymentMethod != null ? (orderDetail.paymentMethod == 'COD' ? 'COD - Tiền mặt' : 'QR - Chuyển khoản') : '—'}"
+                  ></span>
+                </div>
+                <div class="invoice-info-item">
+                  <span class="label">Trạng thái</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.status != null} ? ${orderDetail.status} : '—'"
+                  ></span>
+                </div>
+              </div>
+
+              <!-- Thong tin khach hang -->
+              <div class="invoice-info-block">
+                <h4>Thông tin khách hàng</h4>
+                <div class="invoice-info-item">
+                  <span class="label">Họ tên</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.receiver != null ? orderDetail.receiver : '—'}"
+                  ></span>
+                </div>
+                <div class="invoice-info-item">
+                  <span class="label">Điện thoại</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.phoneNumber != null ? orderDetail.phoneNumber : '—'}"
+                  ></span>
+                </div>
+                <div class="invoice-info-item">
+                  <span class="label">Email</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.emailAddress != null ? orderDetail.emailAddress : '—'}"
+                  ></span>
+                </div>
+                <div class="invoice-info-item">
+                  <span class="label">Địa chỉ giao</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.shippingAddress != null ? orderDetail.shippingAddress : '—'}"
+                  ></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Products Table -->
+            <th:block
+              th:if="${orderDetail.items != null and not orderDetail.items.isEmpty()}"
+            >
+              <div class="invoice-table-wrap">
+                <table class="invoice-table">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên sản phẩm</th>
+                      <th>SL</th>
+                      <th>Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="item, iterStat : ${orderDetail.items}">
+                      <td th:text="${iterStat.count}"></td>
+                      <td
+                        th:text="${item.productTitle != null ? item.productTitle : '—'}"
+                      ></td>
+                      <td
+                        th:text="${item.quantity != null ? item.quantity : 0}"
+                      ></td>
+                      <td
+                        th:text="${item.totalPriceFormatted != null ? item.totalPriceFormatted + ' đ' : '0 đ'}"
+                      ></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </th:block>
+
+            <th:block
+              th:if="${orderDetail.items == null or orderDetail.items.isEmpty()}"
+            >
+              <div style="text-align: center; padding: 24px; color: #94a3b8">
+                <i
+                  class="fas fa-inbox"
+                  style="font-size: 28px; display: block; margin-bottom: 8px"
+                ></i>
+                Không có sản phẩm nào
+              </div>
+            </th:block>
+
+            <!-- Grand Total -->
+            <div class="invoice-totals">
+              <div class="invoice-totals-box">
+                <div class="invoice-totals-row grand-total">
+                  <span class="label">Tổng cộng</span>
+                  <span
+                    class="value"
+                    th:text="${orderDetail.totalPriceFormatted != null ? orderDetail.totalPriceFormatted + ' đ' : '0 đ'}"
+                  ></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end .invoice-body -->
+
+          <!-- FOOTER -->
+          <div class="invoice-footer">
+            <div class="invoice-footer-thanks">
+              Cảm ơn quý khách đã mua hàng!
+            </div>
+            <div class="invoice-footer-divider"></div>
+            <div class="invoice-footer-note">
+              Vui lòng kiểm tra hàng khi nhận. Cảm ơn quý khách đã tin tưởng HTX
+              Dương Hòa.
+            </div>
+          </div>
+        </div>
+        <!-- end .invoice-wrapper -->
+
+        <!-- Modal Actions -->
+        <div class="invoice-modal-actions">
+          <button
+            class="invoice-btn invoice-btn--close"
+            onclick="closeInvoiceModal()"
+          >
+            <i class="fas fa-times"></i> Đóng
+          </button>
+          <button
+            class="invoice-btn invoice-btn--print"
+            onclick="printInvoice()"
+          >
+            <i class="fas fa-print"></i> In hóa đơn
+          </button>
+        </div>
+      </div>
+      <!-- end .invoice-modal -->
+    </div>
+    <!-- end .invoice-modal-overlay -->
+
+    <script
+      crossorigin="anonymous"
+      th:src="@{/js/admin/bootstrap.bundle.min.js}"
+    ></script>
+    <script th:src="@{/js/admin/scripts.js}"></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      document.addEventListener("DOMContentLoaded", function () {
+        var modal = document.getElementById("invoiceModal");
+
+        window.openInvoiceModal = function () {
+          if (modal) {
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+          }
+        };
+
+        window.closeInvoiceModal = function () {
+          if (modal) {
+            modal.style.display = "none";
+            document.body.style.overflow = "";
+          }
+        };
+
+        window.printInvoice = function () {
+          window.print();
+        };
+
+        if (modal) {
+          modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+              window.closeInvoiceModal();
+            }
+          });
+        }
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            window.closeInvoiceModal();
+          }
+        });
+      });
+      /*]]>*/
+    </script>
+  </body>
 </html>

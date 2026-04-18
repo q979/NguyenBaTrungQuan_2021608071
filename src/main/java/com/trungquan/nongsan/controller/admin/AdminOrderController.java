@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -86,5 +87,11 @@ public class AdminOrderController extends BaseController {
         Order order = orderService.getOrderById(id);
         orderService.cancelOrder(order);
         return "redirect:/admin/orders_management/details/" + id;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return "redirect:/admin/orders_management";
     }
 }

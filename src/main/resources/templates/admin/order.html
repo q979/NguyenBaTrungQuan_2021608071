@@ -290,6 +290,33 @@
         box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
         color: #fff;
       }
+      .btn-delete {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 7px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        font-family: "Be Vietnam Pro", sans-serif;
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: #fff;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        transition: all 0.25s ease;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-delete:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        color: #fff;
+      }
+      .action-group {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
 
       /* ===== EMPTY STATE ===== */
       .empty-state {
@@ -464,7 +491,7 @@
                       <th>Tổng giá</th>
                       <th>Trạng thái</th>
                       <th>Thanh toán</th>
-                      <th></th>
+                      <th style="text-align: center">Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -546,13 +573,25 @@
                           th:text="${order.paymentMethod}"
                         ></span>
                       </td>
-                      <td>
-                        <a
-                          class="btn-detail"
-                          th:href="@{/admin/orders_management/details/{id}(id=${order.id})}"
-                        >
-                          <i class="fas fa-eye"></i> Chi tiết
-                        </a>
+                      <td style="text-align: center">
+                        <div class="action-group">
+                          <a
+                            class="btn-detail"
+                            th:href="@{/admin/orders_management/details/{id}(id=${order.id})}"
+                          >
+                            <i class="fas fa-eye"></i> Chi tiết
+                          </a>
+                          <form th:id="'deleteForm-' + ${order.id}" method="post" th:action="@{/admin/orders_management/delete/{id}(id=${order.id})}" style="display:none;">
+                          </form>
+                          <a
+                            class="btn-delete"
+                            href="#"
+                            th:data-id="${order.id}"
+                            onclick="confirmDelete(this)"
+                          >
+                            <i class="fas fa-trash-alt"></i> Xóa
+                          </a>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -611,5 +650,13 @@
       th:src="@{/js/admin/bootstrap.bundle.min.js}"
     ></script>
     <script th:src="@{/js/admin/scripts.js}"></script>
+    <script>
+      function confirmDelete(el) {
+        var orderId = el.getAttribute('data-id');
+        if (confirm('Bạn có chắc muốn xóa đơn hàng #' + orderId + ' không?')) {
+          document.getElementById('deleteForm-' + orderId).submit();
+        }
+      }
+    </script>
   </body>
 </html>
