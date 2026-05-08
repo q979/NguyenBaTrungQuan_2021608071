@@ -1753,7 +1753,7 @@ Elements Styles
   Social Icon Styles
 ------------------------------*/
 .social__net li {
-  margin-right: 10px;
+  margin: 10px;
 }
 
 .social__net li a {
@@ -1763,7 +1763,7 @@ Elements Styles
   font-size: 32px;
   height: 34px;
   line-height: 32px;
-  margin-right: 10px;
+  margin: 10px;
   padding: 0;
   text-align: center;
   transition: all 300ms ease-in 0s;
