@@ -34,17 +34,12 @@ public class MockChatbotServiceImpl implements ChatbotService {
         // Initialize predefined responses
         PREDEFINED_RESPONSES.put(
                 "hello|hi|xin chào|chào|hey",
-                "Xin chào! Tôi là trợ lý nông sản của Rooks Products. Bạn đang tìm kiếm nông sản gì? Tôi có thể giúp bạn tìm nông sản theo thể loại, người sản xuất, hoặc chủ đề bạn quan tâm."
+                "Xin chào! Tôi là trợ lý nông sản của HTX Dương Hòa. Bạn đang tìm kiếm nông sản gì? Tôi có thể giúp bạn tìm nông sản theo thể loại, người sản xuất, hoặc chủ đề bạn quan tâm."
         );
 
         PREDEFINED_RESPONSES.put(
                 "recommend|đề xuất|gợi ý|suggest",
                 "Dưới đây là một số nông sản phổ biến mà tôi đề xuất cho bạn. Bạn có thể cho tôi biết thêm về sở thích đọc nông sản của bạn để tôi có thể đưa ra gợi ý phù hợp hơn không?"
-        );
-
-        PREDEFINED_RESPONSES.put(
-                "novel|tiểu thuyết|truyện",
-                "Tiểu thuyết là một thể loại rất phổ biến. Dưới đây là một số tiểu thuyết hay mà chúng tôi có trong cửa hàng. Bạn có thích đọc tiểu thuyết lãng mạn, hành động, hay khoa học viễn tưởng không?"
         );
 
         PREDEFINED_RESPONSES.put(

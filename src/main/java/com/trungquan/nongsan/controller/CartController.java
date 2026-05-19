@@ -9,15 +9,19 @@ import com.trungquan.nongsan.service.ProductService;
 import com.trungquan.nongsan.service.VietQRService;
 import com.trungquan.nongsan.dto.CartDTO;
 import com.trungquan.nongsan.dto.OrderPerson;
+import com.trungquan.nongsan.entity.Order;
 import com.trungquan.nongsan.entity.Product;
 import com.trungquan.nongsan.service.CartService;
+import com.trungquan.nongsan.service.OrderNotificationService;
 import com.trungquan.nongsan.service.OrderService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -27,6 +31,7 @@ public class CartController extends BaseController {
 
     private final HttpSession session;
     private final OrderService orderService;
+    private final OrderNotificationService orderNotificationService;
     private CartService cartService;
     private ProductService productService;
     private VietQRService vietQRService;
@@ -147,7 +152,14 @@ public class CartController extends BaseController {
         CartDTO cart = cartService.getCart(session);
         model.addAttribute("cart", cart);
         double totalCart = cart.calculateTotalAmount();
+
+        // Shipping fee: free if >= 500000 VND, else 30000 VND
+        double shippingFee = totalCart >= 500000 ? 0 : 30000;
+        double grandTotal = totalCart + shippingFee;
+
         model.addAttribute("totalCart", totalCart);
+        model.addAttribute("shippingFee", shippingFee);
+        model.addAttribute("grandTotal", grandTotal);
 
         User curUser = getCurrentUser();
         OrderPerson orderPerson = new OrderPerson();
@@ -163,8 +175,22 @@ public class CartController extends BaseController {
     }
 
     @PostMapping("/place-order")
-    public String placeOrder(@ModelAttribute("orderPerson") OrderPerson orderPerson,
-                            @RequestParam(value = "paymentMethod", required = false, defaultValue = "cod") String paymentMethod) {
+    public String placeOrder(@Valid @ModelAttribute("orderPerson") OrderPerson orderPerson,
+                            BindingResult bindingResult,
+                            @RequestParam(value = "paymentMethod", required = false, defaultValue = "cod") String paymentMethod,
+                            Model model) {
+        if (bindingResult.hasErrors()) {
+            CartDTO cart = cartService.getCart(session);
+            model.addAttribute("cart", cart);
+            double totalCart = cart.calculateTotalAmount();
+            double shippingFee = totalCart >= 500000 ? 0 : 30000;
+            model.addAttribute("totalCart", totalCart);
+            model.addAttribute("shippingFee", shippingFee);
+            model.addAttribute("grandTotal", totalCart + shippingFee);
+            model.addAttribute("orderPerson", orderPerson);
+            model.addAttribute("org.springframework.validation.BindingResult.orderPerson", bindingResult);
+            return "user/checkout";
+        }
         try {
             CartDTO cart = cartService.getCart(session);
             if (cart == null || cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
@@ -184,7 +210,8 @@ public class CartController extends BaseController {
 
             // COD: tạo đơn ngay
             if ("cod".equalsIgnoreCase(paymentMethod)) {
-                orderService.createOrder(cart, curUser, orderPerson, paymentMethod);
+                Order newOrder = orderService.createOrder(cart, curUser, orderPerson, paymentMethod);
+                orderNotificationService.notifyNewOrder(newOrder);
             }
 
             cartService.clearCart(session);
@@ -234,9 +261,11 @@ public class CartController extends BaseController {
         session.setAttribute("tempOrderCode", orderCode);
 
         double total = cart.calculateTotalAmount();
+        double shippingFee = total >= 500000 ? 0 : 30000;
+        double grandTotal = total + shippingFee;
 
         // Tạo URL QR động
-        String vietQRUrl = vietQRService.generateQRUrl(total, orderCode);
+        String vietQRUrl = vietQRService.generateQRUrl(grandTotal, orderCode);
         model.addAttribute("vietQRUrl", vietQRUrl);
 
         // Thông tin tài khoản để hiển thị trong template
@@ -246,6 +275,8 @@ public class CartController extends BaseController {
 
         model.addAttribute("cart", cart);
         model.addAttribute("totalCart", total);
+        model.addAttribute("shippingFee", shippingFee);
+        model.addAttribute("grandTotal", grandTotal);
         model.addAttribute("tempOrderCode", orderCode);
         model.addAttribute("orderPerson", orderPerson);
 
@@ -273,7 +304,8 @@ public class CartController extends BaseController {
             }
 
             // Tạo đơn hàng QR
-            orderService.createOrderQR(cart, curUser, orderPerson, orderCode);
+            Order newOrder = orderService.createOrderQR(cart, curUser, orderPerson, orderCode);
+            orderNotificationService.notifyNewOrder(newOrder);
 
             // Xóa session
             session.removeAttribute("cart");

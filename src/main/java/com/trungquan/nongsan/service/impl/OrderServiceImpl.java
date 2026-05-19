@@ -229,7 +229,11 @@ public class OrderServiceImpl implements OrderService {
         order.setEmailAddress(orderPerson.getEmail());
         order.setShippingAddress(orderPerson.getAddress());
         order.setPhoneNumber(orderPerson.getPhoneNumber());
-        order.setTotalPrice(cart.calculateTotalAmount());
+
+        // Calculate total with shipping fee: free if >= 500000 VND, else 30000 VND
+        double cartTotal = cart.calculateTotalAmount();
+        double shippingFee = cartTotal >= 500000 ? 0 : 30000;
+        order.setTotalPrice(cartTotal + shippingFee);
         order.setPaymentMethod(paymentMethod != null ? paymentMethod.toUpperCase() : PaymentMethod.COD);
         order.setCode(generateOrderCode());
 
@@ -275,7 +279,11 @@ public class OrderServiceImpl implements OrderService {
         order.setEmailAddress(orderPerson.getEmail());
         order.setShippingAddress(orderPerson.getAddress());
         order.setPhoneNumber(orderPerson.getPhoneNumber());
-        order.setTotalPrice(cart.calculateTotalAmount());
+
+        // Hàm tính giá ship
+        double cartTotal = cart.calculateTotalAmount();
+        double shippingFee = cartTotal >= 500000 ? 0 : 30000;
+        order.setTotalPrice(cartTotal + shippingFee);
         order.setPaymentMethod("QR");
 
         List<CartItemDTO> cartItems = cart.getCartItems();
@@ -337,6 +345,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateUnpaidToPending(Order order) {
         order.setStatus(OrderStatus.PENDING);
+    }
+
+    @Override
+    public Long countNewOrders() {
+        return orderRepository.countByStatus(OrderStatus.PENDING);
     }
 
     @Override

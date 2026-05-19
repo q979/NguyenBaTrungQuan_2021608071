@@ -51,4 +51,6 @@ public interface OrderService {
     Order createOrderQR(CartDTO cart, User user, OrderPerson orderPerson, String orderCode);
 
     Page<Order> searchOrders(String status, String startDate, String endDate, Pageable pageable);
+
+    Long countNewOrders();
 }

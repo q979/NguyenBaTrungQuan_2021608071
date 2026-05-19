@@ -247,6 +247,20 @@
         box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.15);
         background: #ffffff;
       }
+
+      /* Error message styles */
+      .error-msg {
+        color: #e74c3c;
+        font-size: 12px;
+        margin-top: 4px;
+        display: block;
+      }
+
+      .checkout-input.input-error,
+      .checkout-textarea.input-error {
+        border-color: #e74c3c !important;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.15);
+      }
       .checkout-textarea {
         resize: vertical;
         min-height: 80px;
@@ -830,6 +844,9 @@
                           type="text"
                           placeholder="Nhập họ tên đầy đủ"
                           required
+                          pattern=".{2,100}"
+                          oninvalid="this.setCustomValidity('Họ tên phải từ 2-100 ký tự')"
+                          oninput="this.setCustomValidity('')"
                         />
                       </div>
 
@@ -843,6 +860,9 @@
                           type="tel"
                           placeholder="0xxx xxx xxx"
                           required
+                          pattern="^\d{10,11}$"
+                          oninvalid="this.setCustomValidity('Số điện thoại phải là 10-11 chữ số')"
+                          oninput="this.setCustomValidity('')"
                         />
                       </div>
 
@@ -854,8 +874,11 @@
                           class="checkout-input"
                           th:field="*{email}"
                           type="email"
-                          placeholder="email@example.com"
+                          placeholder="email@gmail.com"
                           required
+                          pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                          oninvalid="this.setCustomValidity('Email phải có định dạng @gmail.com')"
+                          oninput="this.setCustomValidity('')"
                         />
                       </div>
 
@@ -874,6 +897,35 @@
                           placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố"
                           required
                         ></textarea>
+                      </div>
+
+                      <!-- Server-side validation error messages -->
+                      <div
+                        th:if="${#fields.hasErrors('fullName')}"
+                        class="checkout-form-group checkout-form-group--full"
+                      >
+                        <span th:errors="*{fullName}" class="error-msg"></span>
+                      </div>
+                      <div
+                        th:if="${#fields.hasErrors('phoneNumber')}"
+                        class="checkout-form-group checkout-form-group--full"
+                      >
+                        <span
+                          th:errors="*{phoneNumber}"
+                          class="error-msg"
+                        ></span>
+                      </div>
+                      <div
+                        th:if="${#fields.hasErrors('email')}"
+                        class="checkout-form-group checkout-form-group--full"
+                      >
+                        <span th:errors="*{email}" class="error-msg"></span>
+                      </div>
+                      <div
+                        th:if="${#fields.hasErrors('address')}"
+                        class="checkout-form-group checkout-form-group--full"
+                      >
+                        <span th:errors="*{address}" class="error-msg"></span>
                       </div>
                     </div>
 
@@ -970,7 +1022,7 @@
                                 </div>
                               </div>
                               <div class="qr-code-card__info">
-                                <div class="qr-code-card__amount">
+                                <!-- <div class="qr-code-card__amount">
                                   <span class="qr-code-card__amount-label"
                                     >Số tiền cần thanh toán</span
                                   >
@@ -978,7 +1030,7 @@
                                     class="qr-code-card__amount-value"
                                     th:text="${#numbers.formatDecimal(__${(totalCart)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
                                   ></span>
-                                </div>
+                                </div> -->
                                 <div class="qr-code-card__shop">
                                   <i class="bi bi-shop"></i>
                                   <span>HTX Dương Hòa</span>
@@ -1093,7 +1145,13 @@
                       class="checkout-summary-row checkout-summary-row--shipping"
                     >
                       <span>Phí vận chuyển</span>
-                      <span class="shipping-free">Trả khi nhận hàng</span>
+                      <span th:if="${shippingFee == 0}" class="shipping-free"
+                        >Miễn phí</span
+                      >
+                      <span
+                        th:if="${shippingFee > 0}"
+                        th:text="${#numbers.formatDecimal(__${(shippingFee)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                      ></span>
                     </div>
                     <div class="checkout-summary-divider"></div>
                     <div
@@ -1102,7 +1160,7 @@
                       <span>Tổng tiền</span>
                       <span
                         class="checkout-total-price"
-                        th:text="${#numbers.formatDecimal(__${(totalCart)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+                        th:text="${#numbers.formatDecimal(__${(grandTotal)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
                       ></span>
                     </div>
                   </div>
@@ -1116,7 +1174,7 @@
                   </div>
                   <div class="trust-badge">
                     <i class="bi bi-truck"></i>
-                    <span>Giao hàng nhanh</span>
+                    <span>Miễn phí ship cho đơn từ 500.000đ</span>
                   </div>
                   <div class="trust-badge">
                     <i class="bi bi-arrow-counterclockwise"></i>

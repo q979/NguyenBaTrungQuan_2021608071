@@ -29,4 +29,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o WHERE o.status = :status AND o.createdAt >= :start AND o.createdAt <= :end ORDER BY o.createdAt DESC")
     Page<Order> findByStatusAndCreatedAtBetween(String status, java.util.Date start, java.util.Date end, Pageable pageable);
+
+    long countByStatus(String status);
 }

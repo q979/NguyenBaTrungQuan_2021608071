@@ -36,12 +36,13 @@ public class AdminHomeController extends BaseController {
         Long numberOfUsers = userService.countUser();
         Long numberOfProducts = productService.countProduct();
         Long numberOfOrders = orderService.countOrder();
-
+        Long newOrderCount = orderService.countNewOrders();
 
         model.addAttribute("numberOfUsers", numberOfUsers);
         model.addAttribute("numberOfProducts", numberOfProducts);
         model.addAttribute("numberOfOrders", numberOfOrders);
         model.addAttribute("totalRevenue", totalRevenue);
+        model.addAttribute("newOrderCount", newOrderCount);
         return "admin/index";
     }
 
@@ -69,5 +70,11 @@ public class AdminHomeController extends BaseController {
     public ResponseEntity<?> generateProductReport(@PathVariable int selectedMonth, @PathVariable String keyword) throws FileNotFoundException {
         List<ProductDto> productDtoList = productService.getTop10BestSellerByMonth(selectedMonth);
         return ResponseEntity.ok().body(exportService.exportProductReport(this.getCurrentUser(),productDtoList, keyword));
+    }
+
+    @ResponseBody
+    @GetMapping("/new-orders-count")
+    public ResponseEntity<Long> getNewOrdersCount() {
+        return ResponseEntity.ok(orderService.countNewOrders());
     }
 }

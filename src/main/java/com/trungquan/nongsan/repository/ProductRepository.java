@@ -55,16 +55,16 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     Page<Product> findByCategory_IdAndTitleContainingAndActiveFlag(Long categoryId, String keyword, boolean activeFlag, Pageable pageable);
 
-    @Query(value = "SELECT p.title, SUM(od.price * od.quantity) AS total_revenue FROM products p " +
+    @Query(value = "SELECT p.id, p.title, COALESCE(SUM(od.price * od.quantity), 0) AS total_revenue FROM products p " +
             "JOIN order_details od ON od.product_id = p.id " +
             "JOIN orders o ON od.order_id = o.id " +
             "WHERE MONTH(o.create_date) = :month AND o.status = 'DELIVERED' " +
-            "GROUP BY p.title " +
+            "GROUP BY p.id, p.title " +
             "ORDER BY total_revenue DESC " +
             "LIMIT 10", nativeQuery = true)
     List<Object[]> findTop10BestSellerByMonth(@Param("month") int month);
 
-    @Query(value = "SELECT MONTH(o.create_date) AS month, SUM(o.total_price) AS total_revenue " +
+    @Query(value = "SELECT MONTH(o.create_date) AS month, COALESCE(SUM(o.total_price), 0) AS total_revenue " +
             "FROM orders o " +
             "WHERE YEAR(o.create_date) = :year AND o.status = 'DELIVERED' " +
             "GROUP BY MONTH(o.create_date) " +

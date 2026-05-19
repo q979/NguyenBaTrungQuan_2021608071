@@ -27,7 +27,7 @@ public class VietQRServiceImpl implements VietQRService {
         // Content chuyển khoản = mã đơn hàng
         String addInfo = orderCode;
 
-        // Số tiền: bỏ phần thập phân (VD: 150000)
+        // Số tiền: bỏ phần thập phân 
         long amountLong = (long) amount;
 
         // Encode addInfo để URL an toàn

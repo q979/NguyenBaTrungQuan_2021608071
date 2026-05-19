@@ -193,7 +193,7 @@ public class ProductServiceImpl implements ProductService {
         List<Object[]> result = productRepository.findTop10BestSellerByMonth(month);
         List<ProductDto> resultConvertedToDto = new ArrayList<>();
         for (Object[] item : result) {
-            resultConvertedToDto.add(new ProductDto(item[0].toString(), Double.parseDouble(item[1].toString())));
+            resultConvertedToDto.add(new ProductDto(item[1].toString(), Double.parseDouble(item[2].toString())));
         }
         return resultConvertedToDto;
     }
